@@ -7,8 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Star } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Printers3D = () => {
+  usePageTitle("3D Принтеры");
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
 

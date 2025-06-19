@@ -2,8 +2,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Support = () => {
+  usePageTitle("Техническая поддержка");
+  
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">

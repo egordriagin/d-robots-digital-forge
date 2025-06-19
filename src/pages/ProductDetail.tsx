@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import { Star, Clock, Truck, Play } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
@@ -117,6 +117,9 @@ const ProductDetail = () => {
       }
     ]
   };
+
+  // Set dynamic page title
+  usePageTitle(`${product.name} - ${getCategoryName(category)}`);
 
   const displayedReviews = showAllReviews ? product.reviews : product.reviews.slice(0, 3);
 

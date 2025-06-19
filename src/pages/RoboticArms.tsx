@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const RoboticArms = () => {
+  usePageTitle("Роботизированные руки");
+  
   const roboticArms = [
     { id: "ufactory-xarm6", name: "UFactory xArm 6", brand: "UFactory", dof: "6-DOF", price: "Запросить цену" },
     { id: "ufactory-xarm7", name: "UFactory xArm 7", brand: "UFactory", dof: "7-DOF", price: "Запросить цену" },
