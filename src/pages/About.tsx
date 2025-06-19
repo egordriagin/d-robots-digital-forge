@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -172,8 +173,8 @@ const About = () => {
                   <div className="text-gray-700">Макин Владислав Валерьевич</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-[#1F669D]">Юридический адрес:</div>
-                  <div className="text-gray-700">191014, Санкт-Петербург, Ковенский пер, д. 9 литера А, помещ. 5-н, 6-н офис 10</div>
+                  <div className="font-semibold text-[#1F669D]">Адрес:</div>
+                  <div className="text-gray-700">191014, Санкт-Петербург, Ковенский пер, д. 9</div>
                 </div>
               </div>
             </div>
