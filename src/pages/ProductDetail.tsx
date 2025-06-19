@@ -1,20 +1,22 @@
+
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Star, Clock, Truck, Play } from "lucide-react";
+import { Star, Clock, Truck } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
 import StandardizedSpecifications from "@/components/StandardizedSpecifications";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { PrinterSpecifications } from "@/types/printer-specifications";
+import { useProductData } from "@/hooks/useProductData";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
+  const product = useProductData(id);
   const [showOfferForm, setShowOfferForm] = useState(false);
   const [showConsultationForm, setShowConsultationForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -34,158 +36,27 @@ const ProductDetail = () => {
     return categoryNames[category || ''] || category;
   };
 
-  // Standardized specifications for Bambu Lab X1E
-  const standardizedSpecs: PrinterSpecifications = {
-    printing: {
-      buildVolume: {
-        dimensions: "256 × 256 × 256 мм",
-        area: "65 536 мм²",
-        maxLength: "256 мм"
-      },
-      resolution: {
-        layerHeight: "0.08-0.35 мм",
-        xyResolution: "0.1 мм",
-        dimensionalAccuracy: "±0.1 мм",
-        minWallThickness: "0.4 мм"
-      },
-      speed: {
-        maxSpeed: "500 мм/с",
-        typicalRange: "50-300 мм/с",
-        materialDependent: "Скорость может снижаться при печати с гибкими или специальными материалами"
-      }
-    },
-    technology: {
-      printingTechnology: {
-        type: "FDM (Fused Deposition Modeling)",
-        implementation: "Закрытая камера с системой автоматической смены материалов (AMS)"
-      },
-      materials: {
-        supportedMaterials: "PLA, ABS, PETG, TPU, PA, PC, ASA",
-        cartridgeSpecs: "Стандартные катушки 1.75 мм",
-        temperatureRange: "Экструдер: до 300°C, платформа: до 120°C"
-      }
-    },
-    hardware: {
-      dimensions: {
-        printerSize: "385 × 389 × 457 мм",
-        weight: "31 кг",
-        requiredSpace: "Рекомендуется минимум 600 × 600 мм пространства вокруг"
-      },
-      interface: {
-        controlType: "Цветной сенсорный экран с интуитивным интерфейсом",
-        displaySpecs: "5 дюймов, цветной TFT",
-        languages: "Многоязычный, включая русский"
-      },
-      connectivity: {
-        wifi: "Wi-Fi 802.11 b/g/n",
-        ethernet: "Ethernet 100 Мбит/с",
-        usb: "USB Type-A, поддержка флеш-накопителей"
-      }
-    },
-    environment: {
-      operating: {
-        temperatureRange: "15-30°C",
-        humidity: "20-80% без конденсации"
-      },
-      power: {
-        voltage: "220V переменного тока",
-        consumption: "350 Вт",
-        frequency: "50/60 Гц"
-      }
-    },
-    advanced: {
-      automation: {
-        autoLeveling: "Да, автоматическая калибровка с помощью лидара и датчиков",
-        sensors: "Датчик окончания филамента, контроль температуры, детектор засорения сопла",
-        autoFeed: "Автоматическая система смены материалов (AMS) до 4 катушек"
-      },
-      software: {
-        compatibleOS: "Windows, macOS, Linux",
-        fileFormats: ".gcode, .stl, .obj, .3mf",
-        systemRequirements: "Минимум 8 ГБ ОЗУ, 64-битная ОС"
-      },
-      qualityControl: {
-        forceSensing: "Нет",
-        temperatureControl: "Активный контроль температуры экструдера и платформы с PID-регулированием",
-        realTimeMonitoring: "Да, через встроенную камеру и мобильное приложение"
-      }
-    }
-  };
-
-  // Mock product data - in a real app, this would come from an API
-  const product = {
-    name: "Bambu Lab X1E",
-    brand: "Bambu Lab",
-    basePrice: "2,890,000 ₽",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.8,
-    reviewCount: 127,
-    images: [
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"
-    ],
-    shortDescription: "Профессиональный 3D принтер с автоматической системой смены материалов и высокой точностью печати.",
-    fullDescription: `
-      Bambu Lab X1E представляет собой революционное решение в области 3D печати, объединяющее передовые технологии и простоту использования. 
-      
-      Этот принтер оснащен уникальной системой автоматической смены материалов (AMS), которая позволяет печатать многоцветные и многоматериальные модели без вмешательства пользователя. 
-      
-      Закрытая камера печати обеспечивает стабильную температуру и защиту от внешних воздействий, что критически важно для печати инженерных пластиков.
-      
-      Высокая скорость печати до 500 мм/с достигается благодаря оптимизированной механике и продвинутым алгоритмам управления движением.
-    `,
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Автоматическая калибровка",
-      "Система смены материалов AMS",
-      "Высокая скорость печати до 500 мм/с",
-      "Точность позиционирования ±0.1 мм",
-      "Закрытая камера печати с подогревом",
-      "Wi-Fi подключение и удаленное управление",
-      "Автоматическое выравнивание стола",
-      "Детектор окончания филамента"
-    ],
-    pricing: {
-      base: "2,890,000 ₽",
-      withAMS: "3,290,000 ₽",
-      withAccessories: "3,690,000 ₽"
-    },
-    shipping: {
-      cost: "15,000 ₽",
-      freeThreshold: "3,000,000 ₽",
-      regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"]
-    },
-    reviews: [
-      {
-        id: 1,
-        author: "Дмитрий К.",
-        rating: 5,
-        date: "15 марта 2024",
-        comment: "Отличный принтер! Качество печати превосходное, настройка простая. Рекомендую для профессионального использования."
-      },
-      {
-        id: 2,
-        author: "Анна М.",
-        rating: 4,
-        date: "8 марта 2024",
-        comment: "Очень доволен покупкой. Быстрая доставка, качественная упаковка. Принтер работает стабильно."
-      },
-      {
-        id: 3,
-        author: "Сергей В.",
-        rating: 5,
-        date: "2 марта 2024",
-        comment: "Профессиональное оборудование высокого класса. Система AMS работает безупречно."
-      }
-    ]
-  };
-
   // Set dynamic page title
-  usePageTitle(`${product.name} - ${getCategoryName(category)}`);
+  usePageTitle(product ? `${product.name} - ${getCategoryName(category)}` : 'Продукт не найден');
+
+  // Show error if product not found
+  if (!product) {
+    return (
+      <div className="min-h-screen py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center py-16">
+            <h1 className="text-4xl font-bold text-[#113C5A] mb-4">Продукт не найден</h1>
+            <p className="text-xl text-gray-600 mb-8">К сожалению, запрашиваемый продукт не найден.</p>
+            <Link to={`/${category}`}>
+              <Button className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
+                Вернуться к каталогу
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Generate structured data for the product
   const structuredData = {
@@ -379,10 +250,12 @@ const ProductDetail = () => {
                     <span>Базовая комплектация</span>
                     <span className="text-xl font-bold text-[#1F669D]">{product.pricing.base}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span>С системой AMS</span>
-                    <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAMS}</span>
-                  </div>
+                  {product.pricing.withAMS && (
+                    <div className="flex justify-between items-center">
+                      <span>С системой AMS</span>
+                      <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAMS}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center">
                     <span>Полная комплектация</span>
                     <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAccessories}</span>
@@ -401,7 +274,7 @@ const ProductDetail = () => {
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
-                    * Бесплатная доставка при заказе от 50,000 ₽
+                    * Бесплатная доставка при заказе от {product.shipping.freeThreshold}
                   </p>
                 </div>
               </div>
@@ -463,7 +336,7 @@ const ProductDetail = () => {
               </TabsContent>
               
               <TabsContent value="specifications" className="mt-8">
-                <StandardizedSpecifications specifications={standardizedSpecs} />
+                <StandardizedSpecifications specifications={product.specifications} />
               </TabsContent>
               
               <TabsContent value="reviews" className="mt-8">
@@ -523,8 +396,8 @@ const ProductDetail = () => {
                       <iframe
                         width="100%"
                         height="100%"
-                        src="https://www.youtube.com/embed/qMj_FIumSn8"
-                        title="Обзор Bambu Lab X1E"
+                        src={product.demoVideo}
+                        title={`Обзор ${product.name}`}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -545,7 +418,7 @@ const ProductDetail = () => {
                         </li>
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Демонстрация системы AMS</span>
+                          <span>Демонстрация основных функций</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
