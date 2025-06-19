@@ -347,27 +347,17 @@ const ProductDetail = () => {
               <Card>
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Видео обзор</h3>
-                  <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center mb-6">
-                    <div className="text-center">
-                      <Play className="h-16 w-16 text-[#3498DB] mx-auto mb-4" />
-                      <p className="text-gray-600 text-lg font-medium">Обзор Bambu Lab X1E</p>
-                      <p className="text-sm text-gray-500">Подробный видео обзор всех функций принтера</p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <Play className="h-12 w-12 text-[#3498DB] mx-auto mb-2" />
-                        <p className="text-gray-600">Процесс настройки</p>
-                      </div>
-                    </div>
-                    <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <Play className="h-12 w-12 text-[#3498DB] mx-auto mb-2" />
-                        <p className="text-gray-600">Печать образцов</p>
-                      </div>
-                    </div>
+                  <div className="aspect-video rounded-lg overflow-hidden mb-6">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/qMj_FIumSn8"
+                      title="Обзор Bambu Lab X1E"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
                   </div>
                   
                   <div className="bg-gray-50 rounded-lg p-6">
