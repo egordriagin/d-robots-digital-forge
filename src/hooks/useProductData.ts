@@ -5,7 +5,7 @@ import { Product } from '../types/product';
 export const useProductData = (productId: string): Product | null => {
   const product = useMemo(() => {
     // This would normally fetch from an API or database
-    // For now, returning mock data for the Bambu X1E
+    // For now, returning mock data for different products
     if (productId === 'bambu-x1e') {
       return {
         id: 'bambu-x1e',
@@ -74,6 +74,76 @@ export const useProductData = (productId: string): Product | null => {
         }
       };
     }
+    
+    if (productId === 'anycubic-photon-m3') {
+      return {
+        id: 'anycubic-photon-m3',
+        name: 'Anycubic Photon M3 Max',
+        category: '3d-printers',
+        price: 899,
+        originalPrice: 1199,
+        description: 'Профессиональный SLA 3D-принтер с большой областью печати и высоким разрешением',
+        features: [
+          'Большая область печати 300×300×350 мм',
+          'Высокое разрешение печати 0.01 мм',
+          'Монохромный LCD экран 13.3"',
+          'Быстрая полимеризация слоев',
+          'Автоматическое выравнивание',
+          'Wi-Fi подключение и удаленное управление'
+        ],
+        images: [
+          '/lovable-uploads/8c6653a1-f30e-4468-8cd5-4a1ee630f498.png',
+          '/lovable-uploads/c39058dc-e6c4-43e6-b8ec-f8ab67679a8b.png'
+        ],
+        specifications: {
+          printingSpecs: [
+            { label: 'Максимальные размеры печати (X × Y × Z)', value: '300 × 300 × 350 мм' },
+            { label: 'Площадь платформы построения', value: '90,000 мм²' },
+            { label: 'Максимальная длина создаваемой детали', value: '300 мм' },
+            { label: 'Диапазон толщины слоя', value: '0.01 - 0.3 мм' },
+            { label: 'Разрешение по XY', value: '0.05 мм' },
+            { label: 'Допуски на точность размеров', value: '±0.05 мм' },
+            { label: 'Минимально возможная толщина стенки', value: '0.2 мм' }
+          ],
+          technologySpecs: [
+            { label: 'Основной тип технологии', value: 'SLA (Стереолитография)' },
+            { label: 'Детали реализации', value: 'Монохромный LCD экран' },
+            { label: 'Поддерживаемые материалы', value: 'Фотополимерные смолы (Standard, Tough, Flexible)' },
+            { label: 'Источник света', value: 'LED массив + монохромный LCD' },
+            { label: 'Длина волны света', value: '405 нм' },
+            { label: 'Время полимеризации слоя', value: '1-3 секунды' }
+          ],
+          hardwareSpecs: [
+            { label: 'Габариты принтера (Ш × Г × В)', value: '570 × 520 × 820 мм' },
+            { label: 'Вес принтера', value: '28 кг' },
+            { label: 'Минимальное пространство для обслуживания', value: '800 × 700 мм' },
+            { label: 'Тип интерфейса управления', value: 'Цветной сенсорный экран 7"' },
+            { label: 'Разрешение дисплея', value: '7 дюймов, цветной TFT' },
+            { label: 'Поддержка Wi-Fi', value: 'Wi-Fi 802.11 b/g/n' },
+            { label: 'Подключение по USB', value: 'USB Type-A' },
+            { label: 'Объем бака для смолы', value: '2000 мл' }
+          ],
+          environmentSpecs: [
+            { label: 'Диапазон рабочих температур', value: '15-35°C' },
+            { label: 'Требования к влажности', value: '30-70% без конденсации' },
+            { label: 'Требования к напряжению', value: '100-240 В, 50/60 Гц' },
+            { label: 'Энергопотребление', value: '120 Вт' },
+            { label: 'Частота тока', value: '50/60 Гц' }
+          ],
+          advancedFeatures: [
+            { label: 'Автоматическое выравнивание платформы', value: 'Да, механическое' },
+            { label: 'Система фильтрации воздуха', value: 'Встроенный угольный фильтр' },
+            { label: 'Датчик уровня смолы', value: 'Да' },
+            { label: 'Совместимые ОС', value: 'Windows, macOS, Linux' },
+            { label: 'Поддерживаемые форматы файлов', value: '.photons, .stl, .obj' },
+            { label: 'Функция паузы печати', value: 'Да' },
+            { label: 'Подогрев смолы', value: 'Да, до 40°C' },
+            { label: 'Защитная крышка', value: 'UV-защитная крышка' }
+          ]
+        }
+      };
+    }
+    
     return null;
   }, [productId]);
 
