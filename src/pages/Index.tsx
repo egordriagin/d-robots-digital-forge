@@ -183,7 +183,7 @@ const Index = () => {
               { name: "Робо-собаки", path: "/robotic-dogs", image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png", description: "Четвероногие роботы нового поколения" },
               { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "/lovable-uploads/0bb275ed-7704-4805-8d11-54c4823937e5.png", description: "Передовые человекоподобные роботы" },
               { name: "Роботизированные руки", path: "/robotic-arms", image: "/lovable-uploads/f01ff7a4-ad84-4553-8eac-bfaa2e392886.png", description: "Промышленные манипуляторы высокой точности" },
-              { name: "Лазерные станки", path: "/laser-cutters", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop", description: "Точная лазерная резка и гравировка" }
+              { name: "Лазерные станки", path: "/laser-cutters", image: "/lovable-uploads/412a23d8-1bd6-4d1f-aa81-256e3a56277f.png", description: "Точная лазерная резка и гравировка" }
             ].map((category) => (
               <Link key={category.path} to={category.path} className="group block">
                 <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-md">
