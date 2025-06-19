@@ -25,8 +25,6 @@ interface Product {
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  
-  usePageTitle(`${product.name} - Робототехника`);
 
   const product = {
     id: "prusa-core-one",
@@ -55,6 +53,8 @@ const ProductDetail = () => {
       "Wi-Fi, Ethernet и USB подключение"
     ]
   };
+  
+  usePageTitle(`${product.name} - Робототехника`);
 
   const [selectedImg, setSelectedImg] = useState(product.images[0]);
 
@@ -288,7 +288,6 @@ const ProductDetail = () => {
                     <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
                     
                     <div className="space-y-8">
-                      {/* Характеристики печати */}
                       <div>
                         <h4 className="text-xl font-semibold text-[#1F669D] mb-4 border-b-2 border-[#1F669D] pb-2">Характеристики печати</h4>
                         
@@ -351,7 +350,6 @@ const ProductDetail = () => {
                         </div>
                       </div>
 
-                      {/* Технология и материалы */}
                       <div>
                         <h4 className="text-xl font-semibold text-[#1F669D] mb-4 border-b-2 border-[#1F669D] pb-2">Технология и материалы</h4>
                         
@@ -388,7 +386,6 @@ const ProductDetail = () => {
                         </div>
                       </div>
 
-                      {/* Аппаратные характеристики */}
                       <div>
                         <h4 className="text-xl font-semibold text-[#1F669D] mb-4 border-b-2 border-[#1F669D] pb-2">Аппаратные характеристики</h4>
                         
@@ -447,7 +444,6 @@ const ProductDetail = () => {
                         </div>
                       </div>
 
-                      {/* Требования к среде эксплуатации и питанию */}
                       <div>
                         <h4 className="text-xl font-semibold text-[#1F669D] mb-4 border-b-2 border-[#1F669D] pb-2">Требования к среде эксплуатации и питанию</h4>
                         
@@ -484,7 +480,6 @@ const ProductDetail = () => {
                         </div>
                       </div>
 
-                      {/* Расширенные функции */}
                       <div>
                         <h4 className="text-xl font-semibold text-[#1F669D] mb-4 border-b-2 border-[#1F669D] pb-2">Расширенные функции</h4>
                         
