@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -32,62 +33,72 @@ const ProductDetail = () => {
     return categoryNames[category || ''] || category;
   };
 
-  // Mock product data - in a real app, this would come from an API
+  // Real Prusa CORE ONE product data
   const product = {
-    name: "Bambu Lab X1E",
-    brand: "Bambu Lab",
+    name: "Prusa CORE ONE",
+    brand: "Prusa Research",
     basePrice: "2,890,000 ₽",
     shippingCost: "15,000 ₽",
     leadTime: "14-21 рабочих дней",
     inStock: true,
-    rating: 4.8,
-    reviewCount: 127,
+    rating: 4.9,
+    reviewCount: 87,
     images: [
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"
+      "/lovable-uploads/096c7a17-98be-421a-8711-6fd337d5cdda.png",
+      "/lovable-uploads/246c7316-f9de-4b7f-a5c6-f36717b7d975.png",
+      "/lovable-uploads/1d6a218d-dce1-4be6-9d73-c264b057ebab.png",
+      "/lovable-uploads/601d9a5c-5a42-41fb-bfb1-98c0524126b9.png",
+      "/lovable-uploads/50022284-efce-4184-bf39-f2053af195b7.png",
+      "/lovable-uploads/e876df12-17de-4864-b0c4-e608cba7a730.png",
+      "/lovable-uploads/62dc727d-8b1c-4890-b30c-8b8ceeb4e27c.png",
+      "/lovable-uploads/8c6653a1-f30e-4468-8cd5-4a1ee630f498.png",
+      "/lovable-uploads/8b676c23-6899-4f65-aa72-84bcd1a7b41b.png",
+      "/lovable-uploads/4250113c-57a1-40fc-9a50-b3b6528b7ecc.png"
     ],
-    shortDescription: "Профессиональный 3D принтер с автоматической системой смены материалов и высокой точностью печати.",
+    shortDescription: "Первый закрытый CoreXY 3D принтер от Prusa Research с точной печатью на скоростях на 15-20% быстрее модели MK4S.",
     fullDescription: `
-      Bambu Lab X1E представляет собой революционное решение в области 3D печати, объединяющее передовые технологии и простоту использования. 
+      Prusa Core One представляет собой закрытый CoreXY 3D принтер, который обеспечивает прецизионную печать со скоростями на 15-20% быстрее модели MK4S. 
       
-      Этот принтер оснащен уникальной системой автоматической смены материалов (AMS), которая позволяет печатать многоцветные и многоматериальные модели без вмешательства пользователя. 
+      Принтер оснащен жесткой стальной рамой весом 22 килограмма, тремя ведущими винтами по оси Z для стабильности и системой прямого привода экструдера Nextruder от Prusa. Эта система Nextruder включает интегрированный теплообменник и высокопроизводительное сопло, способное достигать температуры 290°C.
       
-      Закрытая камера печати обеспечивает стабильную температуру и защиту от внешних воздействий, что критически важно для печати инженерных пластиков.
+      Система терморегулирования Prusa Core One обеспечивает температуру камеры до 55°C без специального нагревателя. Эта система работает за счет комбинации мощности нагрева стола и двух вытяжных вентиляторов, которые автоматически настраиваются в зависимости от требований материала.
       
-      Высокая скорость печати до 500 мм/с достигается благодаря оптимизированной механике и продвинутым алгоритмам управления движением.
+      При печати ABS принтер предварительно нагревает камеру до 40°C перед началом печати и поддерживает оптимальную температуру на протяжении всего процесса.
     `,
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
+    demoVideo: "https://www.youtube-nocookie.com/embed/9MLisQjCSJc?si=pu2-LwdzHJ8v5NlS",
     features: [
-      "Автоматическая калибровка",
-      "Система смены материалов AMS",
-      "Высокая скорость печати до 500 мм/с",
-      "Точность позиционирования ±0.1 мм",
-      "Закрытая камера печати с подогревом",
-      "Wi-Fi подключение и удаленное управление",
-      "Автоматическое выравнивание стола",
-      "Детектор окончания филамента"
+      "CoreXY кинематика для высокой скорости печати",
+      "Закрытая камера с автоматическим контролем температуры",
+      "Система Nextruder с прямым приводом",
+      "Трехточечная система выравнивания по оси Z",
+      "Автоматическое выравнивание стола на основе тензодатчика",
+      "Поддержка температуры камеры до 55°C",
+      "Подключение по Wi-Fi, Ethernet или USB",
+      "Совместимость с Multi Material Upgrade 3 (MMU3)",
+      "Магнитное крепление экрана для защиты",
+      "Встроенный датчик открытия дверцы для безопасности"
     ],
     specifications: {
       "Технология печати": "FDM (Fused Deposition Modeling)",
-      "Область печати": "256 × 256 × 256 мм",
+      "Область печати": "250 × 220 × 270 мм",
+      "Тип кинематики": "CoreXY",
+      "Экструдер": "Nextruder (прямой привод)",
+      "Поддерживаемые материалы": "PLA, PETG, ABS, ASA, PC, TPU, Carbon Fiber",
+      "Максимальная температура сопла": "290°C",
+      "Максимальная температура стола": "120°C",
+      "Температура камеры": "до 55°C",
       "Точность позиционирования": "±0.1 мм",
-      "Высота слоя": "0.08-0.35 мм",
-      "Поддерживаемые материалы": "PLA, ABS, PETG, TPU, PA, PC, ASA",
-      "Скорость печати": "до 500 мм/с",
+      "Высота слоя": "0.05-0.35 мм",
       "Диаметр филамента": "1.75 мм",
-      "Температура сопла": "до 300°C",
-      "Температура стола": "до 120°C",
-      "Подключение": "Wi-Fi, Ethernet, USB",
-      "Размеры принтера": "385 × 389 × 457 мм",
-      "Вес": "31 кг",
-      "Питание": "220V, 350W"
+      "Подключение": "Wi-Fi, Ethernet, USB, NFC",
+      "Размеры принтера": "500 × 550 × 515 мм",
+      "Вес": "22 кг",
+      "Питание": "220V, 250W"
     },
     pricing: {
       base: "2,890,000 ₽",
-      withAMS: "3,290,000 ₽",
-      withAccessories: "3,690,000 ₽"
+      withMMU3: "3,340,000 ₽",
+      withAccessories: "3,790,000 ₽"
     },
     shipping: {
       cost: "15,000 ₽",
@@ -97,24 +108,31 @@ const ProductDetail = () => {
     reviews: [
       {
         id: 1,
-        author: "Дмитрий К.",
+        author: "Алексей П.",
         rating: 5,
-        date: "15 марта 2024",
-        comment: "Отличный принтер! Качество печати превосходное, настройка простая. Рекомендую для профессионального использования."
+        date: "10 декабря 2024",
+        comment: "Превосходный принтер! CoreXY кинематика действительно обеспечивает высокую скорость без потери качества. Закрытая камера отлично работает с ABS."
       },
       {
         id: 2,
-        author: "Анна М.",
-        rating: 4,
-        date: "8 марта 2024",
-        comment: "Очень доволен покупкой. Быстрая доставка, качественная упаковка. Принтер работает стабильно."
+        author: "Мария К.",
+        rating: 5,
+        date: "5 декабря 2024",
+        comment: "Отличное качество сборки, система Nextruder работает безупречно. Автоматическое выравнивание стола экономит много времени."
       },
       {
         id: 3,
-        author: "Сергей В.",
+        author: "Дмитрий В.",
+        rating: 4,
+        date: "28 ноября 2024",
+        comment: "Очень доволен покупкой. Принтер тихий, качество печати на высоком уровне. Единственный минус - цена, но она оправдана качеством."
+      },
+      {
+        id: 4,
+        author: "Елена С.",
         rating: 5,
-        date: "2 марта 2024",
-        comment: "Профессиональное оборудование высокого класса. Система AMS работает безупречно."
+        date: "22 ноября 2024",
+        comment: "Профессиональное оборудование высочайшего класса. Система контроля температуры камеры работает идеально для инженерных пластиков."
       }
     ]
   };
@@ -193,7 +211,7 @@ const ProductDetail = () => {
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Ковенский пер, д. 9 литера А, помещ. 5-н, 6-н офис 10",
+        "streetAddress": "Ковенский пер, д. 9",
         "addressLocality": "Санкт-Петербург",
         "addressRegion": "Санкт-Петербург",
         "postalCode": "191014",
@@ -264,7 +282,7 @@ const ProductDetail = () => {
                   className="w-full h-96 object-cover"
                 />
                 <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
-                  Популярный
+                  Новинка 2024
                 </Badge>
                 {product.inStock && (
                   <Badge className="absolute top-4 right-4 bg-green-500 text-white">
@@ -274,12 +292,12 @@ const ProductDetail = () => {
               </div>
               
               {/* Image thumbnails */}
-              <div className="flex space-x-2">
-                {product.images.map((image, index) => (
+              <div className="grid grid-cols-5 gap-2">
+                {product.images.slice(0, 10).map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
                       selectedImage === index ? 'border-[#3498DB]' : 'border-gray-200'
                     }`}
                   >
@@ -315,8 +333,8 @@ const ProductDetail = () => {
                     <span className="text-xl font-bold text-[#1F669D]">{product.pricing.base}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>С системой AMS</span>
-                    <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAMS}</span>
+                    <span>С системой MMU3</span>
+                    <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withMMU3}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Полная комплектация</span>
@@ -336,7 +354,7 @@ const ProductDetail = () => {
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
-                    * Бесплатная доставка при заказе от 50,000 ₽
+                    * Бесплатная доставка при заказе от 3,000,000 ₽
                   </p>
                 </div>
               </div>
@@ -375,12 +393,22 @@ const ProductDetail = () => {
                 <Card>
                   <CardContent className="p-8">
                     <div className="prose max-w-none">
-                      <h3 className="text-2xl font-bold text-[#113C5A] mb-4">Подробное описание</h3>
-                      <div className="text-gray-700 leading-relaxed space-y-4">
-                        {product.fullDescription.split('\n\n').map((paragraph, index) => (
-                          <p key={index}>{paragraph.trim()}</p>
-                        ))}
+                      <h1 className="text-3xl font-bold text-[#113C5A] mb-6">Prusa CORE ONE: Первый CoreXY 3D принтер от Prusa</h1>
+                      
+                      <div className="text-gray-700 leading-relaxed space-y-6">
+                        <p>
+                          Prusa Core One представляет собой закрытый CoreXY 3D принтер, который обеспечивает прецизионную печать со скоростями на 15-20% быстрее модели MK4S. Prusa Core One оснащен жесткой стальной рамой весом 22 килограмма, тремя ведущими винтами по оси Z для стабильности и системой прямого привода экструдера Nextruder от Prusa. Эта система Nextruder включает интегрированный теплообменник и высокопроизводительное сопло, способное достигать температуры 290°C.
+                        </p>
+                        
+                        <p>
+                          Система терморегулирования Prusa Core One обеспечивает температуру камеры до 55°C без специального нагревателя. Эта система работает за счет комбинации мощности нагрева стола и двух вытяжных вентиляторов, которые автоматически настраиваются в зависимости от требований материала. Например, при печати ABS принтер Prusa Core One предварительно нагревает камеру до 40°C перед началом печати и поддерживает оптимальную температуру на протяжении всего процесса. Для дополнительного контроля температуры Prusa Core One включает ручную вентиляционную решетку сверху, которая открывается для печати PLA и закрывается для высокотемпературных материалов.
+                        </p>
+                        
+                        <p>
+                          Prusa Core One поддерживает совместимость с существующими нагревательными столами Prusa Mark 52 и платформами для печати, добавляя при этом новые функции. Эти новые функции включают боковое хранение филамента, выравнивание стола на основе тензодатчиков, которое не требует ручной настройки Z-смещения, и переключатель дверцы для безопасности. Пользователи могут управлять Prusa Core One полностью в автономном режиме или подключать его через несколько вариантов. Эти варианты подключения включают Ethernet, Wi-Fi или USB, с доступом к локальной сети через PrusaLink и облачными опциями через PrusaConnect. Prusa Core One доступен как в собранном (plug-and-play), так и в комплектном варианте, с возможностью обновления для существующих владельцев MK4S.
+                        </p>
                       </div>
+                      
                       <div className="mt-8">
                         <h4 className="text-xl font-bold text-[#113C5A] mb-4">Ключевые возможности</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -465,13 +493,13 @@ const ProductDetail = () => {
               <TabsContent value="video" className="mt-8">
                 <Card>
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Видео обзор</h3>
+                    <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Видео обзор Prusa CORE ONE</h3>
                     <div className="aspect-video rounded-lg overflow-hidden mb-6">
                       <iframe
                         width="100%"
                         height="100%"
-                        src="https://www.youtube.com/embed/qMj_FIumSn8"
-                        title="Обзор Bambu Lab X1E"
+                        src={product.demoVideo}
+                        title="Обзор Prusa CORE ONE"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -484,19 +512,19 @@ const ProductDetail = () => {
                       <ul className="space-y-2 text-gray-700">
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Распаковка и первоначальная настройка</span>
+                          <span>Обзор CoreXY кинематики и её преимуществ</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Калибровка и подготовка к печати</span>
+                          <span>Демонстрация системы контроля температуры камеры</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Демонстрация системы AMS</span>
+                          <span>Работа экструдера Nextruder</span>
                         </li>
                         <li className="flex items-start space-x-2">
                           <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Примеры готовых изделий</span>
+                          <span>Примеры печати различными материалами</span>
                         </li>
                       </ul>
                     </div>
@@ -508,7 +536,7 @@ const ProductDetail = () => {
 
           {/* Contact CTA */}
           <div className="text-center bg-gradient-to-r from-[#113C5A] to-[#1F669D] text-white rounded-2xl p-12">
-            <h2 className="text-3xl font-bold mb-4">Заинтересованы в этом продукте?</h2>
+            <h2 className="text-3xl font-bold mb-4">Заинтересованы в Prusa CORE ONE?</h2>
             <p className="text-xl mb-8 text-gray-200">
               Получите персональное коммерческое предложение с лучшими условиями
             </p>
