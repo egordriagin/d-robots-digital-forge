@@ -1,9 +1,10 @@
-
 import { useMemo } from 'react';
 import { Product } from '../types/product';
 
 export const useProductData = (productId: string): Product | null => {
   const product = useMemo(() => {
+    console.log('Looking for product with ID:', productId);
+    
     // This would normally fetch from an API or database
     // For now, returning mock data for different products
     if (productId === 'bambu-x1e') {
@@ -144,6 +145,51 @@ export const useProductData = (productId: string): Product | null => {
       };
     }
     
+    // Add more products to match the catalog
+    if (productId === 'unitree-go2-pro') {
+      return {
+        id: 'unitree-go2-pro',
+        name: 'Unitree Go2 Pro',
+        category: 'robotic-dogs',
+        price: 2999,
+        description: 'Продвинутый четвероногий робот с возможностями ИИ',
+        features: [
+          'Продвинутая система навигации',
+          'Автономная работа до 2 часов',
+          'Камера высокого разрешения',
+          'Голосовое управление',
+          'Защита от воды и пыли IP67'
+        ],
+        images: [
+          '/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png'
+        ],
+        specifications: {
+          printingSpecs: [],
+          technologySpecs: [
+            { label: 'Процессор', value: 'ARM Cortex-A78' },
+            { label: 'Операционная система', value: 'Linux Ubuntu' },
+            { label: 'Связь', value: 'Wi-Fi 6, Bluetooth 5.0, 4G LTE' }
+          ],
+          hardwareSpecs: [
+            { label: 'Размеры (Д × Ш × В)', value: '645 × 280 × 400 мм' },
+            { label: 'Вес', value: '15 кг' },
+            { label: 'Максимальная скорость', value: '17 км/ч' },
+            { label: 'Время работы батареи', value: '2 часа' }
+          ],
+          environmentSpecs: [
+            { label: 'Рабочая температура', value: '-10°C до +40°C' },
+            { label: 'Степень защиты', value: 'IP67' }
+          ],
+          advancedFeatures: [
+            { label: 'Автономная навигация', value: 'Да' },
+            { label: 'Голосовое управление', value: 'Да' },
+            { label: 'Удаленное управление', value: 'Да, через приложение' }
+          ]
+        }
+      };
+    }
+    
+    console.log('Product not found for ID:', productId);
     return null;
   }, [productId]);
 
