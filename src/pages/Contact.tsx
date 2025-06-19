@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,7 +58,7 @@ const Contact = () => {
       
       toast({
         title: "Сообщение отправлено!",
-        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время на sales@3d-robots.com",
+        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время.",
       });
 
       // Reset form

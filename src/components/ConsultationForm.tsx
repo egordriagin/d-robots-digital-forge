@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -63,8 +62,8 @@ const ConsultationForm = ({ productName, onClose }: ConsultationFormProps) => {
     setTimeout(() => {
       console.log('Consultation form submitted to sales@3d-robots.com:', data);
       toast({
-        title: "Заявка на консультацию отправлена!",
-        description: "Ваш запрос получен. Наш специалист свяжется с вами в ближайшее время на sales@3d-robots.com",
+        title: "Сообщение отправлено!",
+        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время.",
       });
       
       // Reset form

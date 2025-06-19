@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -63,8 +62,8 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
     setTimeout(() => {
       console.log('Commercial offer form submitted to sales@3d-robots.com:', data);
       toast({
-        title: "Заявка отправлена!",
-        description: "Ваш запрос на коммерческое предложение получен. Мы свяжемся с вами в ближайшее время на sales@3d-robots.com",
+        title: "Сообщение отправлено!",
+        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время.",
       });
       
       // Reset form

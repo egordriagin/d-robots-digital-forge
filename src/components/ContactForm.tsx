@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -64,7 +63,7 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
       console.log('Contact form submitted to sales@3d-robots.com:', data);
       toast({
         title: "Сообщение отправлено!",
-        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время на sales@3d-robots.com",
+        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время.",
       });
       
       // Reset form
