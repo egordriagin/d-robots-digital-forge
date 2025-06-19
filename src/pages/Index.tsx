@@ -250,9 +250,11 @@ const Index = () => {
                   Получить консультацию
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3">
-                Скачать каталог
-              </Button>
+              <Link to="/3d-printers">
+                <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3">
+                  Смотреть каталог
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
