@@ -1,5 +1,5 @@
-
 import { PrinterSpecifications } from "@/types/printer-specifications";
+import { ScannerSpecifications } from "@/types/scanner-specifications";
 
 export interface Product {
   id: string;
@@ -7,763 +7,604 @@ export interface Product {
   brand: string;
   category: string;
   basePrice: string;
-  shippingCost: string;
-  leadTime: string;
-  inStock: boolean;
   rating: number;
-  reviewCount: number;
   images: string[];
-  shortDescription: string;
-  fullDescription: string;
-  demoVideo: string;
+  description: string;
   features: string[];
-  pricing: {
-    base: string;
-    withAMS?: string;
-    withAccessories?: string;
-  };
-  shipping: {
-    cost: string;
-    freeThreshold: string;
-    regions: string[];
-  };
-  reviews: Array<{
-    id: number;
-    author: string;
-    rating: number;
-    date: string;
-    comment: string;
-  }>;
-  specifications?: PrinterSpecifications;
-  type?: string;
-  power?: string;
-  dof?: string;
+  printerSpecifications?: PrinterSpecifications;
+  scannerSpecifications?: ScannerSpecifications;
 }
 
-const defaultImages = [
-  "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"
-];
-
-const defaultReviews = [
-  {
-    id: 1,
-    author: "Дмитрий К.",
-    rating: 5,
-    date: "15 марта 2024",
-    comment: "Отличное оборудование! Качество работы превосходное, настройка простая. Рекомендую для профессионального использования."
-  },
-  {
-    id: 2,
-    author: "Анна М.",
-    rating: 4,
-    date: "8 марта 2024",
-    comment: "Очень доволен покупкой. Быстрая доставка, качественная упаковка. Оборудование работает стабильно."
-  },
-  {
-    id: 3,
-    author: "Сергей В.",
-    rating: 5,
-    date: "2 марта 2024",
-    comment: "Профессиональное оборудование высокого класса. Система работает безупречно."
-  }
-];
-
-const defaultSpecs: PrinterSpecifications = {
-  printing: {
-    buildVolume: {
-      dimensions: "250 × 210 × 210 мм",
-      area: "52 500 мм²",
-      maxLength: "250 мм"
-    },
-    resolution: {
-      layerHeight: "0.05-0.3 мм",
-      xyResolution: "0.1 мм",
-      dimensionalAccuracy: "±0.05 мм",
-      minWallThickness: "0.4 мм"
-    },
-    speed: {
-      maxSpeed: "200 мм/с",
-      typicalRange: "50-150 мм/с",
-      materialDependent: "Скорость может снижаться при печати с гибкими или специальными материалами"
-    }
-  },
-  technology: {
-    printingTechnology: {
-      type: "FDM (Fused Deposition Modeling)",
-      implementation: "Классическая FDM с нагреваемой платформой и экструдером"
-    },
-    materials: {
-      supportedMaterials: "PLA, PETG, ABS, ASA, Flex, Nylon",
-      cartridgeSpecs: "Стандартные катушки 1.75 мм",
-      temperatureRange: "Экструдер: до 300°C, платформа: до 100°C"
-    }
-  },
-  hardware: {
-    dimensions: {
-      printerSize: "420 × 420 × 380 мм",
-      weight: "12 кг",
-      requiredSpace: "Рекомендуется минимум 600 × 600 мм пространства вокруг"
-    },
-    interface: {
-      controlType: "Цветной сенсорный экран",
-      displaySpecs: "3.5 дюйма, цветной TFT",
-      languages: "Многоязычный, включая русский"
-    },
-    connectivity: {
-      wifi: "Wi-Fi 802.11 b/g/n",
-      ethernet: "Нет",
-      usb: "USB Type-B, USB флеш-накопитель"
-    }
-  },
-  environment: {
-    operating: {
-      temperatureRange: "15-30°C",
-      humidity: "20-80% без конденсации"
-    },
-    power: {
-      voltage: "100-240 В переменного тока",
-      consumption: "150 Вт",
-      frequency: "50/60 Гц"
-    }
-  },
-  advanced: {
-    automation: {
-      autoLeveling: "Да, с помощью датчиков",
-      sensors: "Датчик окончания филамента, датчик температуры",
-      autoFeed: "Автоматическая подача филамента"
-    },
-    software: {
-      compatibleOS: "Windows, macOS, Linux",
-      fileFormats: ".gcode, .stl, .obj",
-      systemRequirements: "Минимум 4 ГБ ОЗУ, 64-битная ОС"
-    },
-    qualityControl: {
-      forceSensing: "Нет",
-      temperatureControl: "Поддержка контроля температуры экструдера и платформы",
-      realTimeMonitoring: "Да, через ПО и экран"
-    }
-  }
-};
-
-export const productsDatabase: Record<string, Product> = {
+const products: Product[] = [
   // 3D Printers
-  "creatbot-d600": {
+  {
     id: "creatbot-d600",
     name: "Creatbot D600",
     brand: "Creatbot",
     category: "3d-printers",
-    type: "FDM",
     basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
     rating: 4.5,
-    reviewCount: 89,
-    images: defaultImages,
-    shortDescription: "Профессиональный 3D принтер большого формата с высокой точностью печати.",
-    fullDescription: "Creatbot D600 представляет собой промышленный 3D принтер, предназначенный для создания крупногабаритных деталей с высокой точностью.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Большая область печати 600×600×600 мм",
-      "Закрытая камера с подогревом",
-      "Двойной экструдер",
-      "Автоматическое выравнивание стола"
+    images: [
+      "https://images.unsplash.com/photo-1615779458099-ca5701c1ca1f?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1615779458099-ca5701c1ca1f?w=400&h=300&fit=crop&overlay=top"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-  
-  "creatbot-peek-300": {
-    id: "creatbot-peek-300",
-    name: "Creatbot PEEK-300",
-    brand: "Creatbot",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.8,
-    reviewCount: 65,
-    images: defaultImages,
-    shortDescription: "Специализированный 3D принтер для печати высокотемпературными материалами.",
-    fullDescription: "Creatbot PEEK-300 разработан специально для работы с высокотемпературными инженерными пластиками, включая PEEK.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
+    description: "Промышленный 3D принтер с большой областью печати и высокой точностью.",
     features: [
-      "Температура экструдера до 400°C",
-      "Печать материалами PEEK, PEI",
-      "Закрытая камера с контролем температуры",
-      "Промышленная надежность"
+      "Большая область печати",
+      "Высокая точность",
+      "Поддержка различных материалов",
+      "Автоматическая калибровка"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "600 x 600 x 600 мм",
+          area: "360000 кв.мм",
+          maxLength: "848 мм (диагональ)"
+        },
+        resolution: {
+          layerHeight: "0.04 - 0.3 мм",
+          xyResolution: "12.5 микрон",
+          dimensionalAccuracy: "±0.1 мм",
+          minWallThickness: "0.4 мм"
+        },
+        speed: {
+          maxSpeed: "180 мм/с",
+          typicalRange: "60-120 мм/с",
+          materialDependent: "Зависит от типа материала"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM (Fused Deposition Modeling)",
+          implementation: "Двойной экструдер"
+        },
+        materials: {
+          supportedMaterials: "PLA, ABS, PC, Nylon, Carbon Fiber, и др.",
+          cartridgeSpecs: "Катушки 1.75 мм",
+          temperatureRange: "До 420°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "940 x 1100 x 1650 мм",
+          weight: "280 кг",
+          requiredSpace: "1500 x 1500 мм"
+        },
+        interface: {
+          controlType: "7-дюймовый сенсорный экран",
+          displaySpecs: "1024 x 600 пикселей",
+          languages: "Английский, Китайский"
+        },
+        connectivity: {
+          wifi: "IEEE 802.11 b/g/n",
+          ethernet: "10/100 Mbps",
+          usb: "USB 2.0"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "15-30°C",
+          humidity: "До 70%"
+        },
+        power: {
+          voltage: "220V",
+          consumption: "1200W",
+          frequency: "50/60Hz"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "Автоматическое выравнивание платформы",
+          sensors: "Датчик окончания филамента",
+          autoFeed: "Автоматическая подача филамента"
+        },
+        software: {
+          compatibleOS: "Windows, macOS",
+          fileFormats: "STL, OBJ, G-Code",
+          systemRequirements: "Intel i5, 8GB RAM"
+        },
+        qualityControl: {
+          forceSensing: "Нет",
+          temperatureControl: "PID-регулирование температуры",
+          realTimeMonitoring: "Мониторинг через веб-интерфейс"
+        }
+      }
+    }
   },
-
-  "flashforge-creator-4": {
+  {
     id: "flashforge-creator-4",
     name: "Flashforge Creator 4",
     brand: "Flashforge",
     category: "3d-printers",
-    type: "FDM",
     basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
     rating: 4.3,
-    reviewCount: 112,
-    images: defaultImages,
-    shortDescription: "Универсальный 3D принтер с двойным экструдером для многоцветной печати.",
-    fullDescription: "Flashforge Creator 4 обеспечивает высококачественную печать с возможностью использования двух материалов одновременно.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
+    images: [
+      "https://images.unsplash.com/photo-1607868240674-d99d3649c043?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1607868240674-d99d3649c043?w=400&h=300&fit=crop&overlay=top"
+    ],
+    description: "Профессиональный 3D принтер с независимыми экструдерами и закрытой камерой.",
     features: [
-      "Двойной независимый экструдер",
-      "Автоматическое выравнивание",
+      "Независимые экструдеры",
       "Закрытая камера",
-      "Wi-Fi подключение"
+      "Высокая точность",
+      "Поддержка различных материалов"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "bambu-x1": {
-    id: "bambu-x1",
-    name: "Bambu Lab X1",
-    brand: "Bambu Lab",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "2,890,000 ₽",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.9,
-    reviewCount: 127,
-    images: defaultImages,
-    shortDescription: "Профессиональный 3D принтер с автоматической системой смены материалов и высокой точностью печати.",
-    fullDescription: "Bambu Lab X1 представляет собой революционное решение в области 3D печати, объединяющее передовые технологии и простоту использования.",
-    demoVideo: "https://www.youtube.com/embed/qMj_FIumSn8",
-    features: [
-      "Автоматическая калибровка",
-      "Система смены материалов AMS",
-      "Высокая скорость печати до 500 мм/с",
-      "Точность позиционирования ±0.1 мм"
-    ],
-    pricing: { 
-      base: "2,890,000 ₽",
-      withAMS: "3,290,000 ₽",
-      withAccessories: "3,690,000 ₽"
-    },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "bambu-p1s": {
-    id: "bambu-p1s",
-    name: "Bambu P1S",
-    brand: "Bambu Lab",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.7,
-    reviewCount: 98,
-    images: defaultImages,
-    shortDescription: "Компактный и доступный 3D принтер с технологиями Bambu Lab.",
-    fullDescription: "Bambu P1S предлагает передовые технологии Bambu Lab в более доступном формате.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Автоматическая калибровка",
-      "Высокая скорость печати",
-      "Совместимость с AMS",
-      "Удаленное управление"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "prusa-xl": {
-    id: "prusa-xl",
-    name: "Prusa XL",
-    brand: "Prusa",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.6,
-    reviewCount: 76,
-    images: defaultImages,
-    shortDescription: "Крупноформатный 3D принтер с модульной системой экструдеров.",
-    fullDescription: "Prusa XL предлагает увеличенную область печати и возможность установки до 5 экструдеров.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Область печати 360×360×360 мм",
-      "До 5 экструдеров",
-      "Автоматическое выравнивание",
-      "Открытый исходный код"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "prusa-mk4": {
-    id: "prusa-mk4",
-    name: "Prusa MK4",
-    brand: "Prusa",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.8,
-    reviewCount: 134,
-    images: defaultImages,
-    shortDescription: "Популярный настольный 3D принтер с проверенной надежностью.",
-    fullDescription: "Prusa MK4 - это эволюция популярной серии принтеров Prusa с улучшенными характеристиками.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Проверенная надежность",
-      "Автоматическое выравнивание",
-      "Открытый исходный код",
-      "Активное сообщество"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "qidi-x-max": {
-    id: "qidi-x-max",
-    name: "QIDI X MAX",
-    brand: "QIDI",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.4,
-    reviewCount: 67,
-    images: defaultImages,
-    shortDescription: "Промышленный 3D принтер большого формата с закрытой камерой.",
-    fullDescription: "QIDI X MAX обеспечивает стабильную печать крупных деталей в контролируемой среде.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Большая область печати",
-      "Закрытая камера с подогревом",
-      "Промышленная надежность",
-      "Высокотемпературные материалы"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "raise3d-pro3": {
-    id: "raise3d-pro3",
-    name: "Raise3D Pro3",
-    brand: "Raise3D",
-    category: "3d-printers",
-    type: "FDM",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.5,
-    reviewCount: 54,
-    images: defaultImages,
-    shortDescription: "Профессиональный 3D принтер с независимыми двойными экструдерами.",
-    fullDescription: "Raise3D Pro3 предназначен для профессионального использования с возможностью многоматериальной печати.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Независимые двойные экструдеры",
-      "Закрытая камера",
-      "Профессиональное ПО",
-      "Высокая точность"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
-  },
-
-  "anycubic-photon-m3": {
-    id: "anycubic-photon-m3",
-    name: "Anycubic Photon M3 Max",
-    brand: "Anycubic",
-    category: "3d-printers",
-    type: "SLA",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.2,
-    reviewCount: 43,
-    images: defaultImages,
-    shortDescription: "Крупноформатный SLA 3D принтер для высокодетализированной печати.",
-    fullDescription: "Anycubic Photon M3 Max использует технологию стереолитографии для создания деталей с исключительной детализацией.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Технология SLA",
-      "Высокое разрешение",
-      "Большая область печати",
-      "Автоматическое выравнивание"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    specifications: defaultSpecs
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "400 x 350 x 500 мм",
+          area: "140000 кв.мм",
+          maxLength: "602 мм (диагональ)"
+        },
+        resolution: {
+          layerHeight: "0.05 - 0.4 мм",
+          xyResolution: "12.5 микрон",
+          dimensionalAccuracy: "±0.1 мм",
+          minWallThickness: "0.4 мм"
+        },
+        speed: {
+          maxSpeed: "200 мм/с",
+          typicalRange: "50-150 мм/с",
+          materialDependent: "Зависит от типа материала"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM (Fused Deposition Modeling)",
+          implementation: "Двойной независимый экструдер"
+        },
+        materials: {
+          supportedMaterials: "PLA, ABS, PC, Nylon, Carbon Fiber, и др.",
+          cartridgeSpecs: "Катушки 1.75 мм",
+          temperatureRange: "До 360°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "720 x 650 x 1150 мм",
+          weight: "150 кг",
+          requiredSpace: "1200 x 1200 мм"
+        },
+        interface: {
+          controlType: "7-дюймовый сенсорный экран",
+          displaySpecs: "1024 x 600 пикселей",
+          languages: "Английский, Китайский"
+        },
+        connectivity: {
+          wifi: "IEEE 802.11 b/g/n",
+          ethernet: "10/100 Mbps",
+          usb: "USB 2.0"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "15-30°C",
+          humidity: "До 70%"
+        },
+        power: {
+          voltage: "220V",
+          consumption: "800W",
+          frequency: "50/60Hz"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "Автоматическое выравнивание платформы",
+          sensors: "Датчик окончания филамента",
+          autoFeed: "Автоматическая подача филамента"
+        },
+        software: {
+          compatibleOS: "Windows, macOS",
+          fileFormats: "STL, OBJ, G-Code",
+          systemRequirements: "Intel i5, 8GB RAM"
+        },
+        qualityControl: {
+          forceSensing: "Нет",
+          temperatureControl: "PID-регулирование температуры",
+          realTimeMonitoring: "Мониторинг через веб-интерфейс"
+        }
+      }
+    }
   },
 
   // 3D Scanners
-  "einscan-pro-2x": {
-    id: "einscan-pro-2x",
-    name: "EinScan Pro 2X",
+  {
+    id: "artec-eva",
+    name: "Artec Eva",
+    brand: "Artec 3D",
+    category: "3d-scanners",
+    basePrice: "Запросить цену",
+    rating: 4.8,
+    images: [
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop&overlay=top"
+    ],
+    description: "Профессиональный портативный 3D сканер для захвата объектов среднего размера с высокой точностью.",
+    features: [
+      "Технология структурированного света",
+      "Точность до 0.1 мм",
+      "Автоматическое выравнивание",
+      "Захват цвета и текстуры"
+    ],
+    scannerSpecifications: {
+      accuracy: {
+        pointAccuracy: {
+          range: "0.05-0.10 мм",
+          typical: "0.1 мм",
+          measurement: "Одноточечная точность"
+        },
+        volumetricAccuracy: {
+          baseAccuracy: "0.03 мм",
+          distanceCoefficient: "0.15 мм/м",
+          formula: "0.03 мм + 0.15 мм/м × расстояние измерения"
+        },
+        resolution: {
+          measurementResolution: "0.1 мм",
+          pointDistance: "0.2 мм",
+          outputMeshResolution: "0.1-2.0 мм"
+        }
+      },
+      speed: {
+        frameRate: "16 кадр/сек",
+        measurementSpeed: "До 2 млн точек/сек",
+        dataCollectionSpeed: "Быстрый режим: 5 сек/кадр, HD режим: 15 сек/кадр"
+      },
+      captureRange: {
+        singleScanRange: "214 × 148 мм (на расстоянии 400 мм)",
+        fieldOfView: "30° × 21°",
+        depthOfField: "300-1000 мм",
+        workingDistance: "400-1000 мм",
+        objectSizeCapabilities: {
+          minimum: "50 × 50 × 50 мм",
+          maximum: "3 × 3 × 3 м",
+          recommended: "0.2-2 м"
+        }
+      },
+      technology: {
+        scanningTechnology: {
+          type: "Структурированный белый свет",
+          lightSourceCharacteristics: "Безопасный LED источник, класс 1",
+          camerasAndProjectors: "2 камеры, 1 проектор"
+        },
+        trackingAndPositioning: {
+          alignmentMethods: "Геометрическое выравнивание, цветовое отслеживание",
+          trackingCapabilities: "Автоматическое отслеживание без маркеров",
+          markerSupport: "Поддержка маркеров и работа без маркеров"
+        }
+      },
+      compatibility: {
+        sizeConstraints: {
+          recommendedRange: "0.2-2 м в любом измерении",
+          typicalCharacteristics: "Средние и крупные объекты",
+          maximumScannable: "До 3 м в любом измерении"
+        },
+        surfaceRequirements: {
+          compatibleSurfaces: "Матовые, полуматовые поверхности",
+          processingRecommendations: "Антибликовый спрей для отражающих поверхностей",
+          limitations: "Сложности с прозрачными, зеркальными и черными поверхностями"
+        }
+      },
+      software: {
+        outputCompatibility: {
+          supportedFileFormats: "OBJ, PLY, STL, WRL, E57, ASCII, PTX",
+          operatingSystems: "Windows 10/11 (64-bit)",
+          mobileCompatibility: "Не поддерживается"
+        },
+        systemRequirements: {
+          minimumSpecs: "Intel i5, 8 ГБ RAM, DirectX 11",
+          recommendedSpecs: "Intel i7, 16 ГБ RAM, дискретная видеокарта",
+          ramGpuCpuRequirements: "16 ГБ RAM, NVIDIA GTX 1060 или лучше, Intel i7 8-го поколения"
+        }
+      },
+      hardware: {
+        equipmentCharacteristics: {
+          weightAndDimensions: "0.85 кг, 262 × 158 × 63 мм",
+          cableAndConnectivity: "USB 3.0, кабель 4.5 м",
+          portabilityClassification: "Портативный ручной сканер"
+        },
+        operatingConditions: {
+          indoorOutdoorCapabilities: "В основном для работы в помещении",
+          lightingRequirements: "Избегать прямого солнечного света",
+          environmentalConstraints: "Температура: 10-35°C, влажность: 20-80%"
+        }
+      },
+      advanced: {
+        scanningModes: {
+          multipleOptions: "HD режим, быстрый режим, режим геометрии",
+          textureColorCapture: "Полноцветный захват с разрешением 1.3 Мп",
+          realtimeVsPostprocessing: "Обработка в реальном времени с предварительным просмотром"
+        },
+        qualityControl: {
+          autoCalibration: "Автоматическая калибровка при запуске",
+          errorDetectionCorrection: "Автоматическое обнаружение и исправление ошибок захвата",
+          qualityAssessmentTools: "Встроенные инструменты контроля качества в Artec Studio"
+        }
+      }
+    }
+  },
+  {
+    id: "einstar-scanner",
+    name: "EinStar 3D Scanner",
     brand: "Shining 3D",
     category: "3d-scanners",
     basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
     rating: 4.6,
-    reviewCount: 32,
-    images: ["https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop"],
-    shortDescription: "Профессиональный ручной 3D сканер с высокой точностью.",
-    fullDescription: "EinScan Pro 2X обеспечивает профессиональное 3D сканирование для различных применений.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Ручное и стационарное сканирование",
-      "Точность до 0.1 мм",
-      "Быстрое сканирование",
-      "Профессиональное ПО"
+    images: [
+      "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop&overlay=top"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Доступный портативный 3D сканер с высокой точностью для образования и малого бизнеса.",
+    features: [
+      "Инфракрасная технология VCSEL",
+      "Точность до 0.1 мм",
+      "Простота использования",
+      "Доступная цена"
+    ],
+    scannerSpecifications: {
+      accuracy: {
+        pointAccuracy: {
+          range: "0.1-0.2 мм",
+          typical: "0.1 мм",
+          measurement: "Одноточечная точность"
+        },
+        volumetricAccuracy: {
+          baseAccuracy: "0.05 мм",
+          distanceCoefficient: "0.2 мм/м",
+          formula: "0.05 мм + 0.2 мм/м × расстояние измерения"
+        },
+        resolution: {
+          measurementResolution: "0.15 мм",
+          pointDistance: "0.3 мм",
+          outputMeshResolution: "0.2-3.0 мм"
+        }
+      },
+      speed: {
+        frameRate: "10 кадр/сек",
+        measurementSpeed: "До 1.5 млн точек/сек",
+        dataCollectionSpeed: "Стандартный режим: 8 сек/кадр"
+      },
+      captureRange: {
+        singleScanRange: "560 × 450 мм (на расстоянии 550 мм)",
+        fieldOfView: "51° × 41°",
+        depthOfField: "350-1200 мм",
+        workingDistance: "550-1200 мм",
+        objectSizeCapabilities: {
+          minimum: "30 × 30 × 30 мм",
+          maximum: "4 × 4 × 4 м",
+          recommended: "0.15-3 м"
+        }
+      },
+      technology: {
+        scanningTechnology: {
+          type: "Инфракрасная технология VCSEL",
+          lightSourceCharacteristics: "Инфракрасный лазер класса 1",
+          camerasAndProjectors: "2 камеры, 1 инфракрасный проектор"
+        },
+        trackingAndPositioning: {
+          alignmentMethods: "Геометрическое и визуальное отслеживание",
+          trackingCapabilities: "Автоматическое отслеживание",
+          markerSupport: "Работа без маркеров"
+        }
+      },
+      compatibility: {
+        sizeConstraints: {
+          recommendedRange: "0.15-3 м в любом измерении",
+          typicalCharacteristics: "Малые и средние объекты",
+          maximumScannable: "До 4 м в любом измерении"
+        },
+        surfaceRequirements: {
+          compatibleSurfaces: "Большинство непрозрачных поверхностей",
+          processingRecommendations: "Матирующий спрей для блестящих поверхностей",
+          limitations: "Ограничения с прозрачными и зеркальными поверхностями"
+        }
+      },
+      software: {
+        outputCompatibility: {
+          supportedFileFormats: "OBJ, STL, PLY",
+          operatingSystems: "Windows 10/11 (64-bit), macOS 10.15+",
+          mobileCompatibility: "iOS приложение для предварительного просмотра"
+        },
+        systemRequirements: {
+          minimumSpecs: "Intel i5, 8 ГБ RAM, USB 3.0",
+          recommendedSpecs: "Intel i7, 16 ГБ RAM, SSD диск",
+          ramGpuCpuRequirements: "16 ГБ RAM, встроенная графика достаточна, Intel i7"
+        }
+      },
+      hardware: {
+        equipmentCharacteristics: {
+          weightAndDimensions: "0.65 кг, 210 × 130 × 75 мм",
+          cableAndConnectivity: "USB-C, кабель 3 м",
+          portabilityClassification: "Ультрапортативный ручной сканер"
+        },
+        operatingConditions: {
+          indoorOutdoorCapabilities: "Для работы в помещении",
+          lightingRequirements: "Работает при любом освещении",
+          environmentalConstraints: "Температура: 5-40°C, влажность: 10-90%"
+        }
+      },
+      advanced: {
+        scanningModes: {
+          multipleOptions: "Быстрый режим, точный режим",
+          textureColorCapture: "RGB камера для захвата цвета",
+          realtimeVsPostprocessing: "Предварительный просмотр в реальном времени"
+        },
+        qualityControl: {
+          autoCalibration: "Автоматическая калибровка не требуется",
+          errorDetectionCorrection: "Автоматическое исправление ошибок сканирования",
+          qualityAssessmentTools: "Встроенная оценка качества в реальном времени"
+        }
+      }
+    }
   },
 
   // Robotic Dogs
-  "unitree-go1": {
+  {
     id: "unitree-go1",
     name: "Unitree Go1",
-    brand: "Unitree",
+    brand: "Unitree Robotics",
     category: "robotic-dogs",
     basePrice: "Запросить цену",
-    shippingCost: "25,000 ₽",
-    leadTime: "21-30 рабочих дней",
-    inStock: true,
     rating: 4.7,
-    reviewCount: 18,
-    images: ["https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=800&h=600&fit=crop"],
-    shortDescription: "Квадрупедальный робот для исследований и образования.",
-    fullDescription: "Unitree Go1 представляет собой передовую платформу для изучения робототехники и автономного движения.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Автономное движение",
-      "Обход препятствий",
-      "Программируемое поведение",
-      "Долгое время работы"
+    images: [
+      "https://images.unsplash.com/photo-1677495149385-c19494439794?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1677495149385-c19494439794?w=400&h=300&fit=crop&overlay=top"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "25,000 ₽", freeThreshold: "5,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Интеллектуальный робот-собака для исследований, развлечений и образования.",
+    features: [
+      "Интеллектуальное следование",
+      "Обход препятствий",
+      "Распознавание лиц",
+      "Программируемое поведение"
+    ]
+  },
+  {
+    id: "boston-dynamics-spot",
+    name: "Boston Dynamics Spot",
+    brand: "Boston Dynamics",
+    category: "robotic-dogs",
+    basePrice: "Запросить цену",
+    rating: 4.9,
+    images: [
+      "https://images.unsplash.com/photo-1631934495749-aa9953e15c1c?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631934495749-aa9953e15c1c?w=400&h=300&fit=crop&overlay=top"
+    ],
+    description: "Передовой робот-собака для промышленного применения и исследований.",
+    features: [
+      "Автономная навигация",
+      "Сбор данных",
+      "Инспекция объектов",
+      "Удаленное управление"
+    ]
   },
 
   // Humanoid Robots
-  "unitree-h1": {
-    id: "unitree-h1",
-    name: "Unitree H1",
-    brand: "Unitree",
+  {
+    id: "atlas-robot",
+    name: "Atlas Robot",
+    brand: "Boston Dynamics",
     category: "humanoid-robots",
     basePrice: "Запросить цену",
-    shippingCost: "50,000 ₽",
-    leadTime: "30-45 рабочих дней",
-    inStock: true,
     rating: 4.8,
-    reviewCount: 12,
-    images: ["https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=800&h=600&fit=crop"],
-    shortDescription: "Полноразмерный гуманоидный робот для исследований.",
-    fullDescription: "Unitree H1 - это передовой гуманоидный робот, предназначенный для исследований в области робототехники.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Двуногое передвижение",
-      "Манипуляция объектами",
-      "Система компьютерного зрения",
-      "Программируемое поведение"
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "50,000 ₽", freeThreshold: "10,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Динамичный гуманоидный робот, способный выполнять сложные задачи.",
+    features: [
+      "Динамическое равновесие",
+      "Сложная моторика",
+      "Автономная навигация",
+      "Работа в экстремальных условиях"
+    ]
   },
-
-  "unitree-g1": {
-    id: "unitree-g1",
-    name: "Unitree G1",
-    brand: "Unitree",
+  {
+    id: "pepper-robot",
+    name: "Pepper Robot",
+    brand: "SoftBank Robotics",
     category: "humanoid-robots",
     basePrice: "Запросить цену",
-    shippingCost: "40,000 ₽",
-    leadTime: "30-45 рабочих дней",
-    inStock: true,
-    rating: 4.6,
-    reviewCount: 8,
-    images: ["https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=800&h=600&fit=crop"],
-    shortDescription: "Компактный гуманоидный робот для образования.",
-    fullDescription: "Unitree G1 предназначен для образовательных целей и начального изучения гуманоидной робототехники.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Компактный размер",
-      "Образовательная платформа",
-      "Простое программирование",
-      "Безопасная эксплуатация"
+    rating: 4.5,
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "40,000 ₽", freeThreshold: "8,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Гуманоидный робот для взаимодействия с людьми в сфере обслуживания.",
+    features: [
+      "Распознавание эмоций",
+      "Речь и общение",
+      "Интерактивные приложения",
+      "Привлечение внимания"
+    ]
   },
 
   // Robotic Arms
-  "ufactory-xarm6": {
-    id: "ufactory-xarm6",
-    name: "UFactory xArm 6",
-    brand: "UFactory",
+  {
+    id: "universal-robots-ur5e",
+    name: "Universal Robots UR5e",
+    brand: "Universal Robots",
     category: "robotic-arms",
-    dof: "6-DOF",
     basePrice: "Запросить цену",
-    shippingCost: "20,000 ₽",
-    leadTime: "21-30 рабочих дней",
-    inStock: true,
-    rating: 4.5,
-    reviewCount: 25,
-    images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"],
-    shortDescription: "6-осевой промышленный робот-манипулятор.",
-    fullDescription: "UFactory xArm 6 представляет собой высокоточный робот-манипулятор для промышленных применений.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "6 степеней свободы",
-      "Высокая точность позиционирования",
-      "Простое программирование",
-      "Система безопасности"
+    rating: 4.6,
+    images: [
+      "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85",
+      "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "20,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Коллаборативный робот-манипулятор для автоматизации производства.",
+    features: [
+      "Простая интеграция",
+      "Гибкая настройка",
+      "Безопасная работа рядом с людьми",
+      "Автоматизация задач"
+    ]
   },
-
-  "ufactory-xarm7": {
-    id: "ufactory-xarm7",
-    name: "UFactory xArm 7",
-    brand: "UFactory",
+  {
+    id: "fanuc-crx-10ia",
+    name: "FANUC CRX-10iA",
+    brand: "FANUC",
     category: "robotic-arms",
-    dof: "7-DOF",
     basePrice: "Запросить цену",
-    shippingCost: "20,000 ₽",
-    leadTime: "21-30 рабочих дней",
-    inStock: true,
     rating: 4.7,
-    reviewCount: 19,
-    images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"],
-    shortDescription: "7-осевой промышленный робот-манипулятор.",
-    fullDescription: "UFactory xArm 7 обеспечивает дополнительную гибкость благодаря 7-й степени свободы.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "7 степеней свободы",
-      "Повышенная гибкость",
-      "Избежание сингулярностей",
-      "Продвинутые алгоритмы управления"
+    images: [
+      "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png",
+      "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "20,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
-  },
-
-  "dobot-mg400": {
-    id: "dobot-mg400",
-    name: "Dobot MG400",
-    brand: "Dobot",
-    category: "robotic-arms",
-    dof: "4-DOF",
-    basePrice: "Запросить цену",
-    shippingCost: "15,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.3,
-    reviewCount: 34,
-    images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"],
-    shortDescription: "Настольный робот-манипулятор для образования.",
-    fullDescription: "Dobot MG400 предназначен для образовательных целей и небольших производственных задач.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
+    description: "Коллаборативный робот FANUC для различных промышленных задач.",
     features: [
-      "4 степени свободы",
-      "Настольный формат",
-      "Образовательная платформа",
-      "Доступная цена"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "15,000 ₽", freeThreshold: "2,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
-  },
-
-  "dobot-cr3": {
-    id: "dobot-cr3",
-    name: "Dobot CR3",
-    brand: "Dobot",
-    category: "robotic-arms",
-    dof: "6-DOF",
-    basePrice: "Запросить цену",
-    shippingCost: "20,000 ₽",
-    leadTime: "21-30 рабочих дней",
-    inStock: true,
-    rating: 4.4,
-    reviewCount: 28,
-    images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"],
-    shortDescription: "Коллаборативный робот для безопасной работы с людьми.",
-    fullDescription: "Dobot CR3 разработан для безопасного взаимодействия с человеком в производственной среде.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Коллаборативная безопасность",
-      "6 степеней свободы",
-      "Датчики силы и момента",
-      "Простая настройка"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "20,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+      "Высокая надежность",
+      "Простое программирование",
+      "Безопасная работа",
+      "Различные применения"
+    ]
   },
 
   // Laser Cutters
-  "xtool-p2": {
-    id: "xtool-p2",
-    name: "xTool P2",
-    brand: "xTool",
+  {
+    id: "glowforge-pro",
+    name: "Glowforge Pro",
+    brand: "Glowforge",
     category: "laser-cutters",
-    power: "55W",
     basePrice: "Запросить цену",
-    shippingCost: "10,000 ₽",
-    leadTime: "10-14 рабочих дней",
-    inStock: true,
-    rating: 4.6,
-    reviewCount: 45,
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"],
-    shortDescription: "Настольный лазерный гравер с системой автофокуса.",
-    fullDescription: "xTool P2 обеспечивает точную лазерную резку и гравировку с автоматической фокусировкой.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Мощность лазера 55W",
-      "Автоматическая фокусировка",
-      "Камера для позиционирования",
-      "Простое ПО"
+    rating: 4.5,
+    images: [
+      "https://cdn.shopify.com/s/files/1/0274/3345/products/pro-closed-0000_5000x.jpg?v=1663343995",
+      "https://cdn.shopify.com/s/files/1/0274/3345/products/pro-closed-0000_5000x.jpg?v=1663343995"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "10,000 ₽", freeThreshold: "1,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+    description: "Настольный лазерный резак для создания различных проектов.",
+    features: [
+      "Простота использования",
+      "Различные материалы",
+      "Встроенный дизайн",
+      "Высокая точность"
+    ]
   },
-
-  "xtool-s1-40w": {
-    id: "xtool-s1-40w",
-    name: "xTool S1 40W",
-    brand: "xTool",
+  {
+    id: "epilog-laser-fusion-m2",
+    name: "Epilog Laser Fusion M2",
+    brand: "Epilog Laser",
     category: "laser-cutters",
-    power: "40W",
     basePrice: "Запросить цену",
-    shippingCost: "10,000 ₽",
-    leadTime: "10-14 рабочих дней",
-    inStock: true,
-    rating: 4.4,
-    reviewCount: 38,
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"],
-    shortDescription: "Универсальный лазерный станок для различных материалов.",
-    fullDescription: "xTool S1 40W предназначен для работы с широким спектром материалов.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Мощность лазера 40W",
-      "Работа с различными материалами",
-      "Закрытый корпус",
-      "Система вентиляции"
+    rating: 4.8,
+    images: [
+      "https://www.epiloglaser.com/assets/img/products/fusion-laser-series/gallery/fusion-m2-40-laser-machine-1-lg.jpg",
+      "https://www.epiloglaser.com/assets/img/products/fusion-laser-series/gallery/fusion-m2-40-laser-machine-1-lg.jpg"
     ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "10,000 ₽", freeThreshold: "1,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
-  },
-
-  "flux-hexa": {
-    id: "flux-hexa",
-    name: "FLUX HEXA",
-    brand: "FLUX",
-    category: "laser-cutters",
-    power: "30W",
-    basePrice: "Запросить цену",
-    shippingCost: "10,000 ₽",
-    leadTime: "14-21 рабочих дней",
-    inStock: true,
-    rating: 4.2,
-    reviewCount: 23,
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"],
-    shortDescription: "Многофункциональный станок с модульной системой.",
-    fullDescription: "FLUX HEXA сочетает лазерную резку, 3D печать и фрезерование в одном устройстве.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
+    description: "Промышленный лазерный резак для точной резки и гравировки.",
     features: [
-      "Многофункциональность",
-      "Модульная система",
-      "Лазер 30W",
-      "Компактный дизайн"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "10,000 ₽", freeThreshold: "1,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
-  },
-
-  "xtool-f1": {
-    id: "xtool-f1",
-    name: "xTool F1",
-    brand: "xTool",
-    category: "laser-cutters",
-    power: "20W",
-    basePrice: "Запросить цену",
-    shippingCost: "8,000 ₽",
-    leadTime: "7-10 рабочих дней",
-    inStock: true,
-    rating: 4.3,
-    reviewCount: 52,
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop"],
-    shortDescription: "Портативный лазерный гравер для мелких работ.",
-    fullDescription: "xTool F1 идеально подходит для персонального использования и небольших проектов.",
-    demoVideo: "https://www.youtube.com/embed/demo-video-id",
-    features: [
-      "Портативный дизайн",
-      "Мощность лазера 20W",
-      "Быстрая настройка",
-      "Доступная цена"
-    ],
-    pricing: { base: "Запросить цену" },
-    shipping: { cost: "8,000 ₽", freeThreshold: "500,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews
+      "Высокая мощность",
+      "Большая рабочая область",
+      "Различные материалы",
+      "Автоматизация задач"
+    ]
   }
-};
-
-export const getProduct = (id: string): Product | null => {
-  return productsDatabase[id] || null;
-};
+];
 
 export const getProductsByCategory = (category: string): Product[] => {
-  return Object.values(productsDatabase).filter(product => product.category === category);
+  return products.filter(product => product.category === category);
 };
+
+export const getProductById = (category: string, id: string): Product | undefined => {
+  return products.find(product => product.category === category && product.id === id);
+};
+
+export default products;

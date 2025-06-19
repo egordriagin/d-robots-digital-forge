@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -11,6 +10,7 @@ import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
 import StandardizedSpecifications from "@/components/StandardizedSpecifications";
+import ScannerSpecifications from "@/components/ScannerSpecifications";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { getProduct } from "@/data/products";
 
@@ -162,6 +162,25 @@ const ProductDetail = () => {
   };
 
   const displayedReviews = showAllReviews ? product.reviews : product.reviews.slice(0, 3);
+
+  const renderSpecifications = () => {
+    if (product.printerSpecifications) {
+      return <StandardizedSpecifications specifications={product.printerSpecifications} />;
+    }
+    
+    if (product.scannerSpecifications) {
+      return <ScannerSpecifications specifications={product.scannerSpecifications} />;
+    }
+    
+    return (
+      <Card>
+        <CardContent className="p-8">
+          <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
+          <p className="text-gray-600">Детальные характеристики скоро будут добавлены.</p>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
     <>
@@ -334,16 +353,7 @@ const ProductDetail = () => {
               </TabsContent>
               
               <TabsContent value="specifications" className="mt-8">
-                {product.specifications ? (
-                  <StandardizedSpecifications specifications={product.specifications} />
-                ) : (
-                  <Card>
-                    <CardContent className="p-8">
-                      <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
-                      <p className="text-gray-600">Подробные технические характеристики будут добавлены в ближайшее время.</p>
-                    </CardContent>
-                  </Card>
-                )}
+                {renderSpecifications()}
               </TabsContent>
               
               <TabsContent value="reviews" className="mt-8">
