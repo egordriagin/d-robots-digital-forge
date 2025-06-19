@@ -41,7 +41,7 @@ export const Header = () => {
             </div>
           </div>
           <div className="hidden md:block">
-            <span>Надежные решения цифрового производства с 2025 года</span>
+            <span>Надежные решения цифрового производства с 2019 года</span>
           </div>
         </div>
       </div>
