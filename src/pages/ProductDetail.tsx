@@ -9,7 +9,9 @@ import { Star, Clock, Truck, Play } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
+import StandardizedSpecifications from "@/components/StandardizedSpecifications";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { PrinterSpecifications } from "@/types/printer-specifications";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
@@ -30,6 +32,84 @@ const ProductDetail = () => {
       'laser-cutters': 'Лазерные граверы'
     };
     return categoryNames[category || ''] || category;
+  };
+
+  // Standardized specifications for Bambu Lab X1E
+  const standardizedSpecs: PrinterSpecifications = {
+    printing: {
+      buildVolume: {
+        dimensions: "256 × 256 × 256 мм",
+        area: "65 536 мм²",
+        maxLength: "256 мм"
+      },
+      resolution: {
+        layerHeight: "0.08-0.35 мм",
+        xyResolution: "0.1 мм",
+        dimensionalAccuracy: "±0.1 мм",
+        minWallThickness: "0.4 мм"
+      },
+      speed: {
+        maxSpeed: "500 мм/с",
+        typicalRange: "50-300 мм/с",
+        materialDependent: "Скорость может снижаться при печати с гибкими или специальными материалами"
+      }
+    },
+    technology: {
+      printingTechnology: {
+        type: "FDM (Fused Deposition Modeling)",
+        implementation: "Закрытая камера с системой автоматической смены материалов (AMS)"
+      },
+      materials: {
+        supportedMaterials: "PLA, ABS, PETG, TPU, PA, PC, ASA",
+        cartridgeSpecs: "Стандартные катушки 1.75 мм",
+        temperatureRange: "Экструдер: до 300°C, платформа: до 120°C"
+      }
+    },
+    hardware: {
+      dimensions: {
+        printerSize: "385 × 389 × 457 мм",
+        weight: "31 кг",
+        requiredSpace: "Рекомендуется минимум 600 × 600 мм пространства вокруг"
+      },
+      interface: {
+        controlType: "Цветной сенсорный экран с интуитивным интерфейсом",
+        displaySpecs: "5 дюймов, цветной TFT",
+        languages: "Многоязычный, включая русский"
+      },
+      connectivity: {
+        wifi: "Wi-Fi 802.11 b/g/n",
+        ethernet: "Ethernet 100 Мбит/с",
+        usb: "USB Type-A, поддержка флеш-накопителей"
+      }
+    },
+    environment: {
+      operating: {
+        temperatureRange: "15-30°C",
+        humidity: "20-80% без конденсации"
+      },
+      power: {
+        voltage: "220V переменного тока",
+        consumption: "350 Вт",
+        frequency: "50/60 Гц"
+      }
+    },
+    advanced: {
+      automation: {
+        autoLeveling: "Да, автоматическая калибровка с помощью лидара и датчиков",
+        sensors: "Датчик окончания филамента, контроль температуры, детектор засорения сопла",
+        autoFeed: "Автоматическая система смены материалов (AMS) до 4 катушек"
+      },
+      software: {
+        compatibleOS: "Windows, macOS, Linux",
+        fileFormats: ".gcode, .stl, .obj, .3mf",
+        systemRequirements: "Минимум 8 ГБ ОЗУ, 64-битная ОС"
+      },
+      qualityControl: {
+        forceSensing: "Нет",
+        temperatureControl: "Активный контроль температуры экструдера и платформы с PID-регулированием",
+        realTimeMonitoring: "Да, через встроенную камеру и мобильное приложение"
+      }
+    }
   };
 
   // Mock product data - in a real app, this would come from an API
@@ -69,21 +149,6 @@ const ProductDetail = () => {
       "Автоматическое выравнивание стола",
       "Детектор окончания филамента"
     ],
-    specifications: {
-      "Технология печати": "FDM (Fused Deposition Modeling)",
-      "Область печати": "256 × 256 × 256 мм",
-      "Точность позиционирования": "±0.1 мм",
-      "Высота слоя": "0.08-0.35 мм",
-      "Поддерживаемые материалы": "PLA, ABS, PETG, TPU, PA, PC, ASA",
-      "Скорость печати": "до 500 мм/с",
-      "Диаметр филамента": "1.75 мм",
-      "Температура сопла": "до 300°C",
-      "Температура стола": "до 120°C",
-      "Подключение": "Wi-Fi, Ethernet, USB",
-      "Размеры принтера": "385 × 389 × 457 мм",
-      "Вес": "31 кг",
-      "Питание": "220V, 350W"
-    },
     pricing: {
       base: "2,890,000 ₽",
       withAMS: "3,290,000 ₽",
@@ -398,19 +463,7 @@ const ProductDetail = () => {
               </TabsContent>
               
               <TabsContent value="specifications" className="mt-8">
-                <Card>
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0">
-                          <span className="font-medium text-[#1F669D]">{key}:</span>
-                          <span className="text-gray-700 text-right">{value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                <StandardizedSpecifications specifications={standardizedSpecs} />
               </TabsContent>
               
               <TabsContent value="reviews" className="mt-8">
