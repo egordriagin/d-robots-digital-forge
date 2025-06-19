@@ -160,7 +160,7 @@ const Printers3D = () => {
             </div>
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=500&h=400&fit=crop"
+                src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
                 alt="3D Printing"
                 className="rounded-lg shadow-lg mx-auto"
               />
