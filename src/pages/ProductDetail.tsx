@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -11,6 +10,7 @@ import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
 import StandardizedSpecifications from "@/components/StandardizedSpecifications";
+import ScannerSpecificationsComponent from "@/components/ScannerSpecifications";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { getProduct } from "@/data/products";
 
@@ -336,6 +336,8 @@ const ProductDetail = () => {
               <TabsContent value="specifications" className="mt-8">
                 {product.specifications ? (
                   <StandardizedSpecifications specifications={product.specifications} />
+                ) : product.scannerSpecifications ? (
+                  <ScannerSpecificationsComponent specifications={product.scannerSpecifications} />
                 ) : (
                   <Card>
                     <CardContent className="p-8">
