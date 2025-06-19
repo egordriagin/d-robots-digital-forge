@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,6 @@ export const Header = () => {
   const location = useLocation();
 
   const navigationItems = [
-    { name: "Главная", path: "/" },
     { name: "3D Принтеры", path: "/3d-printers" },
     { name: "3D Сканеры", path: "/3d-scanners" },
     { name: "Робо-собаки", path: "/robotic-dogs" },
@@ -61,7 +59,7 @@ export const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navigationItems.slice(0, 7).map((item) => (
+            {navigationItems.slice(0, 6).map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
@@ -76,6 +74,7 @@ export const Header = () => {
             ))}
           </nav>
 
+          {/* buttons and mobile menu */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex space-x-2">
               <Link to="/about">
