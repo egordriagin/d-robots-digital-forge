@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
+import { getProductsByCategory } from "@/data/products";
 
 const LaserCutters = () => {
-  const laserCutters = [
-    { id: "xtool-p2", name: "xTool P2", brand: "xTool", power: "55W", price: "Запросить цену" },
-    { id: "xtool-s1-40w", name: "xTool S1 40W", brand: "xTool", power: "40W", price: "Запросить цену" },
-    { id: "flux-hexa", name: "FLUX HEXA", brand: "FLUX", power: "30W", price: "Запросить цену" },
-    { id: "xtool-f1", name: "xTool F1", brand: "xTool", power: "20W", price: "Запросить цену" }
-  ];
+  const laserCutters = getProductsByCategory("laser-cutters");
 
   return (
     <div className="min-h-screen py-8">
@@ -25,7 +22,7 @@ const LaserCutters = () => {
             <Card key={cutter.id} className="hover:shadow-xl transition-shadow border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" 
+                  src={cutter.images[0]}
                   alt={cutter.name}
                   className="w-full h-48 object-cover"
                 />
@@ -34,14 +31,20 @@ const LaserCutters = () => {
                 </Badge>
               </div>
               <CardHeader className="pb-2">
-                <Badge variant="outline" className="text-xs text-[#1F669D] border-[#1F669D] w-fit">
-                  {cutter.brand}
-                </Badge>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge variant="outline" className="text-xs text-[#1F669D] border-[#1F669D]">
+                    {cutter.brand}
+                  </Badge>
+                  <div className="flex items-center space-x-1">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm text-gray-600">{cutter.rating}</span>
+                  </div>
+                </div>
                 <CardTitle className="text-[#113C5A] text-lg">{cutter.name}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-semibold text-[#1F669D]">{cutter.price}</span>
+                  <span className="text-sm font-semibold text-[#1F669D]">{cutter.basePrice}</span>
                   <Link to={`/product/laser-cutters/${cutter.id}`}>
                     <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D]">Подробнее</Button>
                   </Link>

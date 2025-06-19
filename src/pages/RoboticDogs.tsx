@@ -4,14 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { getProductsByCategory } from "@/data/products";
 
 const RoboticDogs = () => {
-  const roboticDogs = [
-    { id: "unitree-go2-pro", name: "Unitree Go2 Pro", model: "GO2 Pro", price: "Запросить цену", rating: 4.8, popular: true },
-    { id: "unitree-go2-edu", name: "Unitree Go2 EDU", model: "GO2 EDU", price: "Запросить цену", rating: 4.6, popular: true },
-    { id: "unitree-b1", name: "Unitree B1", model: "B1", price: "Запросить цену", rating: 4.7, popular: false },
-    { id: "unitree-a1", name: "Unitree A1", model: "A1", price: "Запросить цену", rating: 4.5, popular: false }
-  ];
+  const roboticDogs = getProductsByCategory("robotic-dogs");
 
   return (
     <div className="min-h-screen py-8">
@@ -28,21 +24,19 @@ const RoboticDogs = () => {
             <Card key={robot.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=400&fit=crop" 
+                  src={robot.images[0]}
                   alt={robot.name}
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {robot.popular && (
-                  <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
-                    Популярный
-                  </Badge>
-                )}
+                <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
+                  Популярный
+                </Badge>
               </div>
               
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <Badge variant="outline" className="text-xs text-[#1F669D] border-[#1F669D]">
-                    Unitree
+                    {robot.brand}
                   </Badge>
                   <div className="flex items-center space-x-1">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -57,7 +51,7 @@ const RoboticDogs = () => {
               <CardContent>
                 <div className="flex justify-between items-center">
                   <div className="text-lg font-semibold text-[#1F669D]">
-                    {robot.price}
+                    {robot.basePrice}
                   </div>
                   <Link to={`/product/robotic-dogs/${robot.id}`}>
                     <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">

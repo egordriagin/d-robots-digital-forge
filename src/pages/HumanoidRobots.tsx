@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
+import { getProductsByCategory } from "@/data/products";
 
 const HumanoidRobots = () => {
-  const humanoidRobots = [
-    { id: "unitree-h1", name: "Unitree H1", description: "Полноразмерный гуманоидный робот", price: "Запросить цену" },
-    { id: "unitree-g1", name: "Unitree G1", description: "Компактный гуманоидный робот", price: "Запросить цену" }
-  ];
+  const humanoidRobots = getProductsByCategory("humanoid-robots");
 
   return (
     <div className="min-h-screen py-8">
@@ -23,7 +22,7 @@ const HumanoidRobots = () => {
             <Card key={robot.id} className="hover:shadow-xl transition-shadow border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=500&h=400&fit=crop" 
+                  src={robot.images[0]}
                   alt={robot.name}
                   className="w-full h-64 object-cover"
                 />
@@ -32,12 +31,21 @@ const HumanoidRobots = () => {
                 </Badge>
               </div>
               <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge variant="outline" className="text-xs text-[#1F669D] border-[#1F669D]">
+                    {robot.brand}
+                  </Badge>
+                  <div className="flex items-center space-x-1">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm text-gray-600">{robot.rating}</span>
+                  </div>
+                </div>
                 <CardTitle className="text-[#113C5A]">{robot.name}</CardTitle>
-                <p className="text-gray-600">{robot.description}</p>
+                <p className="text-gray-600">{robot.shortDescription}</p>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold text-[#1F669D]">{robot.price}</span>
+                  <span className="text-lg font-semibold text-[#1F669D]">{robot.basePrice}</span>
                   <Link to={`/product/humanoid-robots/${robot.id}`}>
                     <Button className="bg-[#3498DB] hover:bg-[#1F669D]">Подробнее</Button>
                   </Link>

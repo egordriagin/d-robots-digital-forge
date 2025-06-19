@@ -6,16 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Search, Star } from "lucide-react";
+import { getProductsByCategory } from "@/data/products";
 
 const Scanners3D = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const scanners = [
-    { id: "freescan-ue-pro", name: "FreeScan UE Pro", brand: "SHINING 3D", type: "Handheld", price: "Запросить цену", rating: 4.8, popular: true },
-    { id: "einstar-3d", name: "EinStar 3D Scanner", brand: "SHINING 3D", type: "Handheld", price: "Запросить цену", rating: 4.5, popular: true },
-    { id: "revopoint-miraco", name: "Revopoint MIRACO", brand: "Revopoint", type: "Handheld", price: "Запросить цену", rating: 4.3, popular: false },
-    { id: "einscan-pro-2x", name: "EinScan Pro 2X 2020", brand: "SHINING 3D", type: "Desktop", price: "Запросить цену", rating: 4.6, popular: true }
-  ];
+  const scanners = getProductsByCategory("3d-scanners");
 
   const filteredScanners = scanners.filter(scanner => 
     scanner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -49,17 +45,15 @@ const Scanners3D = () => {
             <Card key={scanner.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop" 
+                  src={scanner.images[0]} 
                   alt={scanner.name}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {scanner.popular && (
-                  <Badge className="absolute top-3 left-3 bg-[#3498DB] text-white">
-                    Популярный
-                  </Badge>
-                )}
+                <Badge className="absolute top-3 left-3 bg-[#3498DB] text-white">
+                  Популярный
+                </Badge>
                 <Badge className="absolute top-3 right-3 bg-white text-[#113C5A]">
-                  {scanner.type}
+                  Handheld
                 </Badge>
               </div>
               
@@ -81,7 +75,7 @@ const Scanners3D = () => {
               <CardContent>
                 <div className="flex justify-between items-center">
                   <div className="text-lg font-semibold text-[#1F669D]">
-                    {scanner.price}
+                    {scanner.basePrice}
                   </div>
                   <Link to={`/product/3d-scanners/${scanner.id}`}>
                     <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
