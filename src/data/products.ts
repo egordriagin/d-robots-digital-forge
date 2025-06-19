@@ -1,5 +1,5 @@
+
 import { PrinterSpecifications } from "@/types/printer-specifications";
-import { ScannerSpecifications } from "@/types/scanner-specifications";
 
 export interface Product {
   id: string;
@@ -35,7 +35,6 @@ export interface Product {
     comment: string;
   }>;
   specifications?: PrinterSpecifications;
-  scannerSpecifications?: ScannerSpecifications;
   type?: string;
   power?: string;
   dof?: string;
@@ -145,161 +144,6 @@ const defaultSpecs: PrinterSpecifications = {
       forceSensing: "Нет",
       temperatureControl: "Поддержка контроля температуры экструдера и платформы",
       realTimeMonitoring: "Да, через ПО и экран"
-    }
-  }
-};
-
-const defaultScannerSpecs: ScannerSpecifications = {
-  accuracy: {
-    pointAccuracy: {
-      range: "0.05-0.10 мм",
-      typical: "0.1 мм",
-      measurement: "Одноточечная точность"
-    },
-    volumetricAccuracy: {
-      baseAccuracy: "0.03 мм",
-      distanceCoefficient: "0.15 мм/м",
-      formula: "0.03 мм + 0.15 мм/м × расстояние измерения"
-    },
-    resolution: {
-      measurementResolution: "0.1 мм",
-      pointDistance: "0.2 мм",
-      outputMeshResolution: "0.1-2.0 мм"
-    }
-  },
-  speed: {
-    frameRate: {
-      fps: "10 кад/с",
-      range: "5-15 кад/с",
-      conditions: "В зависимости от режима сканирования"
-    },
-    measurementSpeed: {
-      pointsPerSecond: "550,000 точек/с",
-      measurementsPerSecond: "1,100,000 измерений/с",
-      dataAcquisition: "До 2 млн точек/с"
-    },
-    scanningModes: {
-      fastMode: "15 кад/с, пониженная точность",
-      precisionMode: "5 кад/с, максимальная точность",
-      standardMode: "10 кад/с, баланс скорости и точности"
-    }
-  },
-  captureRange: {
-    fieldOfView: {
-      singleScan: "200×150 мм",
-      width: "200 мм",
-      height: "150 мм"
-    },
-    depthOfField: {
-      range: "150 мм",
-      optimal: "300-450 мм",
-      minimum: "200 мм"
-    },
-    workingDistance: {
-      range: "300-800 мм",
-      optimal: "400 мм",
-      objectDistance: "300-800 мм от сканера"
-    },
-    objectSize: {
-      minimum: "30×30×30 мм",
-      maximum: "4000×4000×4000 мм",
-      recommended: "50-2000 мм"
-    }
-  },
-  technology: {
-    scanningTechnology: {
-      type: "Структурированный свет",
-      implementation: "Белый свет LED проекция",
-      lightSource: "LED белый свет"
-    },
-    hardware: {
-      cameras: "2 × 2 МП камеры",
-      projectors: "1 × DLP проектор",
-      laserClass: "Безопасный (LED)"
-    },
-    tracking: {
-      alignmentMethods: ["Геометрия", "Цвет", "Маркеры", "Визуальное отслеживание"],
-      trackingMode: "Автоматическое/ручное позиционирование",
-      markerSupport: "Поддержка маркеров и режим без маркеров"
-    }
-  },
-  compatibility: {
-    objectSize: {
-      recommendedRange: "50 мм - 2 м",
-      typicalCharacteristics: "Средние и крупные объекты",
-      maximumSize: "4×4×4 м (с поворотным столом)"
-    },
-    surfaceRequirements: {
-      compatibleSurfaces: ["Матовые", "Полуматовые", "Текстурированные", "Окрашенные"],
-      surfaceTreatment: "Антибликовый спрей для блестящих поверхностей",
-      limitations: ["Прозрачные поверхности", "Зеркальные поверхности", "Очень темные поверхности"]
-    },
-    materials: {
-      supported: ["Пластик", "Металл", "Керамика", "Дерево", "Гипс", "Смола"],
-      challenging: ["Стекло", "Хром", "Полированный металл", "Черные материалы"],
-      preprocessing: "Матирующий спрей для проблемных поверхностей"
-    }
-  },
-  software: {
-    outputFormats: {
-      fileFormats: ["STL", "OBJ", "PLY", "ASC"],
-      meshFormats: ["STL", "OBJ", "PLY"],
-      cloudFormats: ["PLY", "ASC", "XYZ"]
-    },
-    systemCompatibility: {
-      operatingSystems: ["Windows 10/11", "macOS 10.14+"],
-      mobileSupport: "Нет",
-      cloudProcessing: "Локальная обработка"
-    },
-    requirements: {
-      minimumSpecs: {
-        ram: "8 ГБ",
-        processor: "Intel i5 / AMD Ryzen 5",
-        graphics: "Интегрированная графика",
-        storage: "100 ГБ свободного места"
-      },
-      recommendedSpecs: {
-        ram: "16 ГБ",
-        processor: "Intel i7 / AMD Ryzen 7",
-        graphics: "Дискретная видеокарта",
-        storage: "500 ГБ SSD"
-      }
-    }
-  },
-  hardware: {
-    physicalSpecs: {
-      scannerWeight: "0.85 кг",
-      scannerDimensions: "150×80×30 мм",
-      portability: "Портативный ручной"
-    },
-    connectivity: {
-      cableSpecs: "USB 3.0 кабель 3 м",
-      connectionType: "USB 3.0",
-      wirelessOptions: "Нет"
-    },
-    classification: {
-      type: "handheld",
-      mobility: "Полностью портативный",
-      setupTime: "< 2 минут"
-    }
-  },
-  advanced: {
-    operatingConditions: {
-      indoorOutdoor: "Помещение, контролируемое освещение",
-      lightingRequirements: "Рассеянный свет, избегать прямого солнца",
-      environmentalLimitations: ["Прямой солнечный свет", "Вибрации", "Пыльная среда"]
-    },
-    scanningModes: {
-      availableModes: ["HD", "Быстрый", "Фиксированный", "Автоматический"],
-      textureCapture: "Полноцветный захват текстур",
-      colorCapture: "24-битный цвет",
-      realTimeProcessing: "Предварительный просмотр в реальном времени"
-    },
-    qualityControl: {
-      autoCalibration: "Автоматическая калибровка при старте",
-      errorDetection: "Автоматическое обнаружение пропусков",
-      qualityAssessment: "Встроенная оценка качества сетки",
-      softwareTools: ["Автозаполнение отверстий", "Сглаживание сетки", "Упрощение полигонов", "Контроль качества"]
     }
   }
 };
@@ -604,7 +448,7 @@ export const productsDatabase: Record<string, Product> = {
     reviewCount: 32,
     images: ["https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop"],
     shortDescription: "Профессиональный ручной 3D сканер с высокой точностью.",
-    fullDescription: "EinScan Pro 2X обеспечивает профессиональное 3D сканирование для различных применений в промышленности, медицине, образовании и искусстве. Сочетает портативность ручного сканера с точностью стационарных систем.",
+    fullDescription: "EinScan Pro 2X обеспечивает профессиональное 3D сканирование для различных применений.",
     demoVideo: "https://www.youtube.com/embed/demo-video-id",
     features: [
       "Ручное и стационарное сканирование",
@@ -614,8 +458,7 @@ export const productsDatabase: Record<string, Product> = {
     ],
     pricing: { base: "Запросить цену" },
     shipping: { cost: "15,000 ₽", freeThreshold: "3,000,000 ₽", regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"] },
-    reviews: defaultReviews,
-    scannerSpecifications: defaultScannerSpecs
+    reviews: defaultReviews
   },
 
   // Robotic Dogs
