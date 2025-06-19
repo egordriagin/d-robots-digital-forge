@@ -15,6 +15,7 @@ const ProductDetail = () => {
   const [showConsultationForm, setShowConsultationForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   // Category name translations
   const getCategoryName = (category: string | undefined) => {
@@ -115,6 +116,8 @@ const ProductDetail = () => {
       }
     ]
   };
+
+  const displayedReviews = showAllReviews ? product.reviews : product.reviews.slice(0, 3);
 
   return (
     <div className="min-h-screen py-8">
@@ -306,7 +309,7 @@ const ProductDetail = () => {
                   </div>
                   
                   <div className="space-y-6">
-                    {product.reviews.map((review) => (
+                    {displayedReviews.map((review) => (
                       <div key={review.id} className="border-b border-gray-100 pb-6 last:border-b-0">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-3">
@@ -328,8 +331,12 @@ const ProductDetail = () => {
                   </div>
                   
                   <div className="mt-8 text-center">
-                    <Button variant="outline" className="border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white">
-                      Показать все отзывы
+                    <Button 
+                      variant="outline" 
+                      className="border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white"
+                      onClick={() => setShowAllReviews(!showAllReviews)}
+                    >
+                      {showAllReviews ? 'Скрыть отзывы' : 'Показать все отзывы'}
                     </Button>
                   </div>
                 </CardContent>
