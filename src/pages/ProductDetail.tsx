@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -209,7 +210,7 @@ const ProductDetail = () => {
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
                   <div className="flex items-center space-x-1">
                     <Truck className="h-4 w-4" />
-                    <span>Доставка: {product.shipping.cost}</span>
+                    <span>Доставка: Бесплатно</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="h-4 w-4" />
@@ -217,7 +218,7 @@ const ProductDetail = () => {
                   </div>
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
-                  * Бесплатная доставка при заказе от {product.shipping.freeThreshold}
+                  * Бесплатная доставка при заказе от 50,000 ₽
                 </p>
               </div>
             </div>
