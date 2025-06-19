@@ -36,15 +36,46 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
   });
 
   const onSubmit = async (data: FormData) => {
+    // Basic validation
+    if (!data.name || !data.email || !data.phone) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, заполните обязательные поля: Имя, Email и Телефон",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, введите корректный email адрес",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Simulate form submission to sales@3d-robots.com
     setTimeout(() => {
-      console.log('Form submitted:', data);
+      console.log('Commercial offer form submitted to sales@3d-robots.com:', data);
       toast({
         title: "Заявка отправлена!",
-        description: "Мы свяжемся с вами в ближайшее время для предоставления коммерческого предложения.",
+        description: "Ваш запрос на коммерческое предложение получен. Мы свяжемся с вами в ближайшее время на sales@3d-robots.com",
       });
+      
+      // Reset form
+      form.reset({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: `Здравствуйте! Меня интересует коммерческое предложение для ${productName}. Прошу связаться со мной для обсуждения деталей.`
+      });
+      
       setIsSubmitting(false);
       onClose();
     }, 1000);
@@ -79,12 +110,11 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                 <FormField
                   control={form.control}
                   name="name"
-                  rules={{ required: "Имя обязательно для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Имя *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} />
+                        <Input placeholder="Ваше имя" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,18 +140,11 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                 <FormField
                   control={form.control}
                   name="email"
-                  rules={{ 
-                    required: "Email обязателен для заполнения",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Некорректный email адрес"
-                    }
-                  }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Email *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} />
+                        <Input type="email" placeholder="your@email.com" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,12 +154,11 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                 <FormField
                   control={form.control}
                   name="phone"
-                  rules={{ required: "Телефон обязателен для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Телефон *</FormLabel>
                       <FormControl>
-                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} />
+                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

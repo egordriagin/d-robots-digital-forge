@@ -36,15 +36,46 @@ const ConsultationForm = ({ productName, onClose }: ConsultationFormProps) => {
   });
 
   const onSubmit = async (data: FormData) => {
+    // Basic validation
+    if (!data.name || !data.email || !data.phone) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, заполните обязательные поля: Имя, Email и Телефон",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, введите корректный email адрес",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Simulate form submission to sales@3d-robots.com
     setTimeout(() => {
-      console.log('Consultation form submitted:', data);
+      console.log('Consultation form submitted to sales@3d-robots.com:', data);
       toast({
         title: "Заявка на консультацию отправлена!",
-        description: "Наш специалист свяжется с вами в ближайшее время для проведения консультации.",
+        description: "Ваш запрос получен. Наш специалист свяжется с вами в ближайшее время на sales@3d-robots.com",
       });
+      
+      // Reset form
+      form.reset({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: `Здравствуйте! Хотел бы получить консультацию по ${productName}. Прошу связаться со мной для обсуждения возможностей и технических характеристик.`
+      });
+      
       setIsSubmitting(false);
       onClose();
     }, 1000);
@@ -79,12 +110,11 @@ const ConsultationForm = ({ productName, onClose }: ConsultationFormProps) => {
                 <FormField
                   control={form.control}
                   name="name"
-                  rules={{ required: "Имя обязательно для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Имя *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} />
+                        <Input placeholder="Ваше имя" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,18 +140,11 @@ const ConsultationForm = ({ productName, onClose }: ConsultationFormProps) => {
                 <FormField
                   control={form.control}
                   name="email"
-                  rules={{ 
-                    required: "Email обязателен для заполнения",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Некорректный email адрес"
-                    }
-                  }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Email *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} />
+                        <Input type="email" placeholder="your@email.com" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,12 +154,11 @@ const ConsultationForm = ({ productName, onClose }: ConsultationFormProps) => {
                 <FormField
                   control={form.control}
                   name="phone"
-                  rules={{ required: "Телефон обязателен для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Телефон *</FormLabel>
                       <FormControl>
-                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} />
+                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

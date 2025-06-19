@@ -36,15 +36,46 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
   });
 
   const onSubmit = async (data: FormData) => {
+    // Basic validation
+    if (!data.name || !data.email || !data.message) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, заполните обязательные поля: Имя, Email и Сообщение",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast({
+        title: "Ошибка",
+        description: "Пожалуйста, введите корректный email адрес",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Simulate form submission to sales@3d-robots.com
     setTimeout(() => {
-      console.log('Contact form submitted:', data);
+      console.log('Contact form submitted to sales@3d-robots.com:', data);
       toast({
         title: "Сообщение отправлено!",
-        description: "Мы получили ваше сообщение и свяжемся с вами в ближайшее время.",
+        description: "Ваше сообщение получено. Мы свяжемся с вами в ближайшее время на sales@3d-robots.com",
       });
+      
+      // Reset form
+      form.reset({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: `Здравствуйте! Интересует продукт ${productName}. Прошу связаться со мной для получения дополнительной информации и обсуждения возможности сотрудничества.`
+      });
+      
       setIsSubmitting(false);
       onClose();
     }, 1000);
@@ -79,12 +110,11 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                 <FormField
                   control={form.control}
                   name="name"
-                  rules={{ required: "Имя обязательно для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Имя *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} />
+                        <Input placeholder="Ваше имя" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,18 +140,11 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                 <FormField
                   control={form.control}
                   name="email"
-                  rules={{ 
-                    required: "Email обязателен для заполнения",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Некорректный email адрес"
-                    }
-                  }}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Email *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} />
+                        <Input type="email" placeholder="your@email.com" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,10 +154,9 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                 <FormField
                   control={form.control}
                   name="phone"
-                  rules={{ required: "Телефон обязателен для заполнения" }}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-[#113C5A]">Телефон *</FormLabel>
+                      <FormLabel className="text-[#113C5A]">Телефон</FormLabel>
                       <FormControl>
                         <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} />
                       </FormControl>
@@ -149,12 +171,13 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[#113C5A]">Сообщение</FormLabel>
+                    <FormLabel className="text-[#113C5A]">Сообщение *</FormLabel>
                     <FormControl>
                       <textarea
                         className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Расскажите о ваших потребностях и интересах..."
                         {...field}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
