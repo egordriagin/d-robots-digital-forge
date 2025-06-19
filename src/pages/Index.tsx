@@ -184,7 +184,7 @@ const Index = () => {
               { name: "3D Сканеры", path: "/3d-scanners", image: "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png", description: "Высокоточное 3D сканирование объектов" },
               { name: "Робо-собаки", path: "/robotic-dogs", image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png", description: "Четвероногие роботы нового поколения" },
               { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png", description: "Передовые человекоподобные роботы" },
-              { name: "Роботизированные руки", path: "/robotic-arms", image: "/lovable-uploads/c24a9af4-19d1-442e-b8dd-1c3fdd4f5e18.png", description: "Промышленные манипуляторы высокой точности" },
+              { name: "Роботизированные руки", path: "/robotic-arms", image: "/lovable-uploads/c39058dc-e6c4-43e6-b8ec-f8ab67679a8b.png", description: "Промышленные манипуляторы высокой точности" },
               { name: "Лазерные станки", path: "/laser-cutters", image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png", description: "Точная лазерная резка и гравировка" }
             ].map((category) => (
               <Link key={category.path} to={category.path} className="group block">
