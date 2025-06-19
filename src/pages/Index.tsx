@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,8 +91,8 @@ const Index = () => {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=500&fit=crop" 
-                alt="3D Printing Technology" 
+                src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png" 
+                alt="Professional additive manufacturing and 3D printing" 
                 className="rounded-lg shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500"
               />
               <div className="absolute -bottom-4 -left-4 bg-white text-[#113C5A] p-4 rounded-lg shadow-lg">
