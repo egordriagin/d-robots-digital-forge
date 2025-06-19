@@ -177,7 +177,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { name: "3D Принтеры", path: "/3d-printers", image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop", description: "Профессиональные 3D принтеры для любых задач" },
+              { name: "3D Принтеры", path: "/3d-printers", image: "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png", description: "Профессиональные 3D принтеры для любых задач" },
               { name: "3D Сканеры", path: "/3d-scanners", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop", description: "Высокоточное 3D сканирование объектов" },
               { name: "Робо-собаки", path: "/robotic-dogs", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop", description: "Четвероногие роботы нового поколения" },
               { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=300&fit=crop", description: "Передовые человекоподобные роботы" },
