@@ -90,7 +90,7 @@ const Index = () => {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=500&fit=crop" 
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=500&fit=crop" 
                 alt="3D Printing Technology" 
                 className="rounded-lg shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500"
               />
