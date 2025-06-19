@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,9 +62,11 @@ const Index = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white font-semibold px-8 py-3 transition-all duration-300">
-                  Посмотреть каталог
-                </Button>
+                <Link to="/3d-printers">
+                  <Button size="lg" className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white font-semibold px-8 py-3 transition-all duration-300">
+                    Посмотреть каталог
+                  </Button>
+                </Link>
                 <Link to="/contact">
                   <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3 transition-all duration-300">
                     Получить консультацию
