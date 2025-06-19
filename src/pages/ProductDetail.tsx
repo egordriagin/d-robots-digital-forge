@@ -6,11 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
+import ContactForm from "@/components/ContactForm";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
   const [showOfferForm, setShowOfferForm] = useState(false);
   const [showConsultationForm, setShowConsultationForm] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
 
   // Mock product data - in a real app, this would come from an API
   const product = {
@@ -146,11 +148,13 @@ const ProductDetail = () => {
           <p className="text-xl mb-8 text-gray-200">
             Получите персональное коммерческое предложение
           </p>
-          <Link to="/contact">
-            <Button size="lg" className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white">
-              Связаться с нами
-            </Button>
-          </Link>
+          <Button 
+            size="lg" 
+            className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white"
+            onClick={() => setShowContactForm(true)}
+          >
+            Связаться с нами
+          </Button>
         </div>
       </div>
 
@@ -167,6 +171,14 @@ const ProductDetail = () => {
         <ConsultationForm
           productName={product.name}
           onClose={() => setShowConsultationForm(false)}
+        />
+      )}
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <ContactForm
+          productName={product.name}
+          onClose={() => setShowContactForm(false)}
         />
       )}
     </div>
