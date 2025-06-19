@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -91,7 +90,30 @@ const ProductDetail = () => {
       cost: "15,000 ₽",
       freeThreshold: "3,000,000 ₽",
       regions: ["Москва и МО", "Санкт-Петербург", "Регионы РФ"]
-    }
+    },
+    reviews: [
+      {
+        id: 1,
+        author: "Дмитрий К.",
+        rating: 5,
+        date: "15 марта 2024",
+        comment: "Отличный принтер! Качество печати превосходное, настройка простая. Рекомендую для профессионального использования."
+      },
+      {
+        id: 2,
+        author: "Анна М.",
+        rating: 4,
+        date: "8 марта 2024",
+        comment: "Очень доволен покупкой. Быстрая доставка, качественная упаковка. Принтер работает стабильно."
+      },
+      {
+        id: 3,
+        author: "Сергей В.",
+        rating: 5,
+        date: "2 марта 2024",
+        comment: "Профессиональное оборудование высокого класса. Система AMS работает безупречно."
+      }
+    ]
   };
 
   return (
@@ -223,8 +245,8 @@ const ProductDetail = () => {
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="description">Описание</TabsTrigger>
               <TabsTrigger value="specifications">Характеристики</TabsTrigger>
-              <TabsTrigger value="features">Возможности</TabsTrigger>
-              <TabsTrigger value="demo">Демонстрация</TabsTrigger>
+              <TabsTrigger value="reviews">Отзывы</TabsTrigger>
+              <TabsTrigger value="video">Видео</TabsTrigger>
             </TabsList>
             
             <TabsContent value="description" className="mt-8">
@@ -236,6 +258,17 @@ const ProductDetail = () => {
                       {product.fullDescription.split('\n\n').map((paragraph, index) => (
                         <p key={index}>{paragraph.trim()}</p>
                       ))}
+                    </div>
+                    <div className="mt-8">
+                      <h4 className="text-xl font-bold text-[#113C5A] mb-4">Ключевые возможности</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {product.features.map((feature, index) => (
+                          <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+                            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-gray-700">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -258,49 +291,98 @@ const ProductDetail = () => {
               </Card>
             </TabsContent>
             
-            <TabsContent value="features" className="mt-8">
+            <TabsContent value="reviews" className="mt-8">
               <Card>
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Ключевые возможности</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {product.features.map((feature, index) => (
-                      <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
-                        <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-gray-700">{feature}</span>
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-[#113C5A]">Отзывы покупателей</h3>
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1">
+                        <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                        <span className="font-medium">{product.rating}</span>
+                      </div>
+                      <span className="text-gray-500">({product.reviewCount} отзывов)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    {product.reviews.map((review) => (
+                      <div key={review.id} className="border-b border-gray-100 pb-6 last:border-b-0">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-3">
+                            <span className="font-medium text-[#113C5A]">{review.author}</span>
+                            <div className="flex items-center space-x-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star 
+                                  key={i} 
+                                  className={`h-4 w-4 ${i < review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <span className="text-sm text-gray-500">{review.date}</span>
+                        </div>
+                        <p className="text-gray-700 leading-relaxed">{review.comment}</p>
                       </div>
                     ))}
+                  </div>
+                  
+                  <div className="mt-8 text-center">
+                    <Button variant="outline" className="border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white">
+                      Показать все отзывы
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
             </TabsContent>
             
-            <TabsContent value="demo" className="mt-8">
+            <TabsContent value="video" className="mt-8">
               <Card>
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Демонстрация работы</h3>
+                  <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Видео обзор</h3>
                   <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center mb-6">
                     <div className="text-center">
                       <Play className="h-16 w-16 text-[#3498DB] mx-auto mb-4" />
-                      <p className="text-gray-600">Видео демонстрация</p>
-                      <p className="text-sm text-gray-500">Показывает процесс печати и основные функции</p>
+                      <p className="text-gray-600 text-lg font-medium">Обзор Bambu Lab X1E</p>
+                      <p className="text-sm text-gray-500">Подробный видео обзор всех функций принтера</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img 
-                      src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop" 
-                      alt="Процесс печати" 
-                      className="rounded-lg"
-                    />
-                    <img 
-                      src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop" 
-                      alt="Результат печати" 
-                      className="rounded-lg"
-                    />
-                    <img 
-                      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop" 
-                      alt="Детали принтера" 
-                      className="rounded-lg"
-                    />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                      <div className="text-center">
+                        <Play className="h-12 w-12 text-[#3498DB] mx-auto mb-2" />
+                        <p className="text-gray-600">Процесс настройки</p>
+                      </div>
+                    </div>
+                    <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                      <div className="text-center">
+                        <Play className="h-12 w-12 text-[#3498DB] mx-auto mb-2" />
+                        <p className="text-gray-600">Печать образцов</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <h4 className="text-lg font-semibold text-[#113C5A] mb-4">Что вы увидите в видео:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li className="flex items-start space-x-2">
+                        <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Распаковка и первоначальная настройка</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Калибровка и подготовка к печати</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Демонстрация системы AMS</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                        <span>Примеры готовых изделий</span>
+                      </li>
+                    </ul>
                   </div>
                 </CardContent>
               </Card>
