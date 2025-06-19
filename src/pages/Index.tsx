@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -67,7 +66,7 @@ const Index = () => {
                   Посмотреть каталог
                 </Button>
                 <Link to="/contact">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3 transition-all duration-300">
+                  <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3 transition-all duration-300">
                     Получить консультацию
                   </Button>
                 </Link>
