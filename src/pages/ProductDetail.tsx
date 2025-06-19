@@ -1,12 +1,15 @@
 
 import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, ArrowDown } from "lucide-react";
+import { Star } from "lucide-react";
+import CommercialOfferForm from "@/components/CommercialOfferForm";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
+  const [showOfferForm, setShowOfferForm] = useState(false);
 
   // Mock product data - in a real app, this would come from an API
   const product = {
@@ -84,7 +87,11 @@ const ProductDetail = () => {
             <div className="border-t border-gray-200 pt-6">
               <div className="text-3xl font-bold text-[#1F669D] mb-6">{product.price}</div>
               <div className="space-y-4">
-                <Button size="lg" className="w-full bg-[#3498DB] hover:bg-[#1F669D] text-white">
+                <Button 
+                  size="lg" 
+                  className="w-full bg-[#3498DB] hover:bg-[#1F669D] text-white"
+                  onClick={() => setShowOfferForm(true)}
+                >
                   Запросить коммерческое предложение
                 </Button>
                 <Button size="lg" variant="outline" className="w-full border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white">
@@ -140,6 +147,14 @@ const ProductDetail = () => {
           </Link>
         </div>
       </div>
+
+      {/* Commercial Offer Form Modal */}
+      {showOfferForm && (
+        <CommercialOfferForm
+          productName={product.name}
+          onClose={() => setShowOfferForm(false)}
+        />
+      )}
     </div>
   );
 };
