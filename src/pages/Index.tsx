@@ -247,7 +247,7 @@ const Index = () => {
                   Получить консультацию
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3">
+              <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3">
                 Скачать каталог
               </Button>
             </div>
