@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,19 @@ const ProductDetail = () => {
   const [showOfferForm, setShowOfferForm] = useState(false);
   const [showConsultationForm, setShowConsultationForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
+
+  // Category name translations
+  const getCategoryName = (category: string | undefined) => {
+    const categoryNames: { [key: string]: string } = {
+      '3d-printers': '3D Принтеры',
+      '3d-scanners': '3D Сканеры',
+      'robotic-dogs': 'Роботы-собаки',
+      'humanoid-robots': 'Человекоподобные роботы',
+      'robotic-arms': 'Роботизированные руки',
+      'laser-cutters': 'Лазерные граверы'
+    };
+    return categoryNames[category || ''] || category;
+  };
 
   // Mock product data - in a real app, this would come from an API
   const product = {
@@ -46,8 +60,8 @@ const ProductDetail = () => {
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Link to="/" className="hover:text-[#3498DB]">Главная</Link>
             <span>/</span>
-            <Link to={`/${category}`} className="hover:text-[#3498DB] capitalize">
-              {category?.replace('-', ' ')}
+            <Link to={`/${category}`} className="hover:text-[#3498DB]">
+              {getCategoryName(category)}
             </Link>
             <span>/</span>
             <span className="text-[#113C5A] font-medium">{product.name}</span>
