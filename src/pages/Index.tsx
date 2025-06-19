@@ -181,7 +181,7 @@ const Index = () => {
               { name: "3D Принтеры", path: "/3d-printers", image: "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png", description: "Профессиональные 3D принтеры для любых задач" },
               { name: "3D Сканеры", path: "/3d-scanners", image: "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png", description: "Высокоточное 3D сканирование объектов" },
               { name: "Робо-собаки", path: "/robotic-dogs", image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png", description: "Четвероногие роботы нового поколения" },
-              { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=300&fit=crop", description: "Передовые человекоподобные роботы" },
+              { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "/lovable-uploads/ed7dae6b-dce3-45c0-8048-527a3fa3ddad.png", description: "Передовые человекоподобные роботы" },
               { name: "Роботизированные руки", path: "/robotic-arms", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop", description: "Промышленные манипуляторы высокой точности" },
               { name: "Лазерные станки", path: "/laser-cutters", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop", description: "Точная лазерная резка и гравировка" }
             ].map((category) => (
