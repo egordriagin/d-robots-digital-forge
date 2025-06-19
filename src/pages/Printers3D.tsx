@@ -18,7 +18,7 @@ const Printers3D = () => {
   const printers = [
     { id: "creatbot-d600", name: "Creatbot D600", brand: "Creatbot", type: "FDM", price: "Запросить цену", rating: 4.5, popular: true },
     { id: "creatbot-peek-300", name: "Creatbot PEEK-300", brand: "Creatbot", type: "FDM", price: "Запросить цену", rating: 4.8, popular: false },
-    { id: "flashforge-creator-4", name: "Flashforge Creator 4", brand: "Flashforge", type: "FDM", price: "Зап росить цену", rating: 4.3, popular: true },
+    { id: "flashforge-creator-4", name: "Flashforge Creator 4", brand: "Flashforge", type: "FDM", price: "Запросить цену", rating: 4.3, popular: true },
     { id: "bambu-x1", name: "Bambu Lab X1", brand: "Bambu Lab", type: "FDM", price: "Запросить цену", rating: 4.9, popular: true },
     { id: "bambu-p1s", name: "Bambu P1S", brand: "Bambu Lab", type: "FDM", price: "Запросить цену", rating: 4.7, popular: true },
     { id: "prusa-xl", name: "Prusa XL", brand: "Prusa", type: "FDM", price: "Запросить цену", rating: 4.6, popular: false },
