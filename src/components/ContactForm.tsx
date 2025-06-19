@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,7 +114,7 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Имя *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} required />
+                        <Input placeholder="Ваше имя" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,7 +144,7 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Email *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} required />
+                        <Input type="email" placeholder="your@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,7 +177,6 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                         className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Расскажите о ваших потребностях и интересах..."
                         {...field}
-                        required
                       />
                     </FormControl>
                     <FormMessage />

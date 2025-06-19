@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,7 +114,7 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Имя *</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} required />
+                        <Input placeholder="Ваше имя" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,7 +144,7 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Email *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} required />
+                        <Input type="email" placeholder="your@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -157,7 +158,7 @@ const CommercialOfferForm = ({ productName, onClose }: CommercialOfferFormProps)
                     <FormItem>
                       <FormLabel className="text-[#113C5A]">Телефон *</FormLabel>
                       <FormControl>
-                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} required />
+                        <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

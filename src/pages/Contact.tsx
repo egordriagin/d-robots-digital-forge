@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -102,7 +103,6 @@ const Contact = () => {
                       placeholder="Ваше имя" 
                       value={formData.name}
                       onChange={handleInputChange}
-                      required
                     />
                   </div>
                   <div>
@@ -125,7 +125,6 @@ const Contact = () => {
                     placeholder="your@email.com" 
                     value={formData.email}
                     onChange={handleInputChange}
-                    required
                   />
                 </div>
                 <div>
@@ -147,7 +146,6 @@ const Contact = () => {
                     rows={4} 
                     value={formData.message}
                     onChange={handleInputChange}
-                    required
                   />
                 </div>
                 <Button 
