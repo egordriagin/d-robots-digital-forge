@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -6,10 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
+import ConsultationForm from "@/components/ConsultationForm";
 
 const ProductDetail = () => {
   const { category, id } = useParams();
   const [showOfferForm, setShowOfferForm] = useState(false);
+  const [showConsultationForm, setShowConsultationForm] = useState(false);
 
   // Mock product data - in a real app, this would come from an API
   const product = {
@@ -94,7 +95,12 @@ const ProductDetail = () => {
                 >
                   Запросить коммерческое предложение
                 </Button>
-                <Button size="lg" variant="outline" className="w-full border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="w-full border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white"
+                  onClick={() => setShowConsultationForm(true)}
+                >
                   Получить консультацию
                 </Button>
               </div>
@@ -153,6 +159,14 @@ const ProductDetail = () => {
         <CommercialOfferForm
           productName={product.name}
           onClose={() => setShowOfferForm(false)}
+        />
+      )}
+
+      {/* Consultation Form Modal */}
+      {showConsultationForm && (
+        <ConsultationForm
+          productName={product.name}
+          onClose={() => setShowConsultationForm(false)}
         />
       )}
     </div>
