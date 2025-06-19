@@ -1,11 +1,13 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Users, Star, Phone, Mail } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const About = () => {
+  usePageTitle("О компании");
+
   const achievements = [
     { number: "1000+", label: "Довольных клиентов" },
     { number: "5+", label: "Стран присутствия" },
