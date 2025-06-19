@@ -191,13 +191,12 @@ const Contact = () => {
 
             <Card className="border-0 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-[#113C5A]">Юридический адрес</CardTitle>
+                <CardTitle className="text-[#113C5A]">Адрес:</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700">
                   191014, город Санкт-Петербург,<br />
-                  Ковенский пер, д. 9 литера А,<br />
-                  помещ. 5-н, 6-н офис 10
+                  Ковенский пер, д. 9
                 </p>
               </CardContent>
             </Card>
