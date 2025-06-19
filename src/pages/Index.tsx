@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -184,7 +185,7 @@ const Index = () => {
               { name: "Робо-собаки", path: "/robotic-dogs", image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png", description: "Четвероногие роботы нового поколения" },
               { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png", description: "Передовые человекоподобные роботы" },
               { name: "Роботизированные руки", path: "/robotic-arms", image: "/lovable-uploads/c24a9af4-19d1-442e-b8dd-1c3fdd4f5e18.png", description: "Промышленные манипуляторы высокой точности" },
-              { name: "Лазерные станки", path: "/laser-cutters", image: "/lovable-uploads/412a23d8-1bd6-4d1f-aa81-256e3a56277f.png", description: "Точная лазерная резка и гравировка" }
+              { name: "Лазерные станки", path: "/laser-cutters", image: "/lovable-uploads/2e452893-6352-42a2-a482-740ee299ee26.png", description: "Точная лазерная резка и гравировка" }
             ].map((category) => (
               <Link key={category.path} to={category.path} className="group block">
                 <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-md">
