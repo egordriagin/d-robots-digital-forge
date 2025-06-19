@@ -156,7 +156,7 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-[#113C5A]">Телефон</FormLabel>
+                      <FormLabel className="text-[#113C5A]">Телефон *</FormLabel>
                       <FormControl>
                         <Input placeholder="+7 (xxx) xxx-xx-xx" {...field} />
                       </FormControl>

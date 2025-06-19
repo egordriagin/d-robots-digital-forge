@@ -128,7 +128,7 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone">Телефон</Label>
+                  <Label htmlFor="phone">Телефон *</Label>
                   <Input 
                     id="phone" 
                     name="phone"
