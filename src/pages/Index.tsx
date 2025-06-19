@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -178,7 +179,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { name: "3D Принтеры", path: "/3d-printers", image: "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png", description: "Профессиональные 3D принтеры для любых задач" },
-              { name: "3D Сканеры", path: "/3d-scanners", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop", description: "Высокоточное 3D сканирование объектов" },
+              { name: "3D Сканеры", path: "/3d-scanners", image: "/lovable-uploads/ee48ea43-e5bc-4062-b68f-e63d6b298f54.png", description: "Высокоточное 3D сканирование объектов" },
               { name: "Робо-собаки", path: "/robotic-dogs", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop", description: "Четвероногие роботы нового поколения" },
               { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?w=400&h=300&fit=crop", description: "Передовые человекоподобные роботы" },
               { name: "Роботизированные руки", path: "/robotic-arms", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop", description: "Промышленные манипуляторы высокой точности" },
