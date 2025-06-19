@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,7 +49,7 @@ const Index = () => {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-[#3498DB] text-white px-4 py-2 text-sm">
-                  Надежный партнер с 2025 года
+                  Надежный партнер с 2019 года
                 </Badge>
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                   Передовые решения 
