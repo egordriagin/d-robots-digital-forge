@@ -31,10 +31,10 @@ const Contact = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       toast({
         title: "Ошибка",
-        description: "Пожалуйста, заполните обязательные поля: Имя, Email и Сообщение",
+        description: "Пожалуйста, заполните обязательные поля: Имя, Email, Телефон и Сообщение",
         variant: "destructive"
       });
       return;

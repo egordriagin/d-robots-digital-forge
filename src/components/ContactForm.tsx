@@ -37,10 +37,10 @@ const ContactForm = ({ productName, onClose }: ContactFormProps) => {
 
   const onSubmit = async (data: FormData) => {
     // Basic validation
-    if (!data.name || !data.email || !data.message) {
+    if (!data.name || !data.email || !data.phone || !data.message) {
       toast({
         title: "Ошибка",
-        description: "Пожалуйста, заполните обязательные поля: Имя, Email и Сообщение",
+        description: "Пожалуйста, заполните обязательные поля: Имя, Email, Телефон и Сообщение",
         variant: "destructive"
       });
       return;
