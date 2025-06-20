@@ -4,16 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { getProductsByCategory } from "@/data/products";
 
 const RoboticArms = () => {
   usePageTitle("Роботизированные руки");
   
-  const roboticArms = [
-    { id: "ufactory-xarm6", name: "UFactory xArm 6", brand: "UFactory", dof: "6-DOF", price: "Запросить цену" },
-    { id: "ufactory-xarm7", name: "UFactory xArm 7", brand: "UFactory", dof: "7-DOF", price: "Запросить цену" },
-    { id: "dobot-mg400", name: "Dobot MG400", brand: "Dobot", dof: "4-DOF", price: "Запросить цену" },
-    { id: "dobot-cr3", name: "Dobot CR3", brand: "Dobot", dof: "6-DOF", price: "Запросить цену" }
-  ];
+  const roboticArms = getProductsByCategory("robotic-arms");
 
   return (
     <div className="min-h-screen py-8">
@@ -28,12 +24,12 @@ const RoboticArms = () => {
             <Card key={arm.id} className="hover:shadow-xl transition-shadow border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" 
+                  src={arm.images[0] || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"} 
                   alt={arm.name}
                   className="w-full h-48 object-cover"
                 />
                 <Badge className="absolute top-3 right-3 bg-white text-[#113C5A]">
-                  {arm.dof}
+                  {arm.type}
                 </Badge>
               </div>
               <CardHeader className="pb-2">
@@ -44,7 +40,7 @@ const RoboticArms = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-semibold text-[#1F669D]">{arm.price}</span>
+                  <span className="text-sm font-semibold text-[#1F669D]">{arm.basePrice}</span>
                   <Link to={`/product/robotic-arms/${arm.id}`}>
                     <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D]">Подробнее</Button>
                   </Link>
