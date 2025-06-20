@@ -1,6 +1,5 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { Product } from "@/types/product";
 
 export type DatabaseProduct = {
   id: string;

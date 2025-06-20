@@ -1,9 +1,9 @@
 
-import { Product } from "@/types/product";
 import { DatabaseProduct } from "@/services/supabase/products";
+import { Product } from "@/types/product";
 
 // Transform database product to frontend product format
-export const transformDatabaseProductToProduct = (dbProduct: DatabaseProduct): Product => {
+export const transformDatabaseToProduct = (dbProduct: DatabaseProduct): Product => {
   return {
     id: dbProduct.id,
     name: dbProduct.name,
@@ -27,15 +27,15 @@ export const transformDatabaseProductToProduct = (dbProduct: DatabaseProduct): P
       freeThreshold: dbProduct.shipping_free_threshold,
     },
     demoVideo: dbProduct.demo_video,
-    reviews: dbProduct.reviews || [],
-    popular: dbProduct.popular || false,
+    reviews: Array.isArray(dbProduct.reviews) ? dbProduct.reviews : [],
+    popular: dbProduct.popular,
     type: dbProduct.type || '',
     power: dbProduct.power || '',
   };
 };
 
 // Transform frontend product to database format
-export const transformProductToDatabaseProduct = (product: Product): Omit<DatabaseProduct, 'id' | 'created_at' | 'updated_at'> => {
+export const transformProductToDatabase = (product: Omit<Product, 'id'>): Omit<DatabaseProduct, 'id' | 'created_at' | 'updated_at'> => {
   return {
     name: product.name,
     brand: product.brand,
@@ -59,4 +59,9 @@ export const transformProductToDatabaseProduct = (product: Product): Omit<Databa
     type: product.type,
     power: product.power,
   };
+};
+
+// Batch transform database products to frontend format
+export const transformDatabaseProductsArray = (dbProducts: DatabaseProduct[]): Product[] => {
+  return dbProducts.map(transformDatabaseToProduct);
 };
