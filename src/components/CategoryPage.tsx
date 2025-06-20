@@ -1,9 +1,10 @@
+
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { CategoryPageHeader } from "@/components/CategoryPageHeader";
 import { CategoryPageFilters } from "@/components/CategoryPageFilters";
-import { products as productList } from "@/data/products";
+import { useProductsByCategory } from "@/hooks/useProducts";
 import { categoryTranslations } from "@/data/categoryTranslations";
 
 interface CategoryPageProps {
@@ -34,17 +35,14 @@ export const CategoryPage = ({
   const [searchParams] = useSearchParams();
   const brandFilter = searchParams.get("brand");
 
-  const products = productList.filter((product) => {
-    if (product.category !== category) {
-      return false;
-    }
+  // Use Supabase hook to fetch products by category
+  const { data: allProducts = [], isLoading, error } = useProductsByCategory(category);
 
-    if (brandFilter && product.brand !== brandFilter) {
-      return false;
-    }
-
-    return true;
-  });
+  // Filter products by brand if brand filter is applied
+  const products = React.useMemo(() => {
+    if (!brandFilter) return allProducts;
+    return allProducts.filter(product => product.brand === brandFilter);
+  }, [allProducts, brandFilter]);
 
   // Get translations for the category, with fallbacks to props
   const translations = categoryTranslations[category as keyof typeof categoryTranslations];
@@ -53,6 +51,31 @@ export const CategoryPage = ({
   const displayPageTitle = pageTitle || translations?.pageTitle || displayTitle;
 
   usePageTitle(displayPageTitle);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg">Loading products...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error('Error loading products:', error);
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-red-600">Error loading products. Please try again later.</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-gray-50">

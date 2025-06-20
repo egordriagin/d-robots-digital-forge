@@ -4,27 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { StockStatus } from "@/data/products";
+import { Product } from "@/types/product";
 
 interface ProductCardProps {
-  product: {
-    id: string;
-    name: string;
-    brand: string;
-    images: string[];
-    rating: number;
-    pricing: {
-      base: string;
-      withAMS?: string;
-      withAccessories?: string;
-    };
-    popular?: boolean;
-    type?: string;
-    power?: string;
-    shortDescription?: string;
-    stockStatus: StockStatus;
-    leadTime?: string;
-  };
+  product: Product;
   category: string;
   showPopularBadge?: boolean;
   showTypeBadge?: boolean;
@@ -33,7 +16,7 @@ interface ProductCardProps {
 }
 
 // Stock status configuration
-const getStockConfig = (status: StockStatus) => {
+const getStockConfig = (status: Product['stockStatus']) => {
   switch (status) {
     case "in-stock":
       return {
@@ -54,6 +37,11 @@ const getStockConfig = (status: StockStatus) => {
       return {
         label: "Снят с производства",
         className: "bg-gray-500 text-white"
+      };
+    case "pre-order":
+      return {
+        label: "Предзаказ",
+        className: "bg-blue-500 text-white"
       };
     default:
       return {
