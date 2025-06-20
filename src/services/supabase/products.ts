@@ -44,7 +44,10 @@ export const productService = {
     }
 
     console.log(`Fetched ${data?.length || 0} products from database`);
-    return data || [];
+    return (data || []).map(product => ({
+      ...product,
+      reviews: Array.isArray(product.reviews) ? product.reviews : []
+    }));
   },
 
   // Get products by category
@@ -63,7 +66,10 @@ export const productService = {
     }
 
     console.log(`Fetched ${data?.length || 0} products for category ${category}`);
-    return data || [];
+    return (data || []).map(product => ({
+      ...product,
+      reviews: Array.isArray(product.reviews) ? product.reviews : []
+    }));
   },
 
   // Get single product by ID
@@ -85,7 +91,10 @@ export const productService = {
     }
 
     console.log(`Fetched product: ${data?.name}`);
-    return data;
+    return {
+      ...data,
+      reviews: Array.isArray(data.reviews) ? data.reviews : []
+    };
   },
 
   // Search products by name
@@ -103,7 +112,10 @@ export const productService = {
     }
 
     console.log(`Found ${data?.length || 0} products matching "${query}"`);
-    return data || [];
+    return (data || []).map(product => ({
+      ...product,
+      reviews: Array.isArray(product.reviews) ? product.reviews : []
+    }));
   },
 
   // Insert new product
@@ -121,7 +133,10 @@ export const productService = {
     }
 
     console.log(`Successfully inserted product: ${data.name}`);
-    return data;
+    return {
+      ...data,
+      reviews: Array.isArray(data.reviews) ? data.reviews : []
+    };
   },
 
   // Update product
@@ -140,7 +155,10 @@ export const productService = {
     }
 
     console.log(`Successfully updated product: ${data.name}`);
-    return data;
+    return {
+      ...data,
+      reviews: Array.isArray(data.reviews) ? data.reviews : []
+    };
   },
 
   // Delete product
@@ -173,6 +191,9 @@ export const productService = {
     }
 
     console.log(`Successfully batch inserted ${data?.length || 0} products`);
-    return data || [];
+    return (data || []).map(product => ({
+      ...product,
+      reviews: Array.isArray(product.reviews) ? product.reviews : []
+    }));
   }
 };

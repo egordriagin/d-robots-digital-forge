@@ -1,13 +1,5 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { 
-  PrinterSpecifications,
-  ScannerSpecifications,
-  RoboticDogSpecifications,
-  HumanoidRobotSpecifications,
-  RoboticArmSpecifications,
-  LaserCutterSpecifications
-} from "@/types/product";
 
 // Type definitions for database specification tables
 export type DatabasePrinterSpecs = {
