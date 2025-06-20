@@ -1,7 +1,7 @@
+
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { ProductCard } from "@/components/ProductCard";
 import { CategoryPageHeader } from "@/components/CategoryPageHeader";
 import { CategoryPageFilters } from "@/components/CategoryPageFilters";
 import { products as productList } from "@/data/products";
@@ -22,8 +22,6 @@ export const CategoryPage = ({
   pageTitle, 
   infoSection 
 }: CategoryPageProps) => {
-  usePageTitle(pageTitle || title || category);
-
   const [searchParams] = useSearchParams();
   const brandFilter = searchParams.get("brand");
 
