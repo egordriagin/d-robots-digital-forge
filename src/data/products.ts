@@ -1,3 +1,4 @@
+
 import { Product, StockStatus } from "@/types/product";
 
 export const products: Product[] = [
@@ -55,7 +56,7 @@ export const products: Product[] = [
     roboticDogSpecifications: {
       dimensions: {
         formFactor: {
-          operatingDimensions: "845 × 500 × 400 мм",
+          workingDimensions: "845 × 500 × 400 мм",
           compactDimensions: "700 × 400 × 250 мм",
           totalWeight: "12 кг",
           groundClearance: "150 мм",
@@ -63,19 +64,19 @@ export const products: Product[] = [
         },
         loadCapacity: {
           staticPayload: "5 кг",
-          dynamicPayload: "3 кг",
-          manipulatorLoad: "1,5 кг (опционально)"
+          movingPayload: "3 кг",
+          armPayload: "1,5 кг (опционально)"
         }
       },
       mobility: {
         speedMovement: {
           maxSpeed: "3,5 м/с",
-          workingSpeedRange: "0,1 - 2,0 м/с",
+          typicalRange: "0,1 - 2,0 м/с",
           movementModes: "Ходьба, бег трусцой, боковое движение"
         },
         terrainCapabilities: {
-          maxClimbing: "30°",
-          maxObstacleHeight: "200 мм",
+          maxGradient: "30°",
+          obstacleHeight: "200 мм",
           stairClimbing: "Ступени 150-200 мм",
           surfaceCompatibility: "Асфальт, бетон, трава, гравий, песок"
         },
@@ -93,8 +94,8 @@ export const products: Product[] = [
           hotSwap: "Поддерживается"
         },
         consumption: {
-          averagePower: "150 Вт",
-          peakPower: "800 Вт",
+          average: "150 Вт",
+          peak: "800 Вт",
           chargingSpecs: "4А зарядка, 3 часа полной зарядки"
         }
       },
@@ -102,7 +103,7 @@ export const products: Product[] = [
         degreesOfFreedom: {
           totalJoints: "12 активных суставов",
           torqueSpecs: "Номинальный: 23,7 Н⋅м, Пиковый: 33,5 Н⋅м",
-          jointRange: "Бедро: ±60°, Голень: ±150°"
+          movementRange: "Бедро: ±60°, Голень: ±150°"
         },
         sensorsPerception: {
           cameras: "5 RGB камер, 2 стерео камеры",
@@ -124,7 +125,7 @@ export const products: Product[] = [
           remoteRange: "До 800 м в прямой видимости"
         },
         expansion: {
-          expansionPorts: "4× USB 3.0, 2× UART, CAN шина",
+          ports: "4× USB 3.0, 2× UART, CAN шина",
           mountingPoints: "Стандартизированные крепления M4/M6",
           peripheralPower: "12В/5А, 24В/2А",
           sdkSupport: "Python, C++, ROS/ROS2"
@@ -137,9 +138,9 @@ export const products: Product[] = [
           failsafeBehavior: "Автоматическое приседание при потере связи"
         },
         operatingModes: {
-          manualControl: "Полное дистанционное управление",
+          manual: "Полное дистанционное управление",
           semiAutonomous: "Следование по маршруту с препятствиями",
-          fullyAutonomous: "SLAM навигация, патрулирование",
+          fullAutonomous: "SLAM навигация, патрулирование",
           simulationCompatibility: "Gazebo, Unity, UE4"
         }
       }
@@ -624,7 +625,7 @@ export const products: Product[] = [
   }
 ];
 
-export { Product, StockStatus };
+export type { Product, StockStatus };
 export function getProduct(id: string): Product | undefined {
   return products.find(product => product.id === id);
 }
