@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,8 +9,18 @@ interface Product {
   name: string;
   brand: string;
   category: string;
-  rating?: number;
-  [key: string]: any;
+  images: string[];
+  rating: number;
+  pricing?: {
+    base: string;
+  };
+  basePrice?: string;
+  popular?: boolean;
+  type?: string;
+  power?: string;
+  shortDescription?: string;
+  inStock?: boolean;
+  leadTime?: string;
 }
 
 interface CategoryPageFiltersProps {
@@ -85,7 +94,7 @@ export const CategoryPageFilters = ({
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} category={category} />
         ))}
       </div>
 
