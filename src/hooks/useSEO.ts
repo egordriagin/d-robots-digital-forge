@@ -1,9 +1,9 @@
 
 import { useLocation } from 'react-router-dom';
-import { categoryPagesSEO, servicePagesSEO, homePageSEO } from '@/data/seoData';
+import { categoryPagesSEO, servicePagesSEO, homePageSEO, productPagesSEO } from '@/data/seoData';
 import { SEOData } from '@/types/seo';
 
-export const useSEO = (pageType?: 'category' | 'service' | 'home', identifier?: string): SEOData => {
+export const useSEO = (pageType?: 'category' | 'service' | 'home' | 'product', identifier?: string): SEOData => {
   const location = useLocation();
   
   // If pageType is explicitly provided
@@ -20,12 +20,23 @@ export const useSEO = (pageType?: 'category' | 'service' | 'home', identifier?: 
     return categoryData || getDefaultSEO();
   }
   
+  if (pageType === 'product' && identifier) {
+    return productPagesSEO[identifier] || getDefaultSEO();
+  }
+  
   // Auto-detect based on current route
   const pathname = location.pathname;
   
   // Home page
   if (pathname === '/') {
     return homePageSEO;
+  }
+  
+  // Product pages
+  const productMatch = pathname.match(/^\/product\/[\w-]+\/([\w-]+)$/);
+  if (productMatch) {
+    const productId = productMatch[1];
+    return productPagesSEO[productId] || getDefaultSEO();
   }
   
   // Service pages

@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -11,7 +12,9 @@ import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
 import StandardizedSpecifications from "@/components/StandardizedSpecifications";
 import ScannerSpecifications from "@/components/ScannerSpecifications";
+import SEOHead from "@/components/SEOHead";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useSEO } from "@/hooks/useSEO";
 import { getProduct } from "@/data/products";
 
 const ProductDetail = () => {
@@ -24,6 +27,9 @@ const ProductDetail = () => {
 
   // Get product data
   const product = getProduct(id || '');
+
+  // Get SEO data for this product
+  const seoData = useSEO('product', id);
 
   // Category name translations
   const getCategoryName = (category: string | undefined) => {
@@ -184,6 +190,7 @@ const ProductDetail = () => {
 
   return (
     <>
+      <SEOHead seoData={seoData} />
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
