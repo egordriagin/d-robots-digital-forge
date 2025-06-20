@@ -132,7 +132,134 @@ export const products: Product[] = [
       }
     }
   },
-  // 3D Scanners  
+  {
+    id: "prusa-core-one",
+    name: "Prusa Core One",
+    brand: "Prusa Research",
+    category: "3d-printers",
+    shortDescription: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати.",
+    fullDescription: "Prusa Core One представляет собой новейший 3D-принтер от легендарного производителя Prusa Research, оснащенный передовой системой CoreXY для обеспечения высокой скорости и точности печати. Принтер сочетает в себе надежность открытого исходного кода с инновационными решениями автоматизации.\n\nОснащенный системой автоматической калибровки и усовершенствованным экструдером, Core One идеально подходит как для профессиональных задач, так и для образовательных проектов, обеспечивая стабильное качество печати на различных материалах.",
+    images: [
+      "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png",
+      "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png"
+    ],
+    pricing: {
+      base: "от 985 000 ₽",
+      withAccessories: "до 1 295 000 ₽"
+    },
+    leadTime: "6-8 недель",
+    stockStatus: "in-stock",
+    rating: 4.7,
+    reviewCount: 78,
+    features: [
+      "CoreXY кинематика для высокой скорости",
+      "Автоматическая калибровка стола",
+      "Магнитная съемная поверхность",
+      "Сборка за 30 минут",
+      "Open Source прошивка",
+      "Поддержка множества материалов",
+      "Цветной LCD дисплей",
+      "Встроенный слайсер PrusaSlicer"
+    ],
+    shipping: {
+      cost: "12 000 ₽",
+      freeThreshold: "800 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Дмитрий П.",
+        rating: 5,
+        date: "8 марта 2024",
+        comment: "Отличный принтер от Prusa! Быстрая сборка, стабильная работа, качественная печать."
+      },
+      {
+        id: 2,
+        author: "Анна К.",
+        rating: 4,
+        date: "25 февраля 2024",
+        comment: "Хорошее соотношение цена-качество. CoreXY работает плавно и быстро."
+      }
+    ],
+    popular: false,
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "250 × 220 × 270 мм",
+          area: "55000 мм²",
+          maxLength: "270 мм"
+        },
+        resolution: {
+          layerHeight: "0,05 - 0,30 мм",
+          xyResolution: "0,025 мм",
+          dimensionalAccuracy: "±0,15 мм",
+          minWallThickness: "0,35 мм"
+        },
+        speed: {
+          maxSpeed: "400 мм/с",
+          typicalRange: "40-200 мм/с",
+          materialDependent: "PLA: до 400 мм/с, PETG: до 250 мм/с"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM (Fused Deposition Modeling)",
+          implementation: "CoreXY с прямым приводом"
+        },
+        materials: {
+          supportedMaterials: "PLA, PETG, ABS, ASA, PC, PP, PVA, HIPS, TPU, Wood-fill",
+          cartridgeSpecs: "Катушки 1 кг, диаметр нити 1,75 мм",
+          temperatureRange: "Экструдер: до 300°C, Стол: до 120°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "370 × 350 × 400 мм",
+          weight: "11,5 кг",
+          requiredSpace: "450 × 420 × 500 мм"
+        },
+        interface: {
+          controlType: "3,5-дюймовый цветной LCD + мобильное приложение",
+          displaySpecs: "480×320 пикселей, IPS LCD",
+          languages: "Русский, английский, чешский, немецкий, французский"
+        },
+        connectivity: {
+          wifi: "802.11 b/g/n 2,4 ГГц",
+          ethernet: "RJ45 порт",
+          usb: "USB-A, microSD слот"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "15-32°C",
+          humidity: "20-80% без конденсации"
+        },
+        power: {
+          voltage: "110-240 В переменного тока",
+          consumption: "240 Вт максимум",
+          frequency: "50/60 Гц"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "Автоматическая калибровка стола PINDA v2",
+          sensors: "Филамент-сенсор, датчик температуры",
+          autoFeed: "Автоматическая подача материала"
+        },
+        software: {
+          compatibleOS: "Windows, macOS, Linux",
+          fileFormats: "STL, OBJ, 3MF, AMF, gcode",
+          systemRequirements: "2 ГБ ОЗУ, 4 ГБ свободного места"
+        },
+        qualityControl: {
+          forceSensing: "Контроль давления экструзии",
+          temperatureControl: "PID-контроль с точностью ±2°C",
+          realTimeMonitoring: "Мониторинг через PrusaConnect"
+        }
+      }
+    }
+  },
   {
     id: "artec-eva",
     name: "Artec Eva",
@@ -278,7 +405,6 @@ export const products: Product[] = [
       }
     }
   },
-  // ... keep existing code (robotic products)
   {
     id: "unitree-go1",
     name: "Unitree GO1",
