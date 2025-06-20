@@ -10,30 +10,30 @@ const Index = () => {
 
   const featuredProducts = [
     {
-      id: "bambu-x1e",
-      name: "Bambu Lab X1E",
+      id: "bambu-lab-x1-carbon",
+      name: "Bambu Lab X1 Carbon",
       category: "3d-printers",
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=500&h=400&fit=crop",
-      description: "Professional 3D printer with automatic material system",
-      price: "Запросить цену",
+      image: "/lovable-uploads/0463bb2c-5a77-45f4-8949-fb24344ec40d.png",
+      description: "Высокоскоростной 3D-принтер с автоматической мультиматериальной системой подачи AMS и интеллектуальными функциями",
+      price: "от 329 000 ₽",
       badge: "Популярный"
     },
     {
-      id: "unitree-go2-pro",
-      name: "Unitree Go2 Pro",
-      category: "robotic-dogs",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=400&fit=crop",
-      description: "Advanced quadrupedal robot with AI capabilities",
-      price: "Запросить цену",
+      id: "prusa-core-one",
+      name: "Prusa Core One",
+      category: "3d-printers",
+      image: "/lovable-uploads/412a23d8-1bd6-4d1f-aa81-256e3a56277f.png",
+      description: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати",
+      price: "от 985 000 ₽",
       badge: "Новинка"
     },
     {
-      id: "freescan-ue-pro",
-      name: "FreeScan UE Pro",
-      category: "3d-scanners",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=400&fit=crop",
-      description: "High-precision 3D scanner for professional applications",
-      price: "Запросить цену",
+      id: "glowforge-pro",
+      name: "Glowforge Pro",
+      category: "laser-cutters",
+      image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
+      description: "Профессиональный лазерный станок с облачным управлением для высокоточной резки и гравировки различных материалов",
+      price: "от 890 000 ₽",
       badge: "Рекомендуем"
     }
   ];
