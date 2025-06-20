@@ -37,6 +37,32 @@ export const generateProductSlug = (name: string): string => {
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 };
 
+// Convert slug back to possible product names
+const slugToProductName = (slug: string): string[] => {
+  const possibleNames = [];
+  
+  // Convert slug to title case
+  const titleCase = slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  possibleNames.push(titleCase);
+  
+  // Try with brand-specific patterns
+  if (slug.includes('bambu-lab')) {
+    const withoutBrand = slug.replace('bambu-lab-', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    possibleNames.push(`Bambu Lab ${withoutBrand}`);
+  }
+  
+  if (slug.includes('prusa')) {
+    const withoutBrand = slug.replace('prusa-', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    possibleNames.push(`Prusa ${withoutBrand}`);
+  }
+  
+  return possibleNames;
+};
+
 export const productService = {
   // Get all products
   async getProducts(): Promise<DatabaseProduct[]> {
@@ -105,43 +131,65 @@ export const productService = {
     };
   },
 
-  // Get product by slug - completely rewritten for better matching
+  // Get product by slug - simplified and more reliable
   async getProductBySlug(slug: string): Promise<DatabaseProduct | null> {
     console.log(`Searching for product by slug: ${slug}`);
     
-    // Get all products and find the best match
-    const { data: allProducts, error } = await supabase
-      .from('products')
-      .select('*');
+    try {
+      // Get all products to search through
+      const { data: allProducts, error } = await supabase
+        .from('products')
+        .select('*');
 
-    if (error) {
-      console.error('Error fetching products for slug search:', error);
-      throw error;
-    }
+      if (error) {
+        console.error('Error fetching products for slug search:', error);
+        return null;
+      }
 
-    if (!allProducts || allProducts.length === 0) {
-      console.log('No products found in database');
+      if (!allProducts || allProducts.length === 0) {
+        console.log('No products found in database');
+        return null;
+      }
+
+      console.log(`Searching through ${allProducts.length} products for slug: ${slug}`);
+
+      // Find product by exact slug match
+      for (const product of allProducts) {
+        const productSlug = generateProductSlug(product.name);
+        console.log(`Comparing "${slug}" with "${productSlug}" for product "${product.name}"`);
+        
+        if (productSlug === slug) {
+          console.log(`Found exact match: ${product.name}`);
+          return {
+            ...product,
+            reviews: Array.isArray(product.reviews) ? product.reviews : []
+          };
+        }
+      }
+
+      // Try partial matches using possible name variations
+      const possibleNames = slugToProductName(slug);
+      console.log(`Trying partial matches with names: ${possibleNames.join(', ')}`);
+      
+      for (const product of allProducts) {
+        for (const possibleName of possibleNames) {
+          if (product.name.toLowerCase().includes(possibleName.toLowerCase()) || 
+              possibleName.toLowerCase().includes(product.name.toLowerCase())) {
+            console.log(`Found partial match: ${product.name} for ${possibleName}`);
+            return {
+              ...product,
+              reviews: Array.isArray(product.reviews) ? product.reviews : []
+            };
+          }
+        }
+      }
+
+      console.log(`No product found matching slug: ${slug}`);
+      return null;
+    } catch (error) {
+      console.error(`Error in getProductBySlug: ${error}`);
       return null;
     }
-
-    // Find product where generated slug matches the requested slug
-    const matchingProduct = allProducts.find(product => {
-      const productSlug = generateProductSlug(product.name);
-      console.log(`Comparing slug "${slug}" with generated slug "${productSlug}" for product "${product.name}"`);
-      return productSlug === slug;
-    });
-
-    if (matchingProduct) {
-      console.log(`Found product by slug: ${matchingProduct.name}`);
-      return {
-        ...matchingProduct,
-        reviews: Array.isArray(matchingProduct.reviews) ? matchingProduct.reviews : []
-      };
-    }
-
-    console.log(`No product found matching slug: ${slug}`);
-    console.log('Available product slugs:', allProducts.map(p => `"${generateProductSlug(p.name)}"`));
-    return null;
   },
 
   // Search products by name
