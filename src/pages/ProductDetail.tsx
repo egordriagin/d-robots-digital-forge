@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -312,7 +311,7 @@ const ProductDetail = () => {
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
-                    * Бесплатная доставка при заказе от {product.shipping.freeThreshold}
+                    * Бесплатная доставка при заказе от 50 000 ₽
                   </p>
                 </div>
               </div>
