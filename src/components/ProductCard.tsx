@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
+import { StockStatus } from "@/data/products";
 
 interface ProductCardProps {
   product: {
@@ -21,7 +22,7 @@ interface ProductCardProps {
     type?: string;
     power?: string;
     shortDescription?: string;
-    inStock: boolean;
+    stockStatus: StockStatus;
     leadTime?: string;
   };
   category: string;
@@ -30,6 +31,37 @@ interface ProductCardProps {
   showPowerBadge?: boolean;
   cardSize?: "default" | "large";
 }
+
+// Stock status configuration
+const getStockConfig = (status: StockStatus) => {
+  switch (status) {
+    case "in-stock":
+      return {
+        label: "В наличии",
+        className: "bg-green-500 text-white"
+      };
+    case "backorder":
+      return {
+        label: "Под заказ",
+        className: "bg-yellow-500 text-white"
+      };
+    case "out-of-stock":
+      return {
+        label: "Нет в наличии",
+        className: "bg-red-500 text-white"
+      };
+    case "discontinued":
+      return {
+        label: "Снят с производства",
+        className: "bg-gray-500 text-white"
+      };
+    default:
+      return {
+        label: "В наличии",
+        className: "bg-green-500 text-white"
+      };
+  }
+};
 
 export const ProductCard = ({ 
   product, 
@@ -40,6 +72,7 @@ export const ProductCard = ({
   cardSize = "default"
 }: ProductCardProps) => {
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
+  const stockConfig = getStockConfig(product.stockStatus);
   
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
@@ -69,15 +102,9 @@ export const ProductCard = ({
         )}
 
         {/* Stock status badge */}
-        <Badge 
-          className={`absolute bottom-3 left-3 ${
-            product.inStock 
-              ? "bg-green-500 text-white" 
-              : "bg-red-500 text-white"
-          }`}
-        >
+        <Badge className={`absolute bottom-3 left-3 ${stockConfig.className}`}>
           <Package className="h-3 w-3 mr-1" />
-          {product.inStock ? "В наличии" : "Под заказ"}
+          {stockConfig.label}
         </Badge>
       </div>
       
