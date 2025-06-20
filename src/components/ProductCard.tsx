@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { StockStatus } from "@/data/products";
+import { StockStatus } from "@/types/product";
 
 interface ProductCardProps {
   product: {
@@ -54,6 +54,11 @@ const getStockConfig = (status: StockStatus) => {
       return {
         label: "Снят с производства",
         className: "bg-gray-500 text-white"
+      };
+    case "pre-order":
+      return {
+        label: "Предзаказ",
+        className: "bg-blue-500 text-white"
       };
     default:
       return {

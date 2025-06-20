@@ -12,7 +12,7 @@ import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductPricing from "@/components/ProductPricing";
 import ProductTabs from "@/components/ProductTabs";
 import { useMetaData } from "@/hooks/useMetaData";
-import { getProduct } from "@/data/products";
+import { useProduct } from "@/hooks/useProducts";
 import { pluralizeRating } from "@/utils/pluralization";
 import { generateProductStructuredData, generateMetaDescription } from "@/utils/structuredData";
 import { ProductSchema } from "@/schemas/productSchema";
@@ -23,8 +23,8 @@ const ProductDetail = () => {
   const [showConsultationForm, setShowConsultationForm] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
 
-  // Get product data
-  const product = getProduct(id || '');
+  // Get product data from Supabase
+  const { data: product, isLoading, error } = useProduct(id || '');
 
   // Category name translations
   const getCategoryName = (category: string | undefined) => {
@@ -38,6 +38,37 @@ const ProductDetail = () => {
     };
     return categoryNames[category || ''] || category;
   };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen py-8">
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#3498DB] mx-auto mb-4"></div>
+          <h1 className="text-2xl font-bold text-[#113C5A]">Загрузка продукта...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen py-8">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-[#113C5A] mb-4">Ошибка загрузки</h1>
+          <p className="text-xl text-gray-600 mb-8">
+            Произошла ошибка при загрузке продукта. Попробуйте позже.
+          </p>
+          <Link to="/">
+            <Button className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
+              Вернуться на главную
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // If product not found, show error
   if (!product) {

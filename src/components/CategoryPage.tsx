@@ -1,9 +1,10 @@
+
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { CategoryPageHeader } from "@/components/CategoryPageHeader";
 import { CategoryPageFilters } from "@/components/CategoryPageFilters";
-import { products as productList } from "@/data/products";
+import { useProductsByCategory } from "@/hooks/useProducts";
 import { categoryTranslations } from "@/data/categoryTranslations";
 
 interface CategoryPageProps {
@@ -34,15 +35,14 @@ export const CategoryPage = ({
   const [searchParams] = useSearchParams();
   const brandFilter = searchParams.get("brand");
 
-  const products = productList.filter((product) => {
-    if (product.category !== category) {
-      return false;
-    }
+  // Fetch products from Supabase
+  const { data: allProducts = [], isLoading, error } = useProductsByCategory(category);
 
+  // Apply brand filter if specified
+  const products = allProducts.filter((product) => {
     if (brandFilter && product.brand !== brandFilter) {
       return false;
     }
-
     return true;
   });
 
@@ -53,6 +53,36 @@ export const CategoryPage = ({
   const displayPageTitle = pageTitle || translations?.pageTitle || displayTitle;
 
   usePageTitle(displayPageTitle);
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#3498DB] mx-auto mb-4"></div>
+            <h1 className="text-2xl font-bold text-[#113C5A]">Загрузка продуктов...</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-[#113C5A] mb-4">Ошибка загрузки</h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Произошла ошибка при загрузке продуктов. Попробуйте позже.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-gray-50">
