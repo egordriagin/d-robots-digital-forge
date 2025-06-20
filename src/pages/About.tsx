@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,7 @@ const About = () => {
     { number: "1000+", label: "Довольных клиентов" },
     { number: "5+", label: "Стран присутствия" },
     { number: "100+", label: "Моделей оборудования" },
-    { number: "2025", label: "Год основания" }
+    { number: "< 3 часов", label: "Время ответа техподдержки" }
   ];
 
   const keyClients = [
