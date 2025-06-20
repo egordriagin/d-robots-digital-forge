@@ -41,14 +41,7 @@ const RoboticDogs = () => {
       title="Робо-собаки"
       description="Четвероногие роботы нового поколения для исследований, образования и промышленного применения"
       pageTitle="Робо-собаки"
-      showInfoSection={true}
       infoSection={infoSection}
-      gridCols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-      productCardConfig={{
-        showPopularBadge: true,
-        showTypeBadge: false,
-        cardSize: "large"
-      }}
     />
   );
 };

@@ -45,14 +45,7 @@ const Printers3D = () => {
       title="3D Принтеры"
       description="Профессиональные 3D принтеры для промышленности, образования и исследований. Выберите из широкого ассортимента FDM и SLA технологий."
       pageTitle="3D Принтеры"
-      showInfoSection={true}
-      showCTA={true}
       infoSection={infoSection}
-      productCardConfig={{
-        showPopularBadge: true,
-        showTypeBadge: true,
-        cardSize: "default"
-      }}
     />
   );
 };
