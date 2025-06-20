@@ -352,12 +352,11 @@ const ProductDetail = () => {
                   <CardContent className="p-8">
                     <div className="prose max-w-none">
                       <h3 className="text-2xl font-bold text-[#113C5A] mb-4">Подробное описание</h3>
-                      <div className="text-gray-700 leading-relaxed space-y-4">
-                        {product.fullDescription.split('\n\n').map((paragraph, index) => (
-                          <p key={index}>{paragraph.trim()}</p>
-                        ))}
-                      </div>
-                      <div className="mt-8">
+                      <div 
+                        className="text-gray-700 leading-relaxed space-y-4 max-w-[800px]"
+                        dangerouslySetInnerHTML={{ __html: product.fullDescription }}
+                      />
+                      <div className="mt-8 max-w-[800px]">
                         <h4 className="text-xl font-bold text-[#113C5A] mb-4">Ключевые возможности</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {product.features.map((feature, index) => (
