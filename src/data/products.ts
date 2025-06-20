@@ -1,4 +1,4 @@
-import { Product } from "@/types/product";
+import { Product, StockStatus } from "@/types/product";
 
 export const products: Product[] = [
   {
@@ -624,6 +624,7 @@ export const products: Product[] = [
   }
 ];
 
+export { Product, StockStatus };
 export function getProduct(id: string): Product | undefined {
   return products.find(product => product.id === id);
 }

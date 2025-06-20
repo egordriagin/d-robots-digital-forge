@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -11,6 +12,10 @@ import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
 import StandardizedSpecifications from "@/components/StandardizedSpecifications";
 import ScannerSpecifications from "@/components/ScannerSpecifications";
+import RoboticDogSpecifications from "@/components/RoboticDogSpecifications";
+import HumanoidRobotSpecifications from "@/components/HumanoidRobotSpecifications";
+import RoboticArmSpecifications from "@/components/RoboticArmSpecifications";
+import LaserCutterSpecifications from "@/components/LaserCutterSpecifications";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { getProduct } from "@/data/products";
 
