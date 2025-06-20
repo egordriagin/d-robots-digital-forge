@@ -55,6 +55,8 @@ export const products: Product[] = [
       }
     ],
     popular: true,
+    type: "FDM",
+    power: "350 Вт",
     printerSpecifications: {
       printing: {
         buildVolume: {
@@ -183,6 +185,8 @@ export const products: Product[] = [
       }
     ],
     popular: false,
+    type: "FDM",
+    power: "240 Вт",
     printerSpecifications: {
       printing: {
         buildVolume: {
@@ -309,6 +313,9 @@ export const products: Product[] = [
         comment: "Хорошее качество сканирования, но требует определенных навыков для максимального результата."
       }
     ],
+    popular: true,
+    type: "Структурированный свет",
+    power: "12 Вт",
     scannerSpecifications: {
       accuracy: {
         pointAccuracy: {
@@ -456,6 +463,9 @@ export const products: Product[] = [
         comment: "Впечатляющие возможности навигации, но время автономной работы могло бы быть больше."
       }
     ],
+    popular: true,
+    type: "Четвероногий робот",
+    power: "360 Вт⋅ч",
     roboticDogSpecifications: {
       dimensions: {
         formFactor: {
@@ -592,6 +602,9 @@ export const products: Product[] = [
         comment: "Невероятные возможности для исследований в области робототехники. Превосходит все ожидания."
       }
     ],
+    popular: false,
+    type: "Гуманоидный робот",
+    power: "3,7 кВт⋅ч",
     humanoidRobotSpecifications: {
       dimensions: {
         formFactor: {
@@ -772,6 +785,9 @@ export const products: Product[] = [
         comment: "Хорошее соотношение цена-качество. Быстро окупился на нашем производстве."
       }
     ],
+    popular: false,
+    type: "Коллаборативный робот",
+    power: "150 Вт",
     roboticArmSpecifications: {
       capacity: {
         payload: {
@@ -929,6 +945,9 @@ export const products: Product[] = [
         comment: "Отличное решение для малого бизнеса. Быстро освоили и начали зарабатывать."
       }
     ],
+    popular: true,
+    type: "CO2 лазер",
+    power: "45 Вт",
     laserCutterSpecifications: {
       laser: {
         power: {
