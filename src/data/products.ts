@@ -1,4 +1,3 @@
-
 import { Product, StockStatus } from "@/types/product";
 
 export const products: Product[] = [
@@ -59,8 +58,7 @@ export const products: Product[] = [
           workingDimensions: "845 × 500 × 400 мм",
           compactDimensions: "700 × 400 × 250 мм",
           totalWeight: "12 кг",
-          groundClearance: "150 мм",
-          turningRadius: "0,6 м"
+          groundClearance: "150 мм"
         },
         loadCapacity: {
           staticPayload: "5 кг",
@@ -80,16 +78,16 @@ export const products: Product[] = [
           stairClimbing: "Ступени 150-200 мм",
           surfaceCompatibility: "Асфальт, бетон, трава, гравий, песок"
         },
-        environmentalConditions: {
-          operatingTemperature: "-10°C до +45°C",
+        environment: {
+          temperatureRange: "-10°C до +45°C",
           humidity: "10-90% без конденсации",
           weatherProtection: "IP54"
         }
       },
       power: {
-        batterySystem: {
+        battery: {
           capacity: "15000 мАч, 24В (360 Вт⋅ч)",
-          batteryType: "Li-Po высокой плотности",
+          type: "Li-Po высокой плотности",
           runtime: "2,5 часа при нормальной нагрузке",
           hotSwap: "Поддерживается"
         },
@@ -105,16 +103,16 @@ export const products: Product[] = [
           torqueSpecs: "Номинальный: 23,7 Н⋅м, Пиковый: 33,5 Н⋅м",
           movementRange: "Бедро: ±60°, Голень: ±150°"
         },
-        sensorsPerception: {
+        sensing: {
           cameras: "5 RGB камер, 2 стерео камеры",
-          lidarRange: "LiDAR 360° до 12 м",
+          lidar: "LiDAR 360° до 12 м",
           imuSensors: "6-осевой IMU, компас",
-          additionalSensors: "Ультразвуковые датчики, датчики касания"
+          sensorIntegration: "Ультразвуковые датчики, датчики касания"
         },
-        computingPlatform: {
+        computing: {
           processor: "NVIDIA Jetson Xavier NX",
           memory: "8 ГБ ОЗУ, 32 ГБ eMMC",
-          additionalCompute: "Сопроцессор для управления движением"
+          additionalModules: "Сопроцессор для управления движением"
         }
       },
       connectivity: {
