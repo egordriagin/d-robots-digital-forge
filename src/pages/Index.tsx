@@ -6,11 +6,10 @@ import { MigrationRunner } from "@/components/MigrationRunner";
 
 const Index = () => {
   usePageTitle("Главная | D-Robots Digital Forge");
-  useMetaData({
-    title: "D-Robots Digital Forge - Профессиональное 3D оборудование",
-    description: "Широкий выбор 3D принтеров, сканеров, роботов и лазерных граверов. Профессиональные решения для бизнеса и образования.",
-    keywords: "3D принтеры, 3D сканеры, роботы, лазерные граверы, промышленное оборудование"
-  });
+  useMetaData(
+    "D-Robots Digital Forge - Профессиональное 3D оборудование",
+    "Широкий выбор 3D принтеров, сканеров, роботов и лазерных граверов. Профессиональные решения для бизнеса и образования."
+  );
 
   const { data: products, isLoading, error } = useProducts();
 
@@ -72,7 +71,11 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {popularProducts.slice(0, 6).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                category={product.category}
+              />
             ))}
           </div>
         </section>
