@@ -3,34 +3,36 @@ import { CategoryPage } from "@/components/CategoryPage";
 
 const LaserCutters = () => {
   const infoSection = (
-    <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
-      <div className="text-center">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div>
         <h2 className="text-3xl font-bold text-[#113C5A] mb-4">
           Преимущества лазерных станков
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#3498DB] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">⚡</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Высокая точность</h3>
-            <p className="text-gray-600 text-sm">Прецизионная резка и гравировка с минимальными допусками</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#1F669D] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">🚀</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Высокая скорость</h3>
-            <p className="text-gray-600 text-sm">Быстрая обработка материалов для серийного производства</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#113C5A] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">🎯</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Универсальность</h3>
-            <p className="text-gray-600 text-sm">Работа с различными материалами и сложными формами</p>
-          </div>
-        </div>
+        <ul className="space-y-3 text-gray-700">
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Высокая точность резки и гравировки с минимальными допусками</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Быстрая обработка материалов для серийного производства</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Работа с различными материалами и сложными формами</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Автоматизированные процессы для повышения производительности</span>
+          </li>
+        </ul>
+      </div>
+      <div className="text-center">
+        <img 
+          src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
+          alt="Laser Cutting"
+          className="rounded-lg shadow-lg mx-auto"
+        />
       </div>
     </div>
   );

@@ -73,14 +73,16 @@ export const CategoryPage = ({
           ))}
         </div>
 
-        {/* Info Section - Now included for all categories */}
+        {/* Info Section - Standardized layout using 3D Printer format */}
         {infoSection && (
           <div className="mt-16">
-            {infoSection}
+            <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
+              {infoSection}
+            </div>
           </div>
         )}
 
-        {/* CTA - Now included for all categories */}
+        {/* CTA - Standardized for all categories */}
         <div className="text-center mt-12">
           <h3 className="text-2xl font-bold text-[#113C5A] mb-4">
             Нужна помощь в выборе?

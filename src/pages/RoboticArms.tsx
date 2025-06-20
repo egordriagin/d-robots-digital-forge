@@ -3,34 +3,36 @@ import { CategoryPage } from "@/components/CategoryPage";
 
 const RoboticArms = () => {
   const infoSection = (
-    <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
-      <div className="text-center">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div>
         <h2 className="text-3xl font-bold text-[#113C5A] mb-4">
           Применение роботизированных рук
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#3498DB] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">🏭</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Производство</h3>
-            <p className="text-gray-600 text-sm">Автоматизация сборочных линий и производственных процессов</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#1F669D] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">🔬</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Лаборатории</h3>
-            <p className="text-gray-600 text-sm">Точные манипуляции в научных исследованиях</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#113C5A] rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">📦</span>
-            </div>
-            <h3 className="font-semibold text-[#113C5A] mb-2">Логистика</h3>
-            <p className="text-gray-600 text-sm">Автоматизированная сортировка и упаковка</p>
-          </div>
-        </div>
+        <ul className="space-y-3 text-gray-700">
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Автоматизация сборочных линий и производственных процессов</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Точные манипуляции в научных исследованиях</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Автоматизированная сортировка и упаковка</span>
+          </li>
+          <li className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+            <span>Высокопrecизионные операции в медицине и электронике</span>
+          </li>
+        </ul>
+      </div>
+      <div className="text-center">
+        <img 
+          src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
+          alt="Robotic Arms"
+          className="rounded-lg shadow-lg mx-auto"
+        />
       </div>
     </div>
   );
