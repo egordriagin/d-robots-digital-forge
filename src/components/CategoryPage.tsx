@@ -47,12 +47,14 @@ export const CategoryPage = ({
   
   return (
     <div className="min-h-screen bg-gray-50">
-      <CategoryPageHeader 
-        title={displayTitle}
-        description={displayDescription}
-      />
-      
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <CategoryPageHeader 
+            title={displayTitle}
+            description={displayDescription}
+          />
+        </div>
+        
         <CategoryPageFilters
           products={products}
           category={category}
@@ -90,7 +92,7 @@ export const CategoryPage = ({
             )
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 };
