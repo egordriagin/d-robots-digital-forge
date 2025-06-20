@@ -1,4 +1,8 @@
+
 import { Product } from "@/types/product";
+
+export { Product } from "@/types/product";
+export { StockStatus } from "@/types/product";
 
 export const products: Product[] = [
   {
@@ -6,11 +10,39 @@ export const products: Product[] = [
     name: "3D Scanner Pro",
     brand: "Tech Solutions",
     category: "3d-scanners",
-    price: 2500,
-    image: "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png",
-    description: "High-precision 3D scanner for professional use.",
+    shortDescription: "High-precision 3D scanner for professional use.",
     fullDescription: "The 3D Scanner Pro offers unparalleled accuracy and detail, making it perfect for industrial design, reverse engineering, and quality control.",
-    specifications: {
+    images: ["/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png"],
+    pricing: {
+      base: "от 250 000 ₽"
+    },
+    leadTime: "14-21 день",
+    stockStatus: "in-stock",
+    rating: 4.8,
+    reviewCount: 12,
+    features: [
+      "Точность сканирования до 0.02 мм",
+      "Объем сканирования 200x200x200 мм",
+      "Скорость сканирования до 8 секунд",
+      "Экспорт в STL, OBJ, PLY",
+      "Технология синего света",
+      "Разрешение камеры 5.0 МП"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Алексей М.",
+        rating: 5,
+        date: "15.12.2024",
+        comment: "Отличный сканер, очень точный и быстрый."
+      }
+    ],
+    scannerSpecifications: {
       scanAccuracy: "Up to 0.02 mm",
       scanVolume: "200 x 200 x 200 mm",
       scanSpeed: "Up to 8 seconds per scan",
@@ -24,11 +56,39 @@ export const products: Product[] = [
     name: "Spot Mini",
     brand: "Boston Dynamics",
     category: "robotic-dogs",
-    price: 75000,
-    image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png",
-    description: "Agile robot dog for various applications.",
+    shortDescription: "Agile robot dog for various applications.",
     fullDescription: "Spot Mini is designed for indoor and outdoor use, capable of navigating complex terrains and performing tasks such as inspection, delivery, and data collection.",
-    specifications: {
+    images: ["/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png"],
+    pricing: {
+      base: "от 7 500 000 ₽"
+    },
+    leadTime: "30-45 дней",
+    stockStatus: "backorder",
+    rating: 4.9,
+    reviewCount: 8,
+    features: [
+      "Максимальная скорость 1.6 м/с",
+      "Время работы 90 минут",
+      "Грузоподъемность 14 кг",
+      "17 степеней свободы",
+      "Камеры, LiDAR, IMU",
+      "Wi-Fi, Ethernet подключение"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Дмитрий К.",
+        rating: 5,
+        date: "10.12.2024",
+        comment: "Невероятная машина! Очень впечатляющие возможности."
+      }
+    ],
+    roboticDogSpecifications: {
       maxSpeed: "1.6 m/s",
       batteryLife: "90 minutes",
       payloadCapacity: "14 kg",
@@ -42,11 +102,39 @@ export const products: Product[] = [
     name: "Atlas Humanoid",
     brand: "Boston Dynamics",
     category: "humanoid-robots",
-    price: 150000,
-    image: "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png",
-    description: "Advanced humanoid robot for research and development.",
+    shortDescription: "Advanced humanoid robot for research and development.",
     fullDescription: "Atlas is a dynamic humanoid robot designed for a variety of tasks, including search and rescue, manufacturing, and construction. Its advanced control system allows for complex movements and balance.",
-    specifications: {
+    images: ["/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png"],
+    pricing: {
+      base: "от 15 000 000 ₽"
+    },
+    leadTime: "60-90 дней",
+    stockStatus: "backorder",
+    rating: 4.7,
+    reviewCount: 5,
+    features: [
+      "Рост 1.5 м, вес 80 кг",
+      "28 степеней свободы",
+      "Литий-ионная батарея",
+      "Камеры, LiDAR, датчики силы",
+      "Wi-Fi подключение",
+      "Продвинутая система управления"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Сергей Р.",
+        rating: 5,
+        date: "05.12.2024",
+        comment: "Передовые технологии робототехники в действии!"
+      }
+    ],
+    humanoidRobotSpecifications: {
       height: "1.5 m",
       weight: "80 kg",
       degreesOfFreedom: "28",
@@ -60,11 +148,39 @@ export const products: Product[] = [
     name: "Collaborative Robotic Arm",
     brand: "Universal Robots",
     category: "robotic-arms",
-    price: 45000,
-    image: "/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png",
-    description: "Safe and flexible robotic arm for collaborative tasks.",
+    shortDescription: "Safe and flexible robotic arm for collaborative tasks.",
     fullDescription: "This collaborative robotic arm is designed to work alongside humans in a variety of industrial applications, providing increased efficiency and safety.",
-    specifications: {
+    images: ["/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png"],
+    pricing: {
+      base: "от 4 500 000 ₽"
+    },
+    leadTime: "21-30 дней",
+    stockStatus: "in-stock",
+    rating: 4.6,
+    reviewCount: 15,
+    features: [
+      "Грузоподъемность 5 кг",
+      "Радиус действия 850 мм",
+      "6 степеней свободы",
+      "Повторяемость ±0.03 мм",
+      "Питание AC 220V",
+      "Ethernet подключение"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Михаил В.",
+        rating: 4,
+        date: "20.11.2024",
+        comment: "Отличное решение для автоматизации производства."
+      }
+    ],
+    roboticArmSpecifications: {
       payloadCapacity: "5 kg",
       reach: "850 mm",
       degreesOfFreedom: "6",
@@ -78,11 +194,39 @@ export const products: Product[] = [
     name: "Laser Cutter Pro",
     brand: "Glowforge",
     category: "laser-cutters",
-    price: 6000,
-    image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
-    description: "Professional laser cutter for precise cutting and engraving.",
+    shortDescription: "Professional laser cutter for precise cutting and engraving.",
     fullDescription: "The Laser Cutter Pro is perfect for small businesses and hobbyists, offering high-precision cutting and engraving on a variety of materials, including wood, acrylic, and leather.",
-    specifications: {
+    images: ["/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png"],
+    pricing: {
+      base: "от 600 000 ₽"
+    },
+    leadTime: "14-21 день",
+    stockStatus: "in-stock",
+    rating: 4.5,
+    reviewCount: 22,
+    features: [
+      "Мощность лазера 45W",
+      "Область резки 300x500 мм",
+      "Толщина материала до 12 мм",
+      "CO2 лазер",
+      "Замкнутое жидкостное охлаждение",
+      "Поддержка SVG, DXF, PNG, JPG"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Елена П.",
+        rating: 5,
+        date: "18.11.2024",
+        comment: "Превосходное качество резки и гравировки!"
+      }
+    ],
+    laserCutterSpecifications: {
       laserPower: "45W",
       cuttingArea: "300 x 500 mm",
       materialThickness: "Up to 12 mm",
@@ -96,11 +240,39 @@ export const products: Product[] = [
     name: "Ultimaker S5",
     brand: "Ultimaker",
     category: "3d-printers",
-    price: 7000,
-    image: "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png",
-    description: "Reliable 3D printer for professional prototyping.",
+    shortDescription: "Reliable 3D printer for professional prototyping.",
     fullDescription: "The Ultimaker S5 offers dual extrusion, a large build volume, and compatibility with a wide range of materials, making it ideal for professional prototyping and small-scale manufacturing.",
-    specifications: {
+    images: ["/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"],
+    pricing: {
+      base: "от 700 000 ₽"
+    },
+    leadTime: "14-21 день",
+    stockStatus: "in-stock",
+    rating: 4.7,
+    reviewCount: 28,
+    features: [
+      "Объем печати 330x240x300 мм",
+      "Разрешение слоя до 20 микрон",
+      "Диаметр сопла 0.4 мм",
+      "Скорость печати до 24 мм³/с",
+      "Материалы: PLA, ABS, Nylon, CPE, TPU",
+      "Wi-Fi, Ethernet, USB"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Андрей С.",
+        rating: 5,
+        date: "25.11.2024",
+        comment: "Профессиональный принтер с отличным качеством печати."
+      }
+    ],
+    printerSpecifications: {
       buildVolume: "330 x 240 x 300 mm",
       layerResolution: "Up to 20 microns",
       nozzleDiameter: "0.4 mm",
@@ -114,9 +286,7 @@ export const products: Product[] = [
     name: "Prusa Core One",
     brand: "Prusa",
     category: "3d-printers",
-    price: 1199,
-    image: "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png",
-    description: "Высокоскоростной 3D-принтер с автоматической калибровкой",
+    shortDescription: "Высокоскоростной 3D-принтер с автоматической калибровкой",
     fullDescription: `<h2>Prusa Core One - революция в мире 3D-печати</h2>
 
 <p>Prusa Core One представляет собой новейшую разработку компании Prusa Research, объединяющую передовые технологии и многолетний опыт в области 3D-печати. Этот принтер создан для тех, кто не готов идти на компромиссы в вопросах качества, скорости и надежности.</p>
@@ -207,7 +377,54 @@ export const products: Product[] = [
 <img src="/path/to/prusa-core-one-package.jpg" alt="Package Contents" style="width: 100%; max-width: 600px; margin: 20px 0;">
 
 <p><strong>Prusa Core One</strong> - это инвестиция в будущее вашего творчества и бизнеса. Получите профессиональное качество печати с первого дня использования!</p>`,
-    specifications: {
+    images: ["/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"],
+    pricing: {
+      base: "от 119 900 ₽",
+      withAMS: "от 159 900 ₽",
+      withAccessories: "от 199 900 ₽"
+    },
+    leadTime: "7-14 дней",
+    stockStatus: "in-stock",
+    rating: 4.9,
+    reviewCount: 45,
+    features: [
+      "Высокая скорость печати до 200 мм/с",
+      "Автоматическая калибровка стола",
+      "Закрытая камера для стабильной температуры",
+      "Тихая работа менее 40 дБ",
+      "Область печати 250×220×270 мм",
+      "Поддержка множества материалов"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "50 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Владимир Т.",
+        rating: 5,
+        date: "01.12.2024",
+        comment: "Революционный принтер! Скорость и качество на высшем уровне."
+      },
+      {
+        id: 2,
+        author: "Мария К.",
+        rating: 5,
+        date: "28.11.2024",
+        comment: "Автоматическая калибровка экономит массу времени."
+      },
+      {
+        id: 3,
+        author: "Игорь С.",
+        rating: 4,
+        date: "25.11.2024",
+        comment: "Отличный принтер, но цена кусается."
+      }
+    ],
+    popular: true,
+    printerSpecifications: {
       printVolume: "250 × 220 × 270 мм",
       printSpeed: "До 200 мм/с",
       layerHeight: "0.05 - 0.35 мм",
@@ -269,3 +486,7 @@ export const products: Product[] = [
     }
   }
 ];
+
+export const getProduct = (id: string): Product | undefined => {
+  return products.find(product => product.id === id);
+};
