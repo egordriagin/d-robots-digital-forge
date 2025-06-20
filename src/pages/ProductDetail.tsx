@@ -110,7 +110,7 @@ const ProductDetail = () => {
       "price": "0",
       "priceValidUntil": "2026-12-31",
       "itemCondition": "https://schema.org/NewCondition",
-      "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+      "availability": product.stockStatus === "in-stock" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
     },
     
     "seller": {
@@ -217,7 +217,7 @@ const ProductDetail = () => {
                 <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
                   Популярный
                 </Badge>
-                {product.inStock && (
+                {product.stockStatus === "in-stock" && (
                   <Badge className="absolute top-4 right-4 bg-green-500 text-white">
                     В наличии
                   </Badge>
