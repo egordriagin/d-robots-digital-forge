@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Star, Clock, Truck, Play } from "lucide-react";
+import { Star, Clock, Truck, Play, GraduationCap, Shield, Building, Target, Zap } from "lucide-react";
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
@@ -203,6 +203,34 @@ const ProductDetail = () => {
     );
   };
 
+  const coreAdvantages = [
+    {
+      icon: GraduationCap,
+      title: "Специальные условия для образования",
+      description: "Скидки для учебных заведений на закупки оборудования и расходных материалов. Помогаем в составлении образовательных программ и внедрении."
+    },
+    {
+      icon: Shield,
+      title: "Несем ответственность за результат",
+      description: "Комплексная гарантия включает диагностику, ремонт и техническую поддержку оборудования в установленные сроки. Ваше спокойствие — наш приоритет."
+    },
+    {
+      icon: Building,
+      title: "Работаем с госзакупками и тендерами",
+      description: "Полное соответствие требованиям 44-ФЗ и 223-ФЗ."
+    },
+    {
+      icon: Target,
+      title: "Экспертиза мирового уровня",
+      description: "Глубокая экспертиза в 3D-печати, 3D-сканировании, моделировании, литье пластика, лазерной резке и CNC-фрезеровке."
+    },
+    {
+      icon: Zap,
+      title: "Быстрый отклик и поддержка",
+      description: "93% клиентов довольны качеством нашего сервиса. Наша команда поддержки отвечает на вопросы в чате или по email 5 дней в неделю, с 10:00 до 18:00 по московскому времени."
+    }
+  ];
+
   return (
     <>
       <Helmet>
@@ -226,114 +254,149 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            {/* Product Images */}
-            <div className="space-y-4">
-              <div className="relative rounded-lg overflow-hidden">
-                <img 
-                  src={product.images[selectedImage]} 
-                  alt={product.name}
-                  className="w-full h-96 object-cover"
-                />
-                <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
-                  Популярный
-                </Badge>
-                {product.stockStatus === "in-stock" && (
-                  <Badge className="absolute top-4 right-4 bg-green-500 text-white">
-                    В наличии
-                  </Badge>
-                )}
-              </div>
-              
-              {/* Image thumbnails */}
-              <div className="flex space-x-2">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImage === index ? 'border-[#3498DB]' : 'border-gray-200'
-                    }`}
-                  >
-                    <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
-                  </button>
-                ))}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-12 mb-16">
+            <div className="xl:col-span-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {/* Product Images */}
+                <div className="space-y-4">
+                  <div className="relative rounded-lg overflow-hidden">
+                    <img 
+                      src={product.images[selectedImage]} 
+                      alt={product.name}
+                      className="w-full h-96 object-cover"
+                    />
+                    <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
+                      Популярный
+                    </Badge>
+                    {product.stockStatus === "in-stock" && (
+                      <Badge className="absolute top-4 right-4 bg-green-500 text-white">
+                        В наличии
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  {/* Image thumbnails */}
+                  <div className="flex space-x-2">
+                    {product.images.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                          selectedImage === index ? 'border-[#3498DB]' : 'border-gray-200'
+                        }`}
+                      >
+                        <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Product Info */}
+                <div className="space-y-6">
+                  <div>
+                    <Badge className="mb-4 text-[#1F669D] border-[#1F669D]" variant="outline">
+                      {product.brand}
+                    </Badge>
+                    <h1 className="text-3xl font-bold text-[#113C5A] mb-4">{product.name}</h1>
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="flex items-center space-x-1">
+                        <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                        <span className="font-medium">{product.rating}</span>
+                        <span className="text-gray-500">({pluralizeRating(product.reviewCount)})</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed mb-6">{product.shortDescription}</p>
+                  </div>
+
+                  {/* Pricing */}
+                  <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
+                    <h3 className="text-lg font-semibold text-[#113C5A] mb-4">Варианты комплектации</h3>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span>Базовая комплектация</span>
+                        <span className="text-xl font-bold text-[#1F669D]">{product.pricing.base}</span>
+                      </div>
+                      {product.pricing.withAMS && (
+                        <div className="flex justify-between items-center">
+                          <span>С системой AMS</span>
+                          <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAMS}</span>
+                        </div>
+                      )}
+                      {product.pricing.withAccessories && (
+                        <div className="flex justify-between items-center">
+                          <span>Полная комплектация</span>
+                          <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAccessories}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-300">
+                      <div className="flex items-center space-x-4 text-sm text-gray-600">
+                        <div className="flex items-center space-x-1">
+                          <Truck className="h-4 w-4" />
+                          <span>Доставка: {product.shipping.cost}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Clock className="h-4 w-4" />
+                          <span>Срок: {product.leadTime}</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-2">
+                        * Бесплатная доставка при заказе от 50 000 ₽
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <Button 
+                      size="lg" 
+                      className="w-full bg-[#3498DB] hover:bg-[#1F669D] text-white"
+                      onClick={() => setShowOfferForm(true)}
+                    >
+                      Запросить коммерческое предложение
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="w-full border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white"
+                      onClick={() => setShowConsultationForm(true)}
+                    >
+                      Получить консультацию
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Product Info */}
-            <div className="space-y-6">
-              <div>
-                <Badge className="mb-4 text-[#1F669D] border-[#1F669D]" variant="outline">
-                  {product.brand}
-                </Badge>
-                <h1 className="text-3xl font-bold text-[#113C5A] mb-4">{product.name}</h1>
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="flex items-center space-x-1">
-                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium">{product.rating}</span>
-                    <span className="text-gray-500">({pluralizeRating(product.reviewCount)})</span>
-                  </div>
-                </div>
-                <p className="text-gray-700 leading-relaxed mb-6">{product.shortDescription}</p>
-              </div>
-
-              {/* Pricing */}
-              <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
-                <h3 className="text-lg font-semibold text-[#113C5A] mb-4">Варианты комплектации</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span>Базовая комплектация</span>
-                    <span className="text-xl font-bold text-[#1F669D]">{product.pricing.base}</span>
-                  </div>
-                  {product.pricing.withAMS && (
-                    <div className="flex justify-between items-center">
-                      <span>С системой AMS</span>
-                      <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAMS}</span>
-                    </div>
-                  )}
-                  {product.pricing.withAccessories && (
-                    <div className="flex justify-between items-center">
-                      <span>Полная комплектация</span>
-                      <span className="text-xl font-bold text-[#1F669D]">{product.pricing.withAccessories}</span>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="mt-4 pt-4 border-t border-gray-300">
-                  <div className="flex items-center space-x-4 text-sm text-gray-600">
-                    <div className="flex items-center space-x-1">
-                      <Truck className="h-4 w-4" />
-                      <span>Доставка: {product.shipping.cost}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="h-4 w-4" />
-                      <span>Срок: {product.leadTime}</span>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    * Бесплатная доставка при заказе от 50 000 ₽
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <Button 
-                  size="lg" 
-                  className="w-full bg-[#3498DB] hover:bg-[#1F669D] text-white"
-                  onClick={() => setShowOfferForm(true)}
-                >
-                  Запросить коммерческое предложение
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="w-full border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white"
-                  onClick={() => setShowConsultationForm(true)}
-                >
-                  Получить консультацию
-                </Button>
-              </div>
+            {/* Core Advantages Sidebar */}
+            <div className="xl:col-span-1">
+              <Card className="sticky top-8">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold text-[#113C5A]">
+                    Наши преимущества
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {coreAdvantages.map((advantage, index) => {
+                    const IconComponent = advantage.icon;
+                    return (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-[#3498DB] rounded-lg flex items-center justify-center">
+                          <IconComponent className="h-4 w-4 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-[#113C5A] mb-2 text-sm">
+                            {advantage.title}
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {advantage.description}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
             </div>
           </div>
 
