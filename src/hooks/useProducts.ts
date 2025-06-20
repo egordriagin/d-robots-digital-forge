@@ -31,35 +31,38 @@ export const useProduct = (id: string) => {
     queryFn: async () => {
       console.log(`useProduct: Attempting to fetch product with ID: ${id}`);
       
+      if (!id) {
+        console.log('No ID provided');
+        return null;
+      }
+      
       // Check if it looks like a UUID (contains hyphens and is 36 chars)
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
       
-      if (isUUID) {
-        console.log(`ID appears to be UUID, trying direct lookup: ${id}`);
-        try {
+      try {
+        if (isUUID) {
+          console.log(`ID appears to be UUID, trying direct lookup: ${id}`);
           const dbProduct = await productService.getProductById(id);
           if (dbProduct) {
             console.log(`Found product by UUID: ${dbProduct.name}`);
             return transformDatabaseToProduct(dbProduct);
           }
-        } catch (error) {
-          console.error(`Failed to get product by UUID: ${error}`);
         }
-      } else {
-        console.log(`ID appears to be slug, trying slug lookup: ${id}`);
-        try {
-          const dbProduct = await productService.getProductBySlug(id);
-          if (dbProduct) {
-            console.log(`Found product by slug: ${dbProduct.name}`);
-            return transformDatabaseToProduct(dbProduct);
-          }
-        } catch (error) {
-          console.error(`Failed to get product by slug: ${error}`);
+        
+        // Try slug lookup (either if not UUID or if UUID lookup failed)
+        console.log(`Trying slug lookup: ${id}`);
+        const dbProduct = await productService.getProductBySlug(id);
+        if (dbProduct) {
+          console.log(`Found product by slug: ${dbProduct.name}`);
+          return transformDatabaseToProduct(dbProduct);
         }
+        
+        console.log(`No product found for ID: ${id}`);
+        return null;
+      } catch (error) {
+        console.error(`Error fetching product: ${error}`);
+        return null;
       }
-      
-      console.log(`No product found for ID: ${id}`);
-      return null;
     },
     enabled: !!id,
     staleTime: 5 * 60 * 1000, // 5 minutes

@@ -27,6 +27,16 @@ export type DatabaseProduct = {
   updated_at: string;
 };
 
+// Generate slug from product name
+export const generateProductSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+};
+
 export const productService = {
   // Get all products
   async getProducts(): Promise<DatabaseProduct[]> {
@@ -95,69 +105,42 @@ export const productService = {
     };
   },
 
-  // Get product by slug-like identifier - improved matching
+  // Get product by slug - completely rewritten for better matching
   async getProductBySlug(slug: string): Promise<DatabaseProduct | null> {
     console.log(`Searching for product by slug: ${slug}`);
     
-    // Try multiple search strategies
-    const searchStrategies = [
-      // Strategy 1: Direct slug conversion "bambu-lab-x1-carbon" -> "Bambu Lab X1 Carbon"
-      slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-      // Strategy 2: Handle special cases like "x1-carbon" -> "X1 Carbon"
-      slug.split('-').map(word => word.toUpperCase()).join(' '),
-      // Strategy 3: Partial matching with original slug format
-      slug.replace(/-/g, ' '),
-      // Strategy 4: Try exact name match for common patterns
-      slug.split('-').map(word => {
-        // Handle special cases
-        if (word.toLowerCase() === 'x1') return 'X1';
-        if (word.toLowerCase() === 'mk4') return 'MK4';
-        if (word.toLowerCase() === 'go2') return 'Go2';
-        if (word.toLowerCase() === 'ur5e') return 'UR5e';
-        if (word.toLowerCase() === 'nao6') return 'NAO6';
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      }).join(' ')
-    ];
-    
-    for (const searchTerm of searchStrategies) {
-      console.log(`Trying search term: "${searchTerm}"`);
-      
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .ilike('name', `%${searchTerm}%`)
-        .limit(1);
-
-      if (error) {
-        console.error(`Error searching with term "${searchTerm}":`, error);
-        continue;
-      }
-
-      if (data && data.length > 0) {
-        console.log(`Found product by slug with term "${searchTerm}": ${data[0].name}`);
-        return {
-          ...data[0],
-          reviews: Array.isArray(data[0].reviews) ? data[0].reviews : []
-        };
-      }
-    }
-
-    // If no match found, try a broader search
-    console.log(`No exact match found, trying broader search...`);
-    const { data, error } = await supabase
+    // Get all products and find the best match
+    const { data: allProducts, error } = await supabase
       .from('products')
-      .select('*')
-      .limit(10);
+      .select('*');
 
     if (error) {
-      console.error('Error in broader search:', error);
+      console.error('Error fetching products for slug search:', error);
       throw error;
     }
 
-    // Log all product names for debugging
-    console.log('Available products:', data?.map(p => p.name));
-    
+    if (!allProducts || allProducts.length === 0) {
+      console.log('No products found in database');
+      return null;
+    }
+
+    // Find product where generated slug matches the requested slug
+    const matchingProduct = allProducts.find(product => {
+      const productSlug = generateProductSlug(product.name);
+      console.log(`Comparing slug "${slug}" with generated slug "${productSlug}" for product "${product.name}"`);
+      return productSlug === slug;
+    });
+
+    if (matchingProduct) {
+      console.log(`Found product by slug: ${matchingProduct.name}`);
+      return {
+        ...matchingProduct,
+        reviews: Array.isArray(matchingProduct.reviews) ? matchingProduct.reviews : []
+      };
+    }
+
     console.log(`No product found matching slug: ${slug}`);
+    console.log('Available product slugs:', allProducts.map(p => `"${generateProductSlug(p.name)}"`));
     return null;
   },
 
