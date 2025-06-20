@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +23,7 @@ const Index = () => {
       id: "prusa-core-one",
       name: "Prusa Core One",
       category: "3d-printers",
-      image: "/lovable-uploads/412a23d8-1bd6-4d1f-aa81-256e3a56277f.png",
+      image: "/lovable-uploads/11ec98dc-7ff6-46b9-b613-ac47bc49b6b0.png",
       description: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати",
       price: "от 985 000 ₽",
       badge: "Новинка"
