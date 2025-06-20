@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
@@ -22,7 +21,7 @@ const categoryImages: Record<string, string> = {
   "humanoid-robots": "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png",
   "robotic-arms": "/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png",
   "laser-cutters": "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
-  "3d-printers": "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png"
+  "3d-printers": "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
 };
 
 export const CategoryPage = ({ 
