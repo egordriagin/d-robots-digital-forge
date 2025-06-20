@@ -104,9 +104,7 @@ const LaserCutterSpecificationsComponent: React.FC<LaserCutterSpecificationsProp
         {
           subtitle: "Опции подключения",
           items: [
-            { label: "Возможности под
-
-ключения Wi-Fi", value: specifications.connectivity.connectionOptions.wifiConnectivity },
+            { label: "Возможности подключения Wi-Fi", value: specifications.connectivity.connectionOptions.wifiConnectivity },
             { label: "Доступность порта Ethernet", value: specifications.connectivity.connectionOptions.ethernetPort },
             { label: "Опции подключения USB", value: specifications.connectivity.connectionOptions.usbConnectivity },
             { label: "Совместимость с мобильными устройствами", value: specifications.connectivity.connectionOptions.mobileDeviceCompatibility },
