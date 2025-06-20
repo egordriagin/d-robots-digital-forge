@@ -378,46 +378,51 @@ const ProductDetail = () => {
               <TabsContent value="description" className="mt-8">
                 <Card>
                   <CardContent className="p-8">
-                    <div className="prose max-w-none">
-                      <h3 className="text-2xl font-bold text-[#113C5A] mb-4">Подробное описание</h3>
-                      <div 
-                        className="text-gray-700 leading-relaxed space-y-4 max-w-[800px]"
-                        dangerouslySetInnerHTML={{ __html: product.fullDescription }}
-                      />
-                      <div className="mt-8 max-w-[800px]">
-                        <h4 className="text-xl font-bold text-[#113C5A] mb-4">Ключевые возможности</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {product.features.map((feature, index) => (
-                            <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
-                              <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                              <span className="text-gray-700">{feature}</span>
-                            </div>
-                          ))}
+                    <div className="flex gap-8">
+                      {/* Main description content - left column */}
+                      <div className="prose max-w-[800px]">
+                        <h3 className="text-2xl font-bold text-[#113C5A] mb-4">Подробное описание</h3>
+                        <div 
+                          className="text-gray-700 leading-relaxed space-y-4"
+                          dangerouslySetInnerHTML={{ __html: product.fullDescription }}
+                        />
+                        <div className="mt-8">
+                          <h4 className="text-xl font-bold text-[#113C5A] mb-4">Ключевые возможности</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {product.features.map((feature, index) => (
+                              <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+                                <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-gray-700">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                       
-                      {/* Core Advantages integrated into description */}
-                      <div className="mt-12 max-w-[800px]">
-                        <h4 className="text-xl font-bold text-[#113C5A] mb-6">Наши преимущества</h4>
-                        <div className="space-y-6">
-                          {coreAdvantages.map((advantage, index) => {
-                            const IconComponent = advantage.icon;
-                            return (
-                              <div key={index} className="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
-                                <div className="flex-shrink-0 w-10 h-10 bg-[#3498DB] rounded-lg flex items-center justify-center">
-                                  <IconComponent className="h-5 w-5 text-white" />
+                      {/* Core advantages - right column */}
+                      <div className="flex-1 min-w-0">
+                        <div className="sticky top-8">
+                          <h4 className="text-xl font-bold text-[#113C5A] mb-6">Наши преимущества</h4>
+                          <div className="space-y-4">
+                            {coreAdvantages.map((advantage, index) => {
+                              const IconComponent = advantage.icon;
+                              return (
+                                <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                                  <div className="flex-shrink-0 w-8 h-8 bg-[#3498DB] rounded-lg flex items-center justify-center">
+                                    <IconComponent className="h-4 w-4 text-white" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h5 className="font-semibold text-[#113C5A] mb-2 text-sm">
+                                      {advantage.title}
+                                    </h5>
+                                    <p className="text-gray-600 leading-relaxed text-sm">
+                                      {advantage.description}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="flex-1">
-                                  <h5 className="font-semibold text-[#113C5A] mb-2">
-                                    {advantage.title}
-                                  </h5>
-                                  <p className="text-gray-600 leading-relaxed">
-                                    {advantage.description}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
                     </div>
