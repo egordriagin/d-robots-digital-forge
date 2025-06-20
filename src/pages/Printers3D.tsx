@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Star } from "lucide-react";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { products } from "@/data/products";
+import { getProductsByCategory } from "@/data/products";
 
 const Printers3D = () => {
   usePageTitle("3D Принтеры");
@@ -16,8 +15,8 @@ const Printers3D = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
 
-  // Filter products to get only 3D printers
-  const printers = products.filter(product => product.category === "3d-printers");
+  // Use centralized function to get 3D printers
+  const printers = getProductsByCategory("3d-printers");
 
   const filteredPrinters = printers
     .filter(printer => 
