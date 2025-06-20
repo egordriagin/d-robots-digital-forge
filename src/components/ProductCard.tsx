@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star } from "lucide-react";
+import { Star, Clock, Package } from "lucide-react";
 
 interface ProductCardProps {
   product: {
@@ -38,8 +38,12 @@ export const ProductCard = ({
   showPowerBadge = false,
   cardSize = "default"
 }: ProductCardProps) => {
+  // Standardize pricing - prefer pricing.base over basePrice
   const price = product.pricing?.base || product.basePrice;
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
+  
+  // Determine stock status
+  const stockStatus = product.inStock !== undefined ? product.inStock : true; // default to true if not specified
 
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
@@ -67,6 +71,18 @@ export const ProductCard = ({
             {product.type}
           </Badge>
         )}
+
+        {/* Stock status badge */}
+        <Badge 
+          className={`absolute bottom-3 left-3 ${
+            stockStatus 
+              ? "bg-green-500 text-white" 
+              : "bg-red-500 text-white"
+          }`}
+        >
+          <Package className="h-3 w-3 mr-1" />
+          {stockStatus ? "В наличии" : "Под заказ"}
+        </Badge>
       </div>
       
       <CardHeader className="pb-2">
@@ -84,6 +100,14 @@ export const ProductCard = ({
         </CardTitle>
         {product.shortDescription && (
           <p className="text-gray-600 text-sm">{product.shortDescription}</p>
+        )}
+        
+        {/* Lead time display */}
+        {product.leadTime && (
+          <div className="flex items-center text-sm text-gray-500 mt-2">
+            <Clock className="h-4 w-4 mr-1" />
+            <span>Срок поставки: {product.leadTime}</span>
+          </div>
         )}
       </CardHeader>
       

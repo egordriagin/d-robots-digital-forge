@@ -1,102 +1,98 @@
-
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { getProductsByCategory } from "@/data/products";
-import { ProductCard } from "./ProductCard";
-import { CategoryPageFilters } from "./CategoryPageFilters";
-import { CategoryPageHeader } from "./CategoryPageHeader";
+import { ProductCard } from "@/components/ProductCard";
+import { CategoryPageHeader } from "@/components/CategoryPageHeader";
+import { CategoryPageFilters } from "@/components/CategoryPageFilters";
+import { products as productList } from "@/data/products";
+import { categoryTranslations } from "@/data/categoryTranslations";
 
 interface CategoryPageProps {
   category: string;
-  title: string;
-  description: string;
-  pageTitle: string;
+  title?: string;
+  description?: string;
+  pageTitle?: string;
   infoSection?: React.ReactNode;
 }
 
-export const CategoryPage = ({
-  category,
-  title,
-  description,
-  pageTitle,
-  infoSection
+export const CategoryPage = ({ 
+  category, 
+  title, 
+  description, 
+  pageTitle, 
+  infoSection 
 }: CategoryPageProps) => {
-  usePageTitle(pageTitle);
+  usePageTitle(pageTitle || title || category);
+
+  const [searchParams] = useSearchParams();
+  const brandFilter = searchParams.get("brand");
+
+  const products = productList.filter((product) => {
+    if (product.category !== category) {
+      return false;
+    }
+
+    if (brandFilter && product.brand !== brandFilter) {
+      return false;
+    }
+
+    return true;
+  });
+
+  // Get translations for the category, with fallbacks to props
+  const translations = categoryTranslations[category as keyof typeof categoryTranslations];
+  const displayTitle = title || translations?.title || category;
+  const displayDescription = description || translations?.description || "";
+  const displayPageTitle = pageTitle || translations?.pageTitle || displayTitle;
+
+  usePageTitle(displayPageTitle);
   
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("name");
-
-  const products = getProductsByCategory(category);
-
-  const filteredProducts = products
-    .filter(product => 
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
-      if (sortBy === "brand") return a.brand.localeCompare(b.brand);
-      if (sortBy === "rating") return b.rating - a.rating;
-      return 0;
-    });
-
   return (
-    <div className="min-h-screen py-8">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="mb-12">
-          <CategoryPageHeader title={title} description={description} />
-          
-          {/* Filters */}
-          <CategoryPageFilters
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-          />
+    <div className="min-h-screen bg-gray-50">
+      <CategoryPageHeader 
+        title={displayTitle}
+        description={displayDescription}
+      />
+      
+      <main className="container mx-auto px-4 py-8">
+        <CategoryPageFilters
+          products={products}
+          category={category}
+        />
+        
+        {/* Info section */}
+        <div className="mt-16">
+          {infoSection || (
+            /* Default info section using translations */
+            translations && (
+              <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h2 className="text-3xl font-bold text-[#113C5A] mb-4">
+                      {translations.infoTitle}
+                    </h2>
+                    <ul className="space-y-3 text-gray-700">
+                      {translations.features.map((feature, index) => (
+                        <li key={index} className="flex items-start space-x-3">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full mt-2"></div>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="text-center">
+                    <img 
+                      src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
+                      alt={displayTitle}
+                      className="rounded-lg shadow-lg mx-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          )}
         </div>
-
-        {/* Products Grid - Standardized layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              category={category}
-              showPopularBadge={true}
-              showTypeBadge={true}
-              showPowerBadge={false}
-              cardSize="default"
-            />
-          ))}
-        </div>
-
-        {/* Info Section - Standardized layout using 3D Printer format */}
-        {infoSection && (
-          <div className="mt-16">
-            <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
-              {infoSection}
-            </div>
-          </div>
-        )}
-
-        {/* CTA - Standardized for all categories */}
-        <div className="text-center mt-12">
-          <h3 className="text-2xl font-bold text-[#113C5A] mb-4">
-            Нужна помощь в выборе?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Наши эксперты помогут подобрать оптимальное решение для ваших задач
-          </p>
-          <Link to="/contact">
-            <Button size="lg" className="bg-[#3498DB] hover:bg-[#1F669D] text-white px-8 py-3">
-              Получить консультацию
-            </Button>
-          </Link>
-        </div>
-      </div>
+      </main>
     </div>
   );
 };
