@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
@@ -271,7 +272,7 @@ const ProductDetail = () => {
                   <div className="flex items-center space-x-1">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                     <span className="font-medium">{product.rating}</span>
-                    <span className="text-gray-500">({product.reviewCount} отзывов)</span>
+                    <span className="text-gray-500">({product.reviewCount} оценок)</span>
                   </div>
                 </div>
                 <p className="text-gray-700 leading-relaxed mb-6">{product.shortDescription}</p>
@@ -386,7 +387,7 @@ const ProductDetail = () => {
                           <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                           <span className="font-medium">{product.rating}</span>
                         </div>
-                        <span className="text-gray-500">({product.reviewCount} отзывов)</span>
+                        <span className="text-gray-500">({product.reviewCount} оценок)</span>
                       </div>
                     </div>
                     
