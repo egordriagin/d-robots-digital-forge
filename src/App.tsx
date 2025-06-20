@@ -18,6 +18,7 @@ import HumanoidRobots from "./pages/HumanoidRobots";
 import RoboticArms from "./pages/RoboticArms";
 import LaserCutters from "./pages/LaserCutters";
 import ProductDetail from "./pages/ProductDetail";
+import MigrationPage from "./pages/MigrationPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/robotic-arms" element={<RoboticArms />} />
                 <Route path="/laser-cutters" element={<LaserCutters />} />
                 <Route path="/product/:category/:id" element={<ProductDetail />} />
+                <Route path="/migration-button" element={<MigrationPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
