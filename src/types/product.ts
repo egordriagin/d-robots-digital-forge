@@ -38,9 +38,9 @@ export interface Product {
     date: string;
     comment: string;
   }>;
-  popular?: boolean;
-  type?: string;
-  power?: string;
+  popular: boolean;
+  type: string;
+  power: string;
   printerSpecifications?: PrinterSpecifications;
   scannerSpecifications?: ScannerSpecifications;
   roboticDogSpecifications?: RoboticDogSpecifications;
