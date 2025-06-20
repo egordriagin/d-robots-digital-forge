@@ -96,6 +96,42 @@ export const productService = {
     };
   },
 
+  // Get product by slug-like identifier
+  async getProductBySlug(slug: string): Promise<DatabaseProduct | null> {
+    console.log(`Searching for product by slug: ${slug}`);
+    
+    // Convert slug back to a searchable name
+    // "bambu-lab-x1-carbon" -> "Bambu Lab X1 Carbon"
+    const searchTerm = slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    console.log(`Converted slug "${slug}" to search term: "${searchTerm}"`);
+    
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .ilike('name', `%${searchTerm}%`)
+      .limit(1)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        console.log(`No product found matching slug: ${slug}`);
+        return null;
+      }
+      console.error('Error searching product by slug:', error);
+      throw error;
+    }
+
+    console.log(`Found product by slug: ${data?.name}`);
+    return {
+      ...data,
+      reviews: Array.isArray(data.reviews) ? data.reviews : []
+    };
+  },
+
   // Search products by name
   async searchProducts(query: string): Promise<DatabaseProduct[]> {
     console.log(`Searching for products: ${query}`);
