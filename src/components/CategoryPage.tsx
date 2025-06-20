@@ -82,7 +82,7 @@ export const CategoryPage = ({
                   </div>
                   <div className="text-center">
                     <img 
-                      src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
+                      src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
                       alt={displayTitle}
                       className="rounded-lg shadow-lg mx-auto"
                     />
