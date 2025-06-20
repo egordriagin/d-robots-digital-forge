@@ -1,27 +1,10 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-
-interface Product {
-  id: string;
-  name: string;
-  brand: string;
-  category: string;
-  images: string[];
-  rating: number;
-  pricing?: {
-    base: string;
-  };
-  basePrice?: string;
-  popular?: boolean;
-  type?: string;
-  power?: string;
-  shortDescription?: string;
-  inStock?: boolean;
-  leadTime?: string;
-}
+import { Product } from "@/data/products";
 
 interface CategoryPageFiltersProps {
   products: Product[];
