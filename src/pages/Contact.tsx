@@ -1,5 +1,3 @@
-
-import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,160 +78,132 @@ const Contact = () => {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Контакты - 3D Robots</title>
-        <meta name="description" content="Свяжитесь с 3D Robots для получения консультации по выбору оборудования. Телефон: +7 967 555 6884, Email: sales@3d-robots.com. Офис в Санкт-Петербурге, обслуживание по России и ЕАЭС." />
-        <meta name="keywords" content="контакты 3D Robots, телефон, email, адрес, консультация, техническая поддержка" />
-        
-        {/* Open Graph tags */}
-        <meta property="og:title" content="Контакты - 3D Robots" />
-        <meta property="og:description" content="Свяжитесь с 3D Robots для получения консультации по выбору оборудования. Телефон: +7 967 555 6884, Email: sales@3d-robots.com. Офис в Санкт-Петербурге, обслуживание по России и ЕАЭС." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:image" content="https://3d-robots.com/images/contact-og-image.jpg" />
-        <meta property="og:site_name" content="3D Robots" />
-        <meta property="og:locale" content="ru_RU" />
-        
-        {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Контакты - 3D Robots" />
-        <meta name="twitter:description" content="Свяжитесь с 3D Robots для получения консультации по выбору оборудования. Телефон: +7 967 555 6884, Email: sales@3d-robots.com." />
-        <meta name="twitter:image" content="https://3d-robots.com/images/contact-og-image.jpg" />
-        
-        {/* Additional SEO tags */}
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="3D Robots" />
-        <link rel="canonical" href={window.location.href} />
-      </Helmet>
+    <div className="min-h-screen py-8">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-[#113C5A] mb-4">Контакты</h1>
+          <p className="text-xl text-gray-600">Свяжитесь с нами любым удобным способом</p>
+        </div>
 
-      <div className="min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-[#113C5A] mb-4">Контакты</h1>
-            <p className="text-xl text-gray-600">Свяжитесь с нами любым удобным способом</p>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-[#113C5A]">Отправить сообщение</CardTitle>
+              <CardDescription>
+                Заполните форму, и мы свяжемся с вами в ближайшее время
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="name">Имя *</Label>
+                    <Input 
+                      id="name" 
+                      name="name"
+                      placeholder="Ваше имя" 
+                      value={formData.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="company">Компания</Label>
+                    <Input 
+                      id="company" 
+                      name="company"
+                      placeholder="Название компании" 
+                      value={formData.company}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="email">Email *</Label>
+                  <Input 
+                    id="email" 
+                    name="email"
+                    type="email" 
+                    placeholder="your@email.com" 
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Телефон *</Label>
+                  <Input 
+                    id="phone" 
+                    name="phone"
+                    placeholder="+7 (___) ___-____" 
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="message">Сообщение *</Label>
+                  <Textarea 
+                    id="message" 
+                    name="message"
+                    placeholder="Расскажите о ваших потребностях..." 
+                    rows={4} 
+                    value={formData.message}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-[#3498DB] hover:bg-[#1F669D]"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Отправка..." : "Отправить сообщение"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
+          {/* Contact Information */}
+          <div className="space-y-6">
             <Card className="border-0 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-[#113C5A]">Отправить сообщение</CardTitle>
-                <CardDescription>
-                  Заполните форму, и мы свяжемся с вами в ближайшее время
-                </CardDescription>
+                <CardTitle className="text-[#113C5A] flex items-center space-x-2">
+                  <Phone className="h-5 w-5 text-[#3498DB]" />
+                  <span>Телефон</span>
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="name">Имя *</Label>
-                      <Input 
-                        id="name" 
-                        name="name"
-                        placeholder="Ваше имя" 
-                        value={formData.name}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="company">Компания</Label>
-                      <Input 
-                        id="company" 
-                        name="company"
-                        placeholder="Название компании" 
-                        value={formData.company}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input 
-                      id="email" 
-                      name="email"
-                      type="email" 
-                      placeholder="your@email.com" 
-                      value={formData.email}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Телефон *</Label>
-                    <Input 
-                      id="phone" 
-                      name="phone"
-                      placeholder="+7 (___) ___-____" 
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="message">Сообщение *</Label>
-                    <Textarea 
-                      id="message" 
-                      name="message"
-                      placeholder="Расскажите о ваших потребностях..." 
-                      rows={4} 
-                      value={formData.message}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-[#3498DB] hover:bg-[#1F669D]"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Отправка..." : "Отправить сообщение"}
-                  </Button>
-                </form>
+                <p className="text-lg font-semibold text-[#1F669D]">+7 967 555 6884</p>
+                <p className="text-gray-600">Пн-Пт: 9:00 - 18:00 (МСК)</p>
               </CardContent>
             </Card>
 
-            {/* Contact Information */}
-            <div className="space-y-6">
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#113C5A] flex items-center space-x-2">
-                    <Phone className="h-5 w-5 text-[#3498DB]" />
-                    <span>Телефон</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg font-semibold text-[#1F669D]">+7 967 555 6884</p>
-                  <p className="text-gray-600">Пн-Пт: 9:00 - 18:00 (МСК)</p>
-                </CardContent>
-              </Card>
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-[#113C5A] flex items-center space-x-2">
+                  <Mail className="h-5 w-5 text-[#3498DB]" />
+                  <span>Email</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg font-semibold text-[#1F669D]">sales@3d-robots.com</p>
+                <p className="text-gray-600">Ответим в течение 24 часов</p>
+              </CardContent>
+            </Card>
 
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#113C5A] flex items-center space-x-2">
-                    <Mail className="h-5 w-5 text-[#3498DB]" />
-                    <span>Email</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg font-semibold text-[#1F669D]">sales@3d-robots.com</p>
-                  <p className="text-gray-600">Ответим в течение 24 часов</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-[#113C5A]">Адрес:</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700">
-                    191014, город Санкт-Петербург,<br />
-                    Ковенский пер, д. 9
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-[#113C5A]">Адрес:</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">
+                  191014, город Санкт-Петербург,<br />
+                  Ковенский пер, д. 9
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
