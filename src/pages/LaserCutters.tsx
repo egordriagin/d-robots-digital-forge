@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { getProductsByCategory } from "@/data/products";
 
 const LaserCutters = () => {
+  usePageTitle("Лазерные станки");
+  
   const laserCutters = getProductsByCategory("laser-cutters");
 
   return (
