@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 
 export type DatabaseProduct = {
@@ -25,42 +26,6 @@ export type DatabaseProduct = {
   power?: string;
   created_at: string;
   updated_at: string;
-};
-
-// Generate slug from product name
-export const generateProductSlug = (name: string): string => {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
-};
-
-// Convert slug back to possible product names
-const slugToProductName = (slug: string): string[] => {
-  const possibleNames = [];
-  
-  // Convert slug to title case
-  const titleCase = slug
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-  
-  possibleNames.push(titleCase);
-  
-  // Try with brand-specific patterns
-  if (slug.includes('bambu-lab')) {
-    const withoutBrand = slug.replace('bambu-lab-', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    possibleNames.push(`Bambu Lab ${withoutBrand}`);
-  }
-  
-  if (slug.includes('prusa')) {
-    const withoutBrand = slug.replace('prusa-', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    possibleNames.push(`Prusa ${withoutBrand}`);
-  }
-  
-  return possibleNames;
 };
 
 export const productService = {
@@ -129,67 +94,6 @@ export const productService = {
       ...data,
       reviews: Array.isArray(data.reviews) ? data.reviews : []
     };
-  },
-
-  // Get product by slug - simplified and more reliable
-  async getProductBySlug(slug: string): Promise<DatabaseProduct | null> {
-    console.log(`Searching for product by slug: ${slug}`);
-    
-    try {
-      // Get all products to search through
-      const { data: allProducts, error } = await supabase
-        .from('products')
-        .select('*');
-
-      if (error) {
-        console.error('Error fetching products for slug search:', error);
-        return null;
-      }
-
-      if (!allProducts || allProducts.length === 0) {
-        console.log('No products found in database');
-        return null;
-      }
-
-      console.log(`Searching through ${allProducts.length} products for slug: ${slug}`);
-
-      // Find product by exact slug match
-      for (const product of allProducts) {
-        const productSlug = generateProductSlug(product.name);
-        console.log(`Comparing "${slug}" with "${productSlug}" for product "${product.name}"`);
-        
-        if (productSlug === slug) {
-          console.log(`Found exact match: ${product.name}`);
-          return {
-            ...product,
-            reviews: Array.isArray(product.reviews) ? product.reviews : []
-          };
-        }
-      }
-
-      // Try partial matches using possible name variations
-      const possibleNames = slugToProductName(slug);
-      console.log(`Trying partial matches with names: ${possibleNames.join(', ')}`);
-      
-      for (const product of allProducts) {
-        for (const possibleName of possibleNames) {
-          if (product.name.toLowerCase().includes(possibleName.toLowerCase()) || 
-              possibleName.toLowerCase().includes(product.name.toLowerCase())) {
-            console.log(`Found partial match: ${product.name} for ${possibleName}`);
-            return {
-              ...product,
-              reviews: Array.isArray(product.reviews) ? product.reviews : []
-            };
-          }
-        }
-      }
-
-      console.log(`No product found matching slug: ${slug}`);
-      return null;
-    } catch (error) {
-      console.error(`Error in getProductBySlug: ${error}`);
-      return null;
-    }
   },
 
   // Search products by name

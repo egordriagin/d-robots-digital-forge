@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { productService } from "@/services/supabase/products";
 import { transformDatabaseProductsArray, transformDatabaseToProduct } from "@/utils/productTransformers";
@@ -28,46 +29,11 @@ export const useProduct = (id: string) => {
   return useQuery({
     queryKey: ['products', id],
     queryFn: async () => {
-      console.log(`useProduct: Attempting to fetch product with ID/slug: ${id}`);
-      
-      if (!id) {
-        console.log('No ID provided');
-        return null;
-      }
-      
-      try {
-        // Check if it looks like a UUID (contains hyphens and is 36 chars)
-        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-        
-        if (isUUID) {
-          console.log(`ID appears to be UUID, trying direct lookup: ${id}`);
-          const dbProduct = await productService.getProductById(id);
-          if (dbProduct) {
-            console.log(`Found product by UUID: ${dbProduct.name}`);
-            return transformDatabaseToProduct(dbProduct);
-          }
-          console.log(`No product found for UUID: ${id}`);
-          return null;
-        }
-        
-        // Try slug lookup
-        console.log(`Trying slug lookup: ${id}`);
-        const dbProduct = await productService.getProductBySlug(id);
-        if (dbProduct) {
-          console.log(`Found product by slug: ${dbProduct.name}`);
-          return transformDatabaseToProduct(dbProduct);
-        }
-        
-        console.log(`No product found for slug: ${id}`);
-        return null;
-      } catch (error) {
-        console.error(`Error in useProduct for ${id}:`, error);
-        return null;
-      }
+      const dbProduct = await productService.getProductById(id);
+      return dbProduct ? transformDatabaseToProduct(dbProduct) : null;
     },
     enabled: !!id,
     staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1, // Only retry once to avoid spam
   });
 };
 

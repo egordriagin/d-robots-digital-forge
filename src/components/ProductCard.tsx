@@ -4,17 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { StockStatus } from "@/types/product";
-
-// Generate slug from product name
-const generateProductSlug = (name: string): string => {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
-};
+import { StockStatus } from "@/data/products";
 
 interface ProductCardProps {
   product: {
@@ -65,11 +55,6 @@ const getStockConfig = (status: StockStatus) => {
         label: "Снят с производства",
         className: "bg-gray-500 text-white"
       };
-    case "pre-order":
-      return {
-        label: "Предзаказ",
-        className: "bg-blue-500 text-white"
-      };
     default:
       return {
         label: "В наличии",
@@ -88,7 +73,6 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
   const stockConfig = getStockConfig(product.stockStatus);
-  const productSlug = generateProductSlug(product.name);
   
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
@@ -155,7 +139,7 @@ export const ProductCard = ({
           <div className="text-lg font-semibold text-[#1F669D]">
             {product.pricing.base}
           </div>
-          <Link to={`/product/${category}/${productSlug}`}>
+          <Link to={`/product/${category}/${product.id}`}>
             <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
               Подробнее
             </Button>
