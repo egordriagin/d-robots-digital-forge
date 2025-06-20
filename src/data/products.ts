@@ -138,62 +138,7 @@ export const products: Product[] = [
     brand: "Prusa Research",
     category: "3d-printers",
     shortDescription: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати.",
-    fullDescription: `
-      <div class="space-y-6">
-        <p><strong>Prusa Core One</strong> представляет собой новейший 3D-принтер от легендарного производителя Prusa Research, оснащенный передовой системой CoreXY для обеспечения высокой скорости и точности печати.</p>
-        
-        <h4 class="text-lg font-semibold text-[#113C5A] mt-6 mb-3">Ключевые особенности</h4>
-        <ul class="list-disc list-inside space-y-2">
-          <li>CoreXY кинематика для максимальной скорости и точности</li>
-          <li>Автоматическая калибровка стола PINDA v2</li>
-          <li>Магнитная съемная поверхность для легкого извлечения моделей</li>
-          <li>Быстрая сборка всего за 30 минут</li>
-          <li>Open Source прошивка с возможностью кастомизации</li>
-          <li>Поддержка множества материалов</li>
-        </ul>
-
-        <h4 class="text-lg font-semibold text-[#113C5A] mt-6 mb-3">Технические характеристики</h4>
-        <table class="w-full border-collapse border border-gray-300 mt-4">
-          <tbody>
-            <tr class="border-b border-gray-200">
-              <td class="border-r border-gray-300 px-4 py-2 font-medium">Область печати</td>
-              <td class="px-4 py-2">250 × 220 × 270 мм</td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="border-r border-gray-300 px-4 py-2 font-medium">Точность позиционирования</td>
-              <td class="px-4 py-2">±0,025 мм</td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="border-r border-gray-300 px-4 py-2 font-medium">Максимальная скорость</td>
-              <td class="px-4 py-2">400 мм/с</td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="border-r border-gray-300 px-4 py-2 font-medium">Температура экструдера</td>
-              <td class="px-4 py-2">до 300°C</td>
-            </tr>
-            <tr>
-              <td class="border-r border-gray-300 px-4 py-2 font-medium">Температура стола</td>
-              <td class="px-4 py-2">до 120°C</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h4 class="text-lg font-semibold text-[#113C5A] mt-6 mb-3">Поддерживаемые материалы</h4>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-          <span class="bg-gray-100 px-3 py-1 rounded">PLA</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">PETG</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">ABS</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">ASA</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">PC</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">PP</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">PVA</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">HIPS</span>
-          <span class="bg-gray-100 px-3 py-1 rounded">TPU</span>
-        </div>
-
-        <p class="mt-6">Принтер сочетает в себе надежность открытого исходного кода с инновационными решениями автоматизации, делая его идеальным выбором как для профессиональных задач, так и для образовательных проектов.</p>
-      </div>
-    `,
+    fullDescription: "Prusa Core One представляет собой новейший 3D-принтер от легендарного производителя Prusa Research, оснащенный передовой системой CoreXY для обеспечения высокой скорости и точности печати. Принтер сочетает в себе надежность открытого исходного кода с инновационными решениями автоматизации.\n\nОснащенный системой автоматической калибровки и усовершенствованным экструдером, Core One идеально подходит как для профессиональных задач, так и для образовательных проектов, обеспечивая стабильное качество печати на различных материалах.",
     images: [
       "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png",
       "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png"
