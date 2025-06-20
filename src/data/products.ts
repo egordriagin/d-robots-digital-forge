@@ -1,3 +1,4 @@
+
 import { PrinterSpecifications } from "@/types/printer-specifications";
 import { ScannerSpecifications } from "@/types/scanner-specifications";
 
@@ -30,6 +31,7 @@ export interface Product {
   printerSpecifications?: PrinterSpecifications;
   scannerSpecifications?: ScannerSpecifications;
   power?: string; // For laser cutters
+  basePrice: string; // Add this missing property
 }
 
 export interface Review {
@@ -52,6 +54,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 127,
     inStock: true,
+    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1606378059120-35d1b1c16b73?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581092917791-20a3ea9025a8?w=600&h=400&fit=crop"
@@ -188,6 +191,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 94,
     inStock: true,
+    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&h=400&fit=crop"
@@ -314,6 +318,7 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.3,
     reviewCount: 67,
     inStock: true,
+    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=600&h=400&fit=crop"
     ],
@@ -437,6 +442,7 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.7,
     reviewCount: 43,
     inStock: true,
+    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop"
     ],
@@ -483,91 +489,90 @@ Input Shaper технология позволяет печатать на вы�
           measurement: "Одноточечная точность"
         },
         volumetricAccuracy: {
-          base: "0.03 мм",
-          coefficient: "0.15 мм/м",
+          baseAccuracy: "0.03 мм",
+          distanceCoefficient: "0.15 мм/м",
           formula: "0.03 мм + 0.15 мм/м × расстояние измерения"
         },
         resolution: {
-          measurement: "0.2 мм",
+          measurementResolution: "0.2 мм",
           pointDistance: "0.2 мм",
-          outputMesh: "0.2-2.0 мм"
+          outputMeshResolution: "0.2-2.0 мм"
         }
       },
       speed: {
         frameRate: "80 FPS",
         measurementSpeed: "35 000 точек в секунду",
-        dataCollection: "Real-time обработка на борту"
+        dataCollectionSpeed: "Real-time обработка на борту"
       },
-      range: {
-        singleScan: {
-          fieldOfView: "838 × 488 мм на расстоянии 900 мм",
-          depthOfField: "0.35-1.2 м",
-          workingDistance: "0.35-1.2 м"
-        },
-        objectSize: {
-          recommended: "0.2-10 м",
-          typical: "Средние и крупные объекты",
-          maximum: "Неограничено (с использованием маркеров)"
+      captureRange: {
+        singleScanRange: "838 × 488 мм на расстоянии 900 мм",
+        fieldOfView: "838 × 488 мм на расстоянии 900 мм",
+        depthOfField: "0.35-1.2 м",
+        workingDistance: "0.35-1.2 м",
+        objectSizeCapabilities: {
+          minimum: "0.2 м",
+          maximum: "Неограничено (с использованием маркеров)",
+          recommended: "0.2-10 м"
         }
       },
       technology: {
         scanningTechnology: {
           type: "Структурированный свет",
-          lightSource: "Безопасный белый LED",
-          cameras: "3 камеры + проектор"
+          lightSourceCharacteristics: "Безопасный белый LED",
+          camerasAndProjectors: "3 камеры + проектор"
         },
-        tracking: {
-          alignment: "Автоматическое по геометрии и текстуре",
-          trackingMode: "Гибридное отслеживание",
-          markers: "Опционально, без маркеров по умолчанию"
+        trackingAndPositioning: {
+          alignmentMethods: "Автоматическое по геометрии и текстуре",
+          trackingCapabilities: "Гибридное отслеживание",
+          markerSupport: "Опционально, без маркеров по умолчанию"
         }
       },
       compatibility: {
-        sizeRestrictions: {
-          recommended: "От 20 см до 10 м",
-          typical: "Люди, автомобили, мебель, скульптуры",
-          maximum: "Без ограничений с маркерами"
+        sizeConstraints: {
+          recommendedRange: "От 20 см до 10 м",
+          typicalCharacteristics: "Люди, автомобили, мебель, скульптуры",
+          maximumScannable: "Без ограничений с маркерами"
         },
         surfaceRequirements: {
-          compatible: "Матовые, слабо отражающие поверхности",
-          treatment: "Антибликовый спрей для блестящих поверхностей",
+          compatibleSurfaces: "Матовые, слабо отражающие поверхности",
+          processingRecommendations: "Антибликовый спрей для блестящих поверхностей",
           limitations: "Ограничения с прозрачными и зеркальными поверхностями"
         }
       },
       software: {
         outputCompatibility: {
-          formats: "OBJ, STL, PLY, E57, ASCII, WRML, AOP",
+          supportedFileFormats: "OBJ, STL, PLY, E57, ASCII, WRML, AOP",
           operatingSystems: "Windows 10/11 64-bit",
           mobileCompatibility: "Нет"
         },
         systemRequirements: {
-          minimum: "Intel i5, 16GB RAM, DirectX 11",
-          recommended: "Intel i7/AMD Ryzen 7, 32GB RAM, NVIDIA GTX 1060+",
-          specifications: "Дискретная видеокарта обязательна, 50GB свободного места"
+          minimumSpecs: "Intel i5, 16GB RAM, DirectX 11",
+          recommendedSpecs: "Intel i7/AMD Ryzen 7, 32GB RAM, NVIDIA GTX 1060+",
+          ramGpuCpuRequirements: "Дискретная видеокарта обязательна, 50GB свободного места"
         }
       },
       hardware: {
-        deviceSpecs: {
-          weight: "2.6 кг",
-          cableConnection: "Беспроводной (Wi-Fi синхронизация)",
-          portability: "Полностью портативный с встроенным экраном"
+        equipmentCharacteristics: {
+          weightAndDimensions: "2.6 кг",
+          cableAndConnectivity: "Беспроводной (Wi-Fi синхронизация)",
+          portabilityClassification: "Полностью портативный с встроенным экраном"
         },
         operatingConditions: {
-          environment: "Внутренние и наружные условия",
-          lighting: "Работа при любом освещении",
-          environmental: "IP54 защита от пыли и влаги"
+          indoorOutdoorCapabilities: "Внутренние и наружные условия",
+          lightingRequirements: "Работа при любом освещении",
+          environmentalConstraints: "IP54 защита от пыли и влаги"
         }
       },
       advanced: {
         scanningModes: {
-          modes: "HD режим, быстрое сканирование",
-          textureCapture: "Полноцветная текстура в HD качестве",
-          realTimeProcessing: "Обработка и визуализация в реальном времени"
+          multipleOptions: "HD режим, быстрое сканирование",
+          textureColorCapture: "Полноцветная текстура в HD качестве",
+          realtimeVsPostprocessing: "Обработка и визуализация в реальном времени"
         },
         qualityControl: {
           autoCalibration: "Автоматическая калибровка при включении",
-          errorDetection: "Автоматическое обнаружение проблем сканирования",
-          qualityAssessment: "Встроенные инструменты оценки качества в Artec Studio"
+          errorDetectionCorrection: "Автоматическое обнаружение проблем сканирования",
+          qualityAssessmentTools: "Встроенные инструменты оценки качества в Artec Studio"
         }
       }
     }
@@ -577,15 +582,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "Artec Eva",
     brand: "Artec 3D",
     category: "3d-scanners",
-    basePrice: "Запросить цену",
+    type: "Structured Light",
+    popular: false,
     rating: 4.8,
     reviewCount: 15,
     inStock: true,
+    basePrice: "от 750,000 ₽",
     images: [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop&overlay=top"
     ],
-    description: "Профессиональный портативный 3D сканер для захвата объектов среднего размера с высокой точностью.",
     shortDescription: "Профессиональный портативный 3D сканер для захвата объектов среднего размера с высокой точностью.",
     fullDescription: "Artec Eva - это профессиональный портативный 3D сканер, использующий технологию структурированного света для создания высокоточных 3D моделей объектов среднего размера.",
     features: [
@@ -604,7 +610,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "3-4 недели",
     reviews: [
       {
-        id: "3",
+        id: 3,
         author: "Дмитрий С.",
         rating: 5,
         date: "8 декабря 2024",
@@ -713,15 +719,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "EinStar 3D Scanner",
     brand: "Shining 3D",
     category: "3d-scanners",
-    basePrice: "Запросить цену",
+    type: "Infrared VCSEL",
+    popular: false,
     rating: 4.6,
     reviewCount: 12,
     inStock: false,
+    basePrice: "от 180,000 ₽",
     images: [
       "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop&overlay=top"
     ],
-    description: "Доступный портативный 3D сканер с высокой точностью для образования и малого бизнеса.",
     shortDescription: "Доступный портативный 3D сканер с высокой точностью для образования и малого бизнеса.",
     fullDescription: "EinStar - это доступный портативный 3D сканер, который идеально подходит для образовательных учреждений и малого бизнеса. Использует инфракрасную технологию для высокоточного сканирования.",
     features: [
@@ -740,7 +747,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "4-5 недель",
     reviews: [
       {
-        id: "4",
+        id: 4,
         author: "Елена М.",
         rating: 4,
         date: "5 декабря 2024",
@@ -756,16 +763,17 @@ Input Shaper технология позволяет печатать на вы�
     name: "Unitree Go1",
     brand: "Unitree Robotics",
     category: "robotic-dogs",
-    basePrice: "Запросить цену",
+    type: "Quadruped Robot",
+    popular: false,
     rating: 4.7,
     reviewCount: 8,
     inStock: true,
+    basePrice: "от 850,000 ₽",
     power: "100W",
     images: [
       "https://images.unsplash.com/photo-1677495149385-c19494439794?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1677495149385-c19494439794?w=400&h=300&fit=crop&overlay=top"
     ],
-    description: "Интеллектуальный робот-собака для исследований, развлечений и образования.",
     shortDescription: "Интеллектуальный робот-собака для исследований, развлечений и образования.",
     fullDescription: "Unitree Go1 - это современный робот-собака, оснащенный передовыми алгоритмами искусственного интеллекта для автономного движения и взаимодействия с окружающей средой.",
     features: [
@@ -784,7 +792,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "6-8 недель",
     reviews: [
       {
-        id: "5",
+        id: 5,
         author: "Иван Т.",
         rating: 5,
         date: "1 декабря 2024",
@@ -798,16 +806,17 @@ Input Shaper технология позволяет печатать на вы�
     name: "Boston Dynamics Spot",
     brand: "Boston Dynamics",
     category: "robotic-dogs",
-    basePrice: "Запросить цену",
+    type: "Industrial Robot",
+    popular: true,
     rating: 4.9,
     reviewCount: 6,
     inStock: false,
+    basePrice: "от 2,500,000 ₽",
     power: "400W",
     images: [
       "https://images.unsplash.com/photo-1631934495749-aa9953e15c1c?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1631934495749-aa9953e15c1c?w=400&h=300&fit=crop&overlay=top"
     ],
-    description: "Передовой робот-собака для промышленного применения и исследований.",
     shortDescription: "Передовой робот-собака для промышленного применения и исследований.",
     fullDescription: "Boston Dynamics Spot - это передовой робот-собака, предназначенный для промышленного применения, инспекций и исследовательских задач в сложных условиях.",
     features: [
@@ -826,7 +835,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "12-16 недель",
     reviews: [
       {
-        id: "6",
+        id: 6,
         author: "Компания ТехИнно",
         rating: 5,
         date: "25 ноября 2024",
@@ -842,15 +851,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "Atlas Robot",
     brand: "Boston Dynamics",
     category: "humanoid-robots",
-    basePrice: "Запросить цену",
+    type: "Humanoid",
+    popular: false,
     rating: 4.8,
     reviewCount: 4,
     inStock: false,
+    basePrice: "по запросу",
     images: [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif"
     ],
-    description: "Динамичный гуманоидный робот, способный выполнять сложные задачи.",
     shortDescription: "Динамичный гуманоидный робот, способный выполнять сложные задачи.",
     fullDescription: "Atlas Robot от Boston Dynamics представляет собой самый передовой гуманоидный робот в мире, способный выполнять сложные динамические движения и работать в экстремальных условиях.",
     features: [
@@ -869,7 +879,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "по согласованию",
     reviews: [
       {
-        id: "7",
+        id: 7,
         author: "НИИ Робототехники",
         rating: 5,
         date: "20 ноября 2024",
@@ -883,15 +893,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "Pepper Robot",
     brand: "SoftBank Robotics",
     category: "humanoid-robots",
-    basePrice: "Запросить цену",
+    type: "Service Robot",
+    popular: true,
     rating: 4.5,
     reviewCount: 7,
     inStock: true,
+    basePrice: "от 1,200,000 ₽",
     images: [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg"
     ],
-    description: "Гуманоидный робот для взаимодействия с людьми в сфере обслуживания.",
     shortDescription: "Гуманоидный робот для взаимодействия с людьми в сфере обслуживания.",
     fullDescription: "Pepper Robot - это дружелюбный гуманоидный робот, специально разработанный для взаимодействия с людьми в сфере обслуживания, образования и развлечений.",
     features: [
@@ -910,7 +921,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "8-10 недель",
     reviews: [
       {
-        id: "8",
+        id: 8,
         author: "Торговый центр Мега",
         rating: 4,
         date: "15 ноября 2024",
@@ -926,15 +937,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "Universal Robots UR5e",
     brand: "Universal Robots",
     category: "robotic-arms",
-    basePrice: "Запросить цену",
+    type: "Collaborative Robot",
+    popular: false,
     rating: 4.6,
     reviewCount: 11,
     inStock: true,
+    basePrice: "от 950,000 ₽",
     images: [
       "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85",
       "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85"
     ],
-    description: "Коллаборативный робот-манипулятор для автоматизации производства.",
     shortDescription: "Коллаборативный робот-манипулятор для автоматизации производства.",
     fullDescription: "Universal Robots UR5e - это коллаборативный робот-манипулятор нового поколения, обеспечивающий безопасную работу рядом с людьми и простую интеграцию в производственные процессы.",
     features: [
@@ -953,7 +965,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "6-8 недель",
     reviews: [
       {
-        id: "9",
+        id: 9,
         author: "Завод Автокомплект",
         rating: 5,
         date: "10 ноября 2024",
@@ -967,15 +979,16 @@ Input Shaper технология позволяет печатать на вы�
     name: "FANUC CRX-10iA",
     brand: "FANUC",
     category: "robotic-arms",
-    basePrice: "Запросить цену",
+    type: "Collaborative Robot",
+    popular: false,
     rating: 4.7,
     reviewCount: 9,
     inStock: true,
+    basePrice: "от 1,100,000 ₽",
     images: [
       "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png",
       "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png"
     ],
-    description: "Коллаборативный робот FANUC для различных промышленных задач.",
     shortDescription: "Коллаборативный робот FANUC для различных промышленных задач.",
     fullDescription: "FANUC CRX-10iA - это надежный коллаборативный робот с высокой точностью и простым программированием для широкого спектра промышленных применений.",
     features: [
@@ -994,7 +1007,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "8-10 недель",
     reviews: [
       {
-        id: "10",
+        id: 10,
         author: "Производство СтанкоПром",
         rating: 5,
         date: "5 ноября 2024",
@@ -1010,16 +1023,17 @@ Input Shaper технология позволяет печатать на вы�
     name: "Glowforge Pro",
     brand: "Glowforge",
     category: "laser-cutters",
-    basePrice: "Запросить цену",
+    type: "Desktop Laser",
+    popular: false,
     rating: 4.5,
     reviewCount: 14,
     inStock: true,
+    basePrice: "от 380,000 ₽",
     power: "45W",
     images: [
       "https://cdn.shopify.com/s/files/1/0274/3345/products/pro-closed-0000_5000x.jpg?v=1663343995",
       "https://cdn.shopify.com/s/files/1/0274/3345/products/pro-closed-0000_5000x.jpg?v=1663343995"
     ],
-    description: "Настольный лазерный резак для создания различных проектов.",
     shortDescription: "Настольный лазерный резак для создания различных проектов.",
     fullDescription: "Glowforge Pro - это настольный лазерный резак и гравер, который делает лазерную обработку доступной для дизайнеров, художников и производителей всех уровней.",
     features: [
@@ -1038,7 +1052,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "4-6 недель",
     reviews: [
       {
-        id: "11",
+        id: 11,
         author: "Студия Крафт",
         rating: 4,
         date: "1 ноября 2024",
@@ -1052,16 +1066,17 @@ Input Shaper технология позволяет печатать на вы�
     name: "Epilog Laser Fusion M2",
     brand: "Epilog Laser",
     category: "laser-cutters",
-    basePrice: "Запросить цену",
+    type: "Industrial Laser",
+    popular: true,
     rating: 4.8,
     reviewCount: 10,
     inStock: true,
+    basePrice: "от 1,500,000 ₽",
     power: "120W",
     images: [
       "https://www.epiloglaser.com/assets/img/products/fusion-laser-series/gallery/fusion-m2-40-laser-machine-1-lg.jpg",
       "https://www.epiloglaser.com/assets/img/products/fusion-laser-series/gallery/fusion-m2-40-laser-machine-1-lg.jpg"
     ],
-    description: "Промышленный лазерный резак для точной резки и гравировки.",
     shortDescription: "Промышленный лазерный резак для точной резки и гравировки.",
     fullDescription: "Epilog Laser Fusion M2 - это промышленный лазерный резак высокой мощности для профессиональной резки и гравировки широкого спектра материалов.",
     features: [
@@ -1080,7 +1095,7 @@ Input Shaper технология позволяет печатать на вы�
     leadTime: "6-8 недель",
     reviews: [
       {
-        id: "12",
+        id: 12,
         author: "Производство ЛазерТех",
         rating: 5,
         date: "28 октября 2024",
