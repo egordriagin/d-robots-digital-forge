@@ -1,4 +1,3 @@
-
 import { PrinterSpecifications } from "@/types/printer-specifications";
 import { ScannerSpecifications } from "@/types/scanner-specifications";
 
@@ -7,16 +6,15 @@ export interface Product {
   name: string;
   brand: string;
   category: string;
-  basePrice: string;
+  type: string;
+  popular: boolean;
   rating: number;
   reviewCount: number;
+  inStock: boolean;
   images: string[];
-  description: string;
   shortDescription: string;
   fullDescription: string;
   features: string[];
-  power?: string;
-  inStock: boolean;
   pricing: {
     base: string;
     withAMS?: string;
@@ -27,133 +25,281 @@ export interface Product {
     freeThreshold: string;
   };
   leadTime: string;
-  reviews: Array<{
-    id: string;
-    author: string;
-    rating: number;
-    date: string;
-    comment: string;
-  }>;
   demoVideo: string;
+  reviews: Review[];
   printerSpecifications?: PrinterSpecifications;
   scannerSpecifications?: ScannerSpecifications;
+  power?: string; // For laser cutters
 }
 
-const products: Product[] = [
+export interface Review {
+  id: number;
+  author: string;
+  rating: number;
+  date: string;
+  comment: string;
+}
+
+export const products: Product[] = [
   // 3D Printers
   {
-    id: "creatbot-d600",
-    name: "Creatbot D600",
-    brand: "Creatbot",
+    id: "bambu-x1-carbon",
+    name: "Bambu Lab X1 Carbon",
+    brand: "Bambu Lab",
     category: "3d-printers",
-    basePrice: "Запросить цену",
-    rating: 4.5,
-    reviewCount: 23,
+    type: "FDM",
+    popular: true,
+    rating: 4.9,
+    reviewCount: 127,
     inStock: true,
     images: [
-      "https://images.unsplash.com/photo-1615779458099-ca5701c1ca1f?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1615779458099-ca5701c1ca1f?w=400&h=300&fit=crop&overlay=top"
+      "https://images.unsplash.com/photo-1606378059120-35d1b1c16b73?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1581092917791-20a3ea9025a8?w=600&h=400&fit=crop"
     ],
-    description: "Промышленный 3D принтер с большой областью печати и высокой точностью.",
-    shortDescription: "Промышленный 3D принтер с большой областью печати и высокой точностью.",
-    fullDescription: "Creatbot D600 представляет собой промышленный 3D принтер, который обеспечивает исключительную точность печати и может работать с широким спектром материалов. Этот принтер идеально подходит для производственных задач, где требуется высокая точность и надежность.",
+    shortDescription: "Высокоскоростной 3D-принтер с автоматической системой смены материалов и интеллектуальным управлением печатью.",
+    fullDescription: `Bambu Lab X1 Carbon представляет новое поколение настольных 3D-принтеров с революционной системой автоматического управления. 
+
+Принтер оснащен системой LiDAR для автоматического выравнивания стола, AI-детектором для мониторинга печати в реальном времени и системой AMS для автоматической смены до 4 различных материалов.
+
+Благодаря закрытой камере с активным обогревом и фильтрацией воздуха, X1 Carbon позволяет печатать инженерными пластиками включая ABS, ASA, PC, PA-CF и другие высокотемпературные материалы.
+
+Скорость печати достигает 500 мм/с с сохранением высокого качества благодаря системе вибрационной компенсации и точной калибровке давления в экструдере.`,
     features: [
-      "Большая область печати",
-      "Высокая точность",
-      "Поддержка различных материалов",
-      "Автоматическая калибровка"
+      "Автоматическая система смены материалов AMS",
+      "LiDAR-сканер для выравнивания стола",
+      "AI-детектор дефектов печати",
+      "Закрытая камера с подогревом до 65°C",
+      "Скорость печати до 500 мм/с",
+      "Поддержка инженерных пластиков",
+      "Система фильтрации воздуха",
+      "Мониторинг через мобильное приложение"
     ],
     pricing: {
-      base: "от 450,000 ₽"
+      base: "Запросить цену",
+      withAMS: "Запросить цену",
+      withAccessories: "Запросить цену"
     },
     shipping: {
       cost: "Бесплатно",
-      freeThreshold: "100,000 ₽"
+      freeThreshold: "150 000 ₽"
     },
-    leadTime: "2-3 недели",
+    leadTime: "7-14 дней",
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     reviews: [
       {
-        id: "1",
-        author: "Александр К.",
+        id: 1,
+        author: "Алексей М.",
         rating: 5,
-        date: "15 декабря 2024",
-        comment: "Отличный принтер для профессиональной работы. Высокое качество печати."
+        date: "2024-03-15",
+        comment: "Невероятно быстрый и точный принтер. AMS система работает безупречно, печать инженерных пластиков теперь стала простой задачей."
+      },
+      {
+        id: 2,
+        author: "Мария К.",
+        rating: 5,
+        date: "2024-03-10",
+        comment: "Отличное качество печати прямо из коробки. AI-детектор действительно помогает избежать брака. Рекомендую для профессионального использования."
       }
     ],
-    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     printerSpecifications: {
       printing: {
         buildVolume: {
-          dimensions: "600 x 600 x 600 мм",
-          area: "360000 кв.мм",
-          maxLength: "848 мм (диагональ)"
+          dimensions: "256 × 256 × 256 мм",
+          area: "65 536 мм²",
+          maxLength: "256 мм"
         },
         resolution: {
-          layerHeight: "0.04 - 0.3 мм",
-          xyResolution: "12.5 микрон",
-          dimensionalAccuracy: "±0.1 мм",
-          minWallThickness: "0.4 мм"
+          layerHeight: "0.08 - 0.35 мм",
+          xyResolution: "0.02 мм",
+          dimensionalAccuracy: "±0.15 мм",
+          minWallThickness: "0.35 мм"
         },
         speed: {
-          maxSpeed: "180 мм/с",
-          typicalRange: "60-120 мм/с",
-          materialDependent: "Зависит от типа материала"
+          maxSpeed: "500 мм/с",
+          typicalRange: "50-250 мм/с",
+          materialDependent: "ABS/ASA: до 300 мм/с, PLA: до 500 мм/с"
         }
       },
       technology: {
         printingTechnology: {
           type: "FDM (Fused Deposition Modeling)",
-          implementation: "Двойной экструдер"
+          implementation: "Система прямого привода с титановым тепловым барьером"
         },
         materials: {
-          supportedMaterials: "PLA, ABS, PC, Nylon, Carbon Fiber, и др.",
-          cartridgeSpecs: "Катушки 1.75 мм",
-          temperatureRange: "До 420°C"
+          supportedMaterials: "PLA, PETG, ABS, ASA, TPU, PA, PA-CF, PET-CF, PC, PVA, HIPS, PPA-CF",
+          cartridgeSpecs: "Катушки 1.75 мм, вес до 1 кг",
+          temperatureRange: "Экструдер: до 300°C, Стол: до 120°C, Камера: до 65°C"
         }
       },
       hardware: {
         dimensions: {
-          printerSize: "940 x 1100 x 1650 мм",
-          weight: "280 кг",
-          requiredSpace: "1500 x 1500 мм"
+          printerSize: "389 × 389 × 457 мм",
+          weight: "13.2 кг",
+          requiredSpace: "500 × 500 × 600 мм (с учетом обслуживания)"
         },
         interface: {
-          controlType: "7-дюймовый сенсорный экран",
-          displaySpecs: "1024 x 600 пикселей",
-          languages: "Английский, Китайский"
+          controlType: "4-дюймовый цветной сенсорный экран",
+          displaySpecs: "480×800 пикселей, IPS матрица",
+          languages: "Русский, английский, китайский, немецкий, французский"
         },
         connectivity: {
-          wifi: "IEEE 802.11 b/g/n",
-          ethernet: "10/100 Mbps",
-          usb: "USB 2.0"
+          wifi: "Wi-Fi 802.11 b/g/n 2.4 ГГц",
+          ethernet: "RJ45 Gigabit Ethernet",
+          usb: "USB-A для печати с флешки, MicroSD слот"
         }
       },
       environment: {
         operating: {
-          temperatureRange: "15-30°C",
-          humidity: "До 70%"
+          temperatureRange: "16-32°C",
+          humidity: "20-70% относительной влажности"
         },
         power: {
-          voltage: "220V",
-          consumption: "1200W",
-          frequency: "50/60Hz"
+          voltage: "100-240 В AC",
+          consumption: "350 Вт максимум",
+          frequency: "50/60 Гц"
         }
       },
       advanced: {
         automation: {
-          autoLeveling: "Автоматическое выравнивание платформы",
-          sensors: "Датчик окончания филамента",
-          autoFeed: "Автоматическая подача филамента"
+          autoLeveling: "LiDAR сканер + автоматическая калибровка стола",
+          sensors: "AI-камера для детекции дефектов, датчики натяжения филамента",
+          autoFeed: "Автоматическая система смены материалов AMS (опция)"
         },
         software: {
-          compatibleOS: "Windows, macOS",
-          fileFormats: "STL, OBJ, G-Code",
-          systemRequirements: "Intel i5, 8GB RAM"
+          compatibleOS: "Windows 10/11, macOS 10.15+, Linux Ubuntu 18.04+",
+          fileFormats: "STL, OBJ, 3MF, AMF",
+          systemRequirements: "4GB RAM, OpenGL 2.0, 8GB свободного места"
         },
         qualityControl: {
-          forceSensing: "Нет",
-          temperatureControl: "PID-регулирование температуры",
-          realTimeMonitoring: "Мониторинг через веб-интерфейс"
+          forceSensing: "Датчик усилия экструдера для контроля подачи",
+          temperatureControl: "PID регулирование температуры экструдера и стола",
+          realTimeMonitoring: "AI-камера с детекцией спагетти и дефектов слоев"
+        }
+      }
+    }
+  },
+  {
+    id: "prusa-mk4",
+    name: "Prusa MK4",
+    brand: "Prusa Research",
+    category: "3d-printers",
+    type: "FDM",
+    popular: true,
+    rating: 4.8,
+    reviewCount: 94,
+    inStock: true,
+    images: [
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&h=400&fit=crop"
+    ],
+    shortDescription: "Надежный 3D-принтер с автоматическим выравниванием стола и высокой точностью печати для профессионального использования.",
+    fullDescription: `Prusa MK4 - это эволюция легендарной серии 3D-принтеров от чешской компании Prusa Research. Принтер сочетает в себе проверенную временем конструкцию с современными технологиями.
+
+Оснащен системой автоматического выравнивания стола LoadCell, которая использует датчик нагрузки для точного определения положения сопла относительно стола. Это обеспечивает идеальное первое слоение без ручной настройки.
+
+Новый экструдер Nextruder с планетарным редуктором обеспечивает точную подачу филамента и работу с широким спектром материалов, включая абразивные и композитные пластики.
+
+Input Shaper технология позволяет печатать на высоких скоростях без потери качества, автоматически компенсируя вибрации рамы принтера.`,
+    features: [
+      "Автоматическое выравнивание LoadCell",
+      "Input Shaper для высокоскоростной печати",
+      "Экструдер Nextruder с планетарным редуктором",
+      "Магнитный гибкий стол PEI",
+      "Датчики обрыва и застревания филамента",
+      "Цветной ЖК-дисплей с поворотным энкодером",
+      "32-битная плата управления",
+      "Предустановленный слайсер PrusaSlicer"
+    ],
+    pricing: {
+      base: "Запросить цену",
+      withAccessories: "Запросить цену"
+    },
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "100 000 ₽"
+    },
+    leadTime: "14-21 день",
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Дмитрий В.",
+        rating: 5,
+        date: "2024-03-12",
+        comment: "Классический Prusa стал еще лучше. LoadCell работает идеально, больше не нужно вручную выравнивать стол. Качество печати на высоте."
+      }
+    ],
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "250 × 210 × 220 мм",
+          area: "52 500 мм²",
+          maxLength: "250 мм"
+        },
+        resolution: {
+          layerHeight: "0.05 - 0.30 мм",
+          xyResolution: "0.025 мм",
+          dimensionalAccuracy: "±0.1 мм",
+          minWallThickness: "0.4 мм"
+        },
+        speed: {
+          maxSpeed: "200 мм/с",
+          typicalRange: "30-150 мм/с"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM (Fused Deposition Modeling)",
+          implementation: "Direct Drive экструдер Nextruder с планетарным редуктором"
+        },
+        materials: {
+          supportedMaterials: "PLA, PETG, ABS, ASA, TPU, PA, PC, CPE, PVB, HIPS",
+          cartridgeSpecs: "Филамент 1.75 мм",
+          temperatureRange: "Экструдер: до 300°C, Стол: до 120°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "500 × 550 × 400 мм",
+          weight: "7 кг",
+          requiredSpace: "600 × 650 × 500 мм"
+        },
+        interface: {
+          controlType: "3.5-дюймовый цветной ЖК-дисплей",
+          displaySpecs: "320×240 пикселей с поворотным энкодером",
+          languages: "15+ языков включая русский"
+        },
+        connectivity: {
+          wifi: "Опциональный Wi-Fi модуль",
+          ethernet: "RJ45 Ethernet (опция)",
+          usb: "USB-A, MicroSD карта"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "15-32°C"
+        },
+        power: {
+          voltage: "110-240 В AC",
+          consumption: "120 Вт средн., 215 Вт пик",
+          frequency: "50/60 Гц"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "LoadCell автоматическое выравнивание стола",
+          sensors: "Датчик обрыва филамента, датчик застревания, температурные датчики",
+          autoFeed: "Ручная загрузка филамента"
+        },
+        software: {
+          compatibleOS: "Windows, macOS, Linux",
+          fileFormats: "STL, OBJ, 3MF, AMF",
+          systemRequirements: "2GB RAM, 1GB свободного места"
+        },
+        qualityControl: {
+          forceSensing: "LoadCell сенсор для автокалибровки",
+          temperatureControl: "PID контроль температуры",
+          realTimeMonitoring: "Мониторинг через Prusa Connect"
         }
       }
     }
@@ -163,44 +309,269 @@ const products: Product[] = [
     name: "Flashforge Creator 4",
     brand: "Flashforge",
     category: "3d-printers",
-    basePrice: "Запросить цену",
+    type: "FDM",
+    popular: true,
     rating: 4.3,
-    reviewCount: 18,
+    reviewCount: 67,
     inStock: true,
     images: [
-      "https://images.unsplash.com/photo-1607868240674-d99d3649c043?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1607868240674-d99d3649c043?w=400&h=300&fit=crop&overlay=top"
+      "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=600&h=400&fit=crop"
     ],
-    description: "Профессиональный 3D принтер с независимыми экструдерами и закрытой камерой.",
-    shortDescription: "Профессиональный 3D принтер с независимыми экструдерами и закрытой камерой.",
-    fullDescription: "Flashforge Creator 4 - это профессиональный 3D принтер с независимыми экструдерами, который позволяет печатать двумя материалами одновременно. Закрытая камера обеспечивает стабильную температуру для качественной печати.",
+    shortDescription: "Двухэкструдерный 3D-принтер с независимыми экструдерами для печати сложных моделей с поддержками.",
+    fullDescription: `Flashforge Creator 4 - профессиональный 3D-принтер с системой независимых двойных экструдеров (IDEX), позволяющий печатать двумя материалами одновременно или дублировать модели.
+
+Закрытая камера с фильтрацией воздуха обеспечивает стабильную температуру для печати ABS и других термопластиков, требующих подогрева.
+
+Автоматическое выравнивание стола и система управления с 5-дюймовым сенсорным экраном делают принтер удобным в использовании для профессиональных задач.`,
     features: [
-      "Независимые экструдеры",
-      "Закрытая камера",
-      "Высокая точность",
-      "Поддержка различных материалов"
+      "Независимые двойные экструдеры (IDEX)",
+      "Закрытая камера с подогревом",
+      "Автоматическое выравнивание стола",
+      "5-дюймовый сенсорный экран",
+      "Система фильтрации воздуха",
+      "Wi-Fi подключение",
+      "Камера для мониторинга печати",
+      "Поддержка облачной печати"
     ],
     pricing: {
-      base: "от 380,000 ₽"
+      base: "Запросить цену"
     },
     shipping: {
       cost: "Бесплатно",
-      freeThreshold: "100,000 ₽"
+      freeThreshold: "120 000 ₽"
     },
-    leadTime: "2-3 недели",
+    leadTime: "10-14 дней",
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     reviews: [
       {
-        id: "2",
-        author: "Мария П.",
+        id: 1,
+        author: "Сергей Л.",
         rating: 4,
-        date: "10 декабря 2024",
-        comment: "Хороший принтер, но требует настройки."
+        date: "2024-03-08",
+        comment: "Отличный принтер для сложных проектов. IDEX система работает стабильно, качество печати хорошее."
       }
     ],
-    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "400 × 350 × 500 мм",
+          area: "140 000 мм²",
+          maxLength: "500 мм"
+        },
+        resolution: {
+          layerHeight: "0.1 - 0.3 мм",
+          xyResolution: "0.1 мм",
+          dimensionalAccuracy: "±0.2 мм",
+          minWallThickness: "0.4 мм"
+        },
+        speed: {
+          maxSpeed: "150 мм/с",
+          typicalRange: "40-100 мм/с"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM с независимыми двойными экструдерами",
+          implementation: "IDEX система с раздельными экструдерами"
+        },
+        materials: {
+          supportedMaterials: "PLA, ABS, PETG, TPU, HIPS, PVA",
+          cartridgeSpecs: "Филамент 1.75 мм",
+          temperatureRange: "Экструдеры: до 240°C, Стол: до 120°C, Камера: до 65°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "665 × 590 × 860 мм",
+          weight: "56 кг",
+          requiredSpace: "800 × 700 × 1000 мм"
+        },
+        interface: {
+          controlType: "5-дюймовый цветной сенсорный экран",
+          displaySpecs: "800×480 пикселей",
+          languages: "Русский, английский, китайский"
+        },
+        connectivity: {
+          wifi: "Wi-Fi 802.11 b/g/n",
+          ethernet: "RJ45 Ethernet",
+          usb: "USB-A, USB-C"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "18-30°C"
+        },
+        power: {
+          voltage: "110-240 В AC",
+          consumption: "400 Вт",
+          frequency: "50/60 Гц"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "Автоматическое выравнивание с 25 точками",
+          sensors: "Датчики обрыва филамента, температурные датчики",
+          autoFeed: "Автоматическая подача филамента"
+        },
+        software: {
+          compatibleOS: "Windows, macOS",
+          fileFormats: "STL, OBJ, 3MF",
+          systemRequirements: "4GB RAM, 2GB свободного места"
+        },
+        qualityControl: {
+          forceSensing: "Нет",
+          temperatureControl: "PID контроль",
+          realTimeMonitoring: "Встроенная камера с удаленным мониторингом"
+        }
+      }
+    }
   },
-
   // 3D Scanners
+  {
+    id: "artec-leo",
+    name: "Artec Leo",
+    brand: "Artec 3D",
+    category: "3d-scanners",
+    type: "Structured Light",
+    popular: true,
+    rating: 4.7,
+    reviewCount: 43,
+    inStock: true,
+    images: [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop"
+    ],
+    shortDescription: "Беспроводной 3D-сканер со встроенным экраном и обработкой данных на борту для профессионального сканирования.",
+    fullDescription: `Artec Leo представляет революционный подход к профессиональному 3D-сканированию. Это первый в мире беспроводной 3D-сканер со встроенным сенсорным экраном и обработкой данных в реальном времени.
+
+Благодаря встроенному компьютеру на базе NVIDIA Jetson Xavier, сканер обрабатывает данные прямо во время сканирования, позволяя видеть результат в режиме реального времени на 5-дюймовом HD экране.
+
+Автономность работы до 4 часов и отсутствие проводов делают Leo идеальным для сканирования в полевых условиях, на производстве или в любых местах,где мобильность критична.`,
+    features: [
+      "Беспроводная работа до 4 часов",
+      "Встроенный 5-дюймовый HD экран",
+      "Обработка данных в реальном времени",
+      "Автоматическое выравнивание сканов",
+      "Встроенная система координат",
+      "Wi-Fi синхронизация с компьютером",
+      "Сканирование без маркеров",
+      "Защита от пыли и влаги IP54"
+    ],
+    pricing: {
+      base: "Запросить цену",
+      withAccessories: "Запросить цену"
+    },
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "500 000 ₽"
+    },
+    leadTime: "21-30 дней",
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Андрей С.",
+        rating: 5,
+        date: "2024-02-28",
+        comment: "Потрясающий сканер! Мобильность и качество на высшем уровне. Идеально подходит для работы на объектах."
+      }
+    ],
+    scannerSpecifications: {
+      accuracy: {
+        pointAccuracy: {
+          range: "До 0.1 мм",
+          typical: "0.1 мм",
+          measurement: "Одноточечная точность"
+        },
+        volumetricAccuracy: {
+          base: "0.03 мм",
+          coefficient: "0.15 мм/м",
+          formula: "0.03 мм + 0.15 мм/м × расстояние измерения"
+        },
+        resolution: {
+          measurement: "0.2 мм",
+          pointDistance: "0.2 мм",
+          outputMesh: "0.2-2.0 мм"
+        }
+      },
+      speed: {
+        frameRate: "80 FPS",
+        measurementSpeed: "35 000 точек в секунду",
+        dataCollection: "Real-time обработка на борту"
+      },
+      range: {
+        singleScan: {
+          fieldOfView: "838 × 488 мм на расстоянии 900 мм",
+          depthOfField: "0.35-1.2 м",
+          workingDistance: "0.35-1.2 м"
+        },
+        objectSize: {
+          recommended: "0.2-10 м",
+          typical: "Средние и крупные объекты",
+          maximum: "Неограничено (с использованием маркеров)"
+        }
+      },
+      technology: {
+        scanningTechnology: {
+          type: "Структурированный свет",
+          lightSource: "Безопасный белый LED",
+          cameras: "3 камеры + проектор"
+        },
+        tracking: {
+          alignment: "Автоматическое по геометрии и текстуре",
+          trackingMode: "Гибридное отслеживание",
+          markers: "Опционально, без маркеров по умолчанию"
+        }
+      },
+      compatibility: {
+        sizeRestrictions: {
+          recommended: "От 20 см до 10 м",
+          typical: "Люди, автомобили, мебель, скульптуры",
+          maximum: "Без ограничений с маркерами"
+        },
+        surfaceRequirements: {
+          compatible: "Матовые, слабо отражающие поверхности",
+          treatment: "Антибликовый спрей для блестящих поверхностей",
+          limitations: "Ограничения с прозрачными и зеркальными поверхностями"
+        }
+      },
+      software: {
+        outputCompatibility: {
+          formats: "OBJ, STL, PLY, E57, ASCII, WRML, AOP",
+          operatingSystems: "Windows 10/11 64-bit",
+          mobileCompatibility: "Нет"
+        },
+        systemRequirements: {
+          minimum: "Intel i5, 16GB RAM, DirectX 11",
+          recommended: "Intel i7/AMD Ryzen 7, 32GB RAM, NVIDIA GTX 1060+",
+          specifications: "Дискретная видеокарта обязательна, 50GB свободного места"
+        }
+      },
+      hardware: {
+        deviceSpecs: {
+          weight: "2.6 кг",
+          cableConnection: "Беспроводной (Wi-Fi синхронизация)",
+          portability: "Полностью портативный с встроенным экраном"
+        },
+        operatingConditions: {
+          environment: "Внутренние и наружные условия",
+          lighting: "Работа при любом освещении",
+          environmental: "IP54 защита от пыли и влаги"
+        }
+      },
+      advanced: {
+        scanningModes: {
+          modes: "HD режим, быстрое сканирование",
+          textureCapture: "Полноцветная текстура в HD качестве",
+          realTimeProcessing: "Обработка и визуализация в реальном времени"
+        },
+        qualityControl: {
+          autoCalibration: "Автоматическая калибровка при включении",
+          errorDetection: "Автоматическое обнаружение проблем сканирования",
+          qualityAssessment: "Встроенные инструменты оценки качества в Artec Studio"
+        }
+      }
+    }
+  },
   {
     id: "artec-eva",
     name: "Artec Eva",

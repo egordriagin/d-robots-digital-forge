@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Star } from "lucide-react";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { products } from "@/data/products";
 
 const Printers3D = () => {
   usePageTitle("3D Принтеры");
@@ -15,18 +16,8 @@ const Printers3D = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
 
-  const printers = [
-    { id: "creatbot-d600", name: "Creatbot D600", brand: "Creatbot", type: "FDM", price: "Запросить цену", rating: 4.5, popular: true },
-    { id: "creatbot-peek-300", name: "Creatbot PEEK-300", brand: "Creatbot", type: "FDM", price: "Запросить цену", rating: 4.8, popular: false },
-    { id: "flashforge-creator-4", name: "Flashforge Creator 4", brand: "Flashforge", type: "FDM", price: "Запросить цену", rating: 4.3, popular: true },
-    { id: "bambu-x1", name: "Bambu Lab X1", brand: "Bambu Lab", type: "FDM", price: "Запросить цену", rating: 4.9, popular: true },
-    { id: "bambu-p1s", name: "Bambu P1S", brand: "Bambu Lab", type: "FDM", price: "Запросить цену", rating: 4.7, popular: true },
-    { id: "prusa-xl", name: "Prusa XL", brand: "Prusa", type: "FDM", price: "Запросить цену", rating: 4.6, popular: false },
-    { id: "prusa-mk4", name: "Prusa MK4", brand: "Prusa", type: "FDM", price: "Запросить цену", rating: 4.8, popular: true },
-    { id: "qidi-x-max", name: "QIDI X MAX", brand: "QIDI", type: "FDM", price: "Запросить цену", rating: 4.4, popular: false },
-    { id: "raise3d-pro3", name: "Raise3D Pro3", brand: "Raise3D", type: "FDM", price: "Запросить цену", rating: 4.5, popular: false },
-    { id: "anycubic-photon-m3", name: "Anycubic Photon M3 Max", brand: "Anycubic", type: "SLA", price: "Запросить цену", rating: 4.2, popular: false }
-  ];
+  // Filter products to get only 3D printers
+  const printers = products.filter(product => product.category === "3d-printers");
 
   const filteredPrinters = printers
     .filter(printer => 
@@ -85,7 +76,7 @@ const Printers3D = () => {
             <Card key={printer.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop" 
+                  src={printer.images[0]} 
                   alt={printer.name}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -117,7 +108,7 @@ const Printers3D = () => {
               <CardContent>
                 <div className="flex justify-between items-center">
                   <div className="text-lg font-semibold text-[#1F669D]">
-                    {printer.price}
+                    {printer.pricing.base}
                   </div>
                   <div className="flex gap-2">
                     <Link to={`/product/3d-printers/${printer.id}`}>
