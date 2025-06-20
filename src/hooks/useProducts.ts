@@ -29,27 +29,32 @@ export const useProduct = (id: string) => {
   return useQuery({
     queryKey: ['products', id],
     queryFn: async () => {
-      console.log(`Attempting to fetch product with ID: ${id}`);
+      console.log(`useProduct: Attempting to fetch product with ID: ${id}`);
       
-      // First try to get product by ID (UUID)
-      try {
-        const dbProduct = await productService.getProductById(id);
-        if (dbProduct) {
-          console.log(`Found product by ID: ${dbProduct.name}`);
-          return transformDatabaseToProduct(dbProduct);
+      // Check if it looks like a UUID (contains hyphens and is 36 chars)
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      
+      if (isUUID) {
+        console.log(`ID appears to be UUID, trying direct lookup: ${id}`);
+        try {
+          const dbProduct = await productService.getProductById(id);
+          if (dbProduct) {
+            console.log(`Found product by UUID: ${dbProduct.name}`);
+            return transformDatabaseToProduct(dbProduct);
+          }
+        } catch (error) {
+          console.error(`Failed to get product by UUID: ${error}`);
         }
-      } catch (error) {
-        console.log(`Failed to get product by UUID, trying by slug/name: ${error}`);
-        
-        // If UUID fails, try to find by slug-like matching
+      } else {
+        console.log(`ID appears to be slug, trying slug lookup: ${id}`);
         try {
           const dbProduct = await productService.getProductBySlug(id);
           if (dbProduct) {
             console.log(`Found product by slug: ${dbProduct.name}`);
             return transformDatabaseToProduct(dbProduct);
           }
-        } catch (slugError) {
-          console.error(`Failed to get product by slug: ${slugError}`);
+        } catch (error) {
+          console.error(`Failed to get product by slug: ${error}`);
         }
       }
       
@@ -58,6 +63,7 @@ export const useProduct = (id: string) => {
     },
     enabled: !!id,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1, // Only retry once to avoid spam
   });
 };
 

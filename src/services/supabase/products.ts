@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 
 export type DatabaseProduct = {
@@ -96,40 +95,70 @@ export const productService = {
     };
   },
 
-  // Get product by slug-like identifier
+  // Get product by slug-like identifier - improved matching
   async getProductBySlug(slug: string): Promise<DatabaseProduct | null> {
     console.log(`Searching for product by slug: ${slug}`);
     
-    // Convert slug back to a searchable name
-    // "bambu-lab-x1-carbon" -> "Bambu Lab X1 Carbon"
-    const searchTerm = slug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    // Try multiple search strategies
+    const searchStrategies = [
+      // Strategy 1: Direct slug conversion "bambu-lab-x1-carbon" -> "Bambu Lab X1 Carbon"
+      slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+      // Strategy 2: Handle special cases like "x1-carbon" -> "X1 Carbon"
+      slug.split('-').map(word => word.toUpperCase()).join(' '),
+      // Strategy 3: Partial matching with original slug format
+      slug.replace(/-/g, ' '),
+      // Strategy 4: Try exact name match for common patterns
+      slug.split('-').map(word => {
+        // Handle special cases
+        if (word.toLowerCase() === 'x1') return 'X1';
+        if (word.toLowerCase() === 'mk4') return 'MK4';
+        if (word.toLowerCase() === 'go2') return 'Go2';
+        if (word.toLowerCase() === 'ur5e') return 'UR5e';
+        if (word.toLowerCase() === 'nao6') return 'NAO6';
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(' ')
+    ];
     
-    console.log(`Converted slug "${slug}" to search term: "${searchTerm}"`);
-    
+    for (const searchTerm of searchStrategies) {
+      console.log(`Trying search term: "${searchTerm}"`);
+      
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .ilike('name', `%${searchTerm}%`)
+        .limit(1);
+
+      if (error) {
+        console.error(`Error searching with term "${searchTerm}":`, error);
+        continue;
+      }
+
+      if (data && data.length > 0) {
+        console.log(`Found product by slug with term "${searchTerm}": ${data[0].name}`);
+        return {
+          ...data[0],
+          reviews: Array.isArray(data[0].reviews) ? data[0].reviews : []
+        };
+      }
+    }
+
+    // If no match found, try a broader search
+    console.log(`No exact match found, trying broader search...`);
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .ilike('name', `%${searchTerm}%`)
-      .limit(1)
-      .single();
+      .limit(10);
 
     if (error) {
-      if (error.code === 'PGRST116') {
-        console.log(`No product found matching slug: ${slug}`);
-        return null;
-      }
-      console.error('Error searching product by slug:', error);
+      console.error('Error in broader search:', error);
       throw error;
     }
 
-    console.log(`Found product by slug: ${data?.name}`);
-    return {
-      ...data,
-      reviews: Array.isArray(data.reviews) ? data.reviews : []
-    };
+    // Log all product names for debugging
+    console.log('Available products:', data?.map(p => p.name));
+    
+    console.log(`No product found matching slug: ${slug}`);
+    return null;
   },
 
   // Search products by name
