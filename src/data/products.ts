@@ -1,6 +1,284 @@
 import { Product, StockStatus } from "@/types/product";
 
 export const products: Product[] = [
+  // 3D Printers
+  {
+    id: "bambu-lab-x1-carbon",
+    name: "Bambu Lab X1 Carbon",
+    brand: "Bambu Lab",
+    category: "3d-printers",
+    shortDescription: "Профессиональный 3D-принтер с автоматической системой управления материалами и ускоренной печатью до 500 мм/с.",
+    fullDescription: "Bambu Lab X1 Carbon представляет собой революционный 3D-принтер, оснащенный передовой системой автоматического управления материалами (AMS) и технологией LiDAR для автоматического выравнивания. Принтер обеспечивает исключительное качество печати благодаря закрытой камере с активным контролем температуры и влажности.\n\nВстроенная система мониторинга с AI-детекцией сбоев позволяет контролировать процесс печати удаленно, а многоцветная печать становится простой и доступной благодаря автоматической смене материалов.",
+    images: [
+      "/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png",
+      "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png",
+      "/lovable-uploads/412a23d8-1bd6-4d1f-aa81-256e3a56277f.png"
+    ],
+    pricing: {
+      base: "от 1 299 000 ₽",
+      withAMS: "1 649 000 ₽",
+      withAccessories: "до 1 950 000 ₽"
+    },
+    leadTime: "4-6 недель",
+    stockStatus: "in-stock",
+    rating: 4.8,
+    reviewCount: 142,
+    features: [
+      "Скорость печати до 500 мм/с",
+      "Автоматическая система смены материалов (AMS)",
+      "LiDAR технология автовыравнивания",
+      "AI-мониторинг процесса печати",
+      "Закрытая камера с контролем климата",
+      "Многоцветная печать до 16 цветов",
+      "Удаленное управление через приложение",
+      "Совместимость с широким спектром материалов"
+    ],
+    shipping: {
+      cost: "15 000 ₽",
+      freeThreshold: "1 000 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Александр М.",
+        rating: 5,
+        date: "12 марта 2024",
+        comment: "Невероятный принтер! Качество печати на высшем уровне, AMS работает безупречно."
+      },
+      {
+        id: 2,
+        author: "Екатерина Л.",
+        rating: 5,
+        date: "3 марта 2024",
+        comment: "Быстрая печать без компромиссов в качестве. Рекомендую всем профессионалам."
+      }
+    ],
+    popular: true,
+    printerSpecifications: {
+      printing: {
+        buildVolume: {
+          dimensions: "256 × 256 × 256 мм",
+          area: "65536 мм²",
+          maxLength: "256 мм"
+        },
+        resolution: {
+          layerHeight: "0,08 - 0,35 мм",
+          xyResolution: "0,02 мм",
+          dimensionalAccuracy: "±0,1 мм",
+          minWallThickness: "0,4 мм"
+        },
+        speed: {
+          maxSpeed: "500 мм/с",
+          typicalRange: "50-300 мм/с",
+          materialDependent: "PLA: до 500 мм/с, ABS: до 300 мм/с"
+        }
+      },
+      technology: {
+        printingTechnology: {
+          type: "FDM (Fused Deposition Modeling)",
+          implementation: "Прямой привод с двойными шестернями"
+        },
+        materials: {
+          supportedMaterials: "PLA, PETG, ABS, ASA, PA, PC, PVA, HIPS, TPU, Wood, Metal-filled",
+          cartridgeSpecs: "Катушки 1 кг, диаметр нити 1,75 мм",
+          temperatureRange: "Экструдер: до 300°C, Стол: до 120°C"
+        }
+      },
+      hardware: {
+        dimensions: {
+          printerSize: "389 × 389 × 457 мм",
+          weight: "13,2 кг",
+          requiredSpace: "500 × 500 × 600 мм"
+        },
+        interface: {
+          controlType: "5-дюймовый сенсорный экран + мобильное приложение",
+          displaySpecs: "800×480 пикселей, IPS LCD",
+          languages: "Русский, английский, китайский, немецкий, французский"
+        },
+        connectivity: {
+          wifi: "802.11 b/g/n 2,4 ГГц",
+          ethernet: "RJ45 порт",
+          usb: "USB-A, microSD слот"
+        }
+      },
+      environment: {
+        operating: {
+          temperatureRange: "15-30°C",
+          humidity: "20-70% без конденсации"
+        },
+        power: {
+          voltage: "100-240 В переменного тока",
+          consumption: "350 Вт максимум",
+          frequency: "50/60 Гц"
+        }
+      },
+      advanced: {
+        automation: {
+          autoLeveling: "LiDAR автокалибровка + микро-LiDAR",
+          sensors: "Вибрационная компенсация, датчик нити, датчик завершения",
+          autoFeed: "Автоматическая система смены материалов (AMS)"
+        },
+        software: {
+          compatibleOS: "Windows, macOS, Linux, iOS, Android",
+          fileFormats: "STL, OBJ, 3MF, AMF",
+          systemRequirements: "4 ГБ ОЗУ, 8 ГБ свободного места"
+        },
+        qualityControl: {
+          forceSensing: "Датчики нагрузки для контроля экструзии",
+          temperatureControl: "PID-регулирование с точностью ±1°C",
+          realTimeMonitoring: "AI-камера с детекцией сбоев"
+        }
+      }
+    }
+  },
+  // 3D Scanners  
+  {
+    id: "artec-eva",
+    name: "Artec Eva",
+    brand: "Artec 3D",
+    category: "3d-scanners",
+    shortDescription: "Профессиональный портативный 3D-сканер для захвата объектов среднего размера с высокой точностью и скоростью.",
+    fullDescription: "Artec Eva представляет собой универсальный профессиональный 3D-сканер, идеально подходящий для сканирования объектов среднего размера — от промышленных деталей до людей. Благодаря технологии структурированного света и отсутствию необходимости в маркерах, Eva обеспечивает быстрое и точное сканирование с разрешением до 0,5 мм.\n\nСканер особенно популярен в областях реверс-инжиниринга, контроля качества, медицины и создания цифрового контента благодаря своей портативности, простоте использования и профессиональному качеству результатов.",
+    images: [
+      "/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png"
+    ],
+    pricing: {
+      base: "от 2 450 000 ₽",
+      withAccessories: "до 2 890 000 ₽"
+    },
+    leadTime: "8-12 недель",
+    stockStatus: "in-stock",
+    rating: 4.7,
+    reviewCount: 89,
+    features: [
+      "Точность до 0,1 мм",
+      "Скорость захвата до 16 кадр/с",
+      "Без маркеров и мишеней",
+      "Портативность 0,85 кг",
+      "Цветное сканирование",
+      "Рабочее расстояние 0,4-1 м",
+      "Профессиональное ПО Artec Studio",
+      "Простота использования"
+    ],
+    shipping: {
+      cost: "Бесплатно",
+      freeThreshold: "2 000 000 ₽"
+    },
+    demoVideo: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    reviews: [
+      {
+        id: 1,
+        author: "Игорь В.",
+        rating: 5,
+        date: "18 февраля 2024",
+        comment: "Отличный сканер для промышленного применения. Высокая точность и надежность."
+      },
+      {
+        id: 2,
+        author: "Мария К.",
+        rating: 4,
+        date: "10 февраля 2024",
+        comment: "Хорошее качество сканирования, но требует определенных навыков для максимального результата."
+      }
+    ],
+    scannerSpecifications: {
+      accuracy: {
+        pointAccuracy: {
+          range: "до 0,1 мм",
+          typical: "0,1 мм",
+          measurement: "Лазерная интерферометрия"
+        },
+        volumetricAccuracy: {
+          baseAccuracy: "0,1 мм",
+          distanceCoefficient: "0,1 мм/м",
+          formula: "0,1 мм + 0,1 мм/м × расстояние"
+        },
+        resolution: {
+          measurementResolution: "0,5 мм",
+          pointDistance: "0,5 мм",
+          outputMeshResolution: "до 0,2 мм"
+        }
+      },
+      speed: {
+        frameRate: "до 16 кадр/с",
+        measurementSpeed: "до 2 000 000 точек/с",
+        dataCollectionSpeed: "быстрый режим захвата"
+      },
+      captureRange: {
+        singleScanRange: "214 × 148 мм на 400 мм расстоянии",
+        fieldOfView: "30° × 21°",
+        depthOfField: "±90 мм",
+        workingDistance: "0,4 - 1,0 м",
+        objectSizeCapabilities: {
+          minimum: "50 мм",
+          maximum: "3 м",
+          recommended: "0,2 - 2 м"
+        }
+      },
+      technology: {
+        scanningTechnology: {
+          type: "Структурированный белый свет",
+          lightSourceCharacteristics: "Безопасный LED источник света",
+          camerasAndProjectors: "1 проектор + 2 камеры"
+        },
+        trackingAndPositioning: {
+          alignmentMethods: "Автоматическое выравнивание геометрии",
+          trackingCapabilities: "Реального времени без маркеров",
+          markerSupport: "Не требуются маркеры"
+        }
+      },
+      compatibility: {
+        sizeConstraints: {
+          recommendedRange: "200 мм - 2 м",
+          typicalCharacteristics: "Средние и крупные объекты",
+          maximumScannable: "неограничен при склейке сканов"
+        },
+        surfaceRequirements: {
+          compatibleSurfaces: "Матовые, текстурированные поверхности",
+          processingRecommendations: "Избегать блестящих и прозрачных поверхностей",
+          limitations: "Может потребоваться матирующий спрей"
+        }
+      },
+      software: {
+        outputCompatibility: {
+          supportedFileFormats: "OBJ, PLY, STL, ASCII, WRML, E57, CSV",
+          operatingSystems: "Windows 8.1/10/11 (64-bit)",
+          mobileCompatibility: "Не поддерживается"
+        },
+        systemRequirements: {
+          minimumSpecs: "Intel Core i5, 8 ГБ ОЗУ, DirectX 11",
+          recommendedSpecs: "Intel Core i7, 32 ГБ ОЗУ, NVIDIA GTX 1060",
+          ramGpuCpuRequirements: "GPU с 4+ ГБ VRAM для больших проектов"
+        }
+      },
+      hardware: {
+        equipmentCharacteristics: {
+          weightAndDimensions: "0,85 кг, 262 × 158 × 63 мм",
+          cableAndConnectivity: "USB 3.0, кабель 3,5 м",
+          portabilityClassification: "Портативный ручной сканер"
+        },
+        operatingConditions: {
+          indoorOutdoorCapabilities: "В помещении, контролируемое освещение",
+          lightingRequirements: "Избегать прямого солнечного света",
+          environmentalConstraints: "5-40°C, влажность <80%"
+        }
+      },
+      advanced: {
+        scanningModes: {
+          multipleOptions: "HD режим, быстрый режим",
+          textureColorCapture: "Полноцветное сканирование",
+          realtimeVsPostprocessing: "Реальное время + пост-обработка"
+        },
+        qualityControl: {
+          autoCalibration: "Автоматическая калибровка камер",
+          errorDetectionCorrection: "Автоматическая коррекция ошибок",
+          qualityAssessmentTools: "Встроенные инструменты анализа качества"
+        }
+      }
+    }
+  },
+  // ... keep existing code (robotic products)
   {
     id: "unitree-go1",
     name: "Unitree GO1",
