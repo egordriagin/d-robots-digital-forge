@@ -172,6 +172,22 @@ const ProductDetail = () => {
       return <ScannerSpecifications specifications={product.scannerSpecifications} />;
     }
     
+    if (product.roboticDogSpecifications) {
+      return <RoboticDogSpecifications specifications={product.roboticDogSpecifications} />;
+    }
+    
+    if (product.humanoidRobotSpecifications) {
+      return <HumanoidRobotSpecifications specifications={product.humanoidRobotSpecifications} />;
+    }
+    
+    if (product.roboticArmSpecifications) {
+      return <RoboticArmSpecifications specifications={product.roboticArmSpecifications} />;
+    }
+    
+    if (product.laserCutterSpecifications) {
+      return <LaserCutterSpecifications specifications={product.laserCutterSpecifications} />;
+    }
+    
     return (
       <Card>
         <CardContent className="p-8">
