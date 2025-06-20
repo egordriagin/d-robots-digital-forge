@@ -12,15 +12,16 @@ interface ProductCardProps {
     brand: string;
     images: string[];
     rating: number;
-    pricing?: {
+    pricing: {
       base: string;
+      withAMS?: string;
+      withAccessories?: string;
     };
-    basePrice?: string;
     popular?: boolean;
     type?: string;
     power?: string;
     shortDescription?: string;
-    inStock?: boolean;
+    inStock: boolean;
     leadTime?: string;
   };
   category: string;
@@ -38,13 +39,8 @@ export const ProductCard = ({
   showPowerBadge = false,
   cardSize = "default"
 }: ProductCardProps) => {
-  // Standardize pricing - prefer pricing.base over basePrice
-  const price = product.pricing?.base || product.basePrice;
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
   
-  // Determine stock status
-  const stockStatus = product.inStock !== undefined ? product.inStock : true; // default to true if not specified
-
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
       <div className="relative overflow-hidden rounded-t-lg">
@@ -75,13 +71,13 @@ export const ProductCard = ({
         {/* Stock status badge */}
         <Badge 
           className={`absolute bottom-3 left-3 ${
-            stockStatus 
+            product.inStock 
               ? "bg-green-500 text-white" 
               : "bg-red-500 text-white"
           }`}
         >
           <Package className="h-3 w-3 mr-1" />
-          {stockStatus ? "В наличии" : "Под заказ"}
+          {product.inStock ? "В наличии" : "Под заказ"}
         </Badge>
       </div>
       
@@ -114,7 +110,7 @@ export const ProductCard = ({
       <CardContent>
         <div className="flex justify-between items-center">
           <div className="text-lg font-semibold text-[#1F669D]">
-            {price}
+            {product.pricing.base}
           </div>
           <Link to={`/product/${category}/${product.id}`}>
             <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">

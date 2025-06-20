@@ -30,7 +30,6 @@ export interface Product {
   printerSpecifications?: PrinterSpecifications;
   scannerSpecifications?: ScannerSpecifications;
   power?: string; // For laser cutters
-  basePrice: string; // Add this missing property
 }
 
 export interface Review {
@@ -53,7 +52,6 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 127,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1606378059120-35d1b1c16b73?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581092917791-20a3ea9025a8?w=600&h=400&fit=crop"
@@ -190,7 +188,6 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 94,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&h=400&fit=crop"
@@ -317,7 +314,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.3,
     reviewCount: 67,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=600&h=400&fit=crop"
     ],
@@ -441,7 +437,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.7,
     reviewCount: 43,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop"
     ],
@@ -450,7 +445,7 @@ Input Shaper технология позволяет печатать на вы�
 
 Благодаря встроенному компьютеру на базе NVIDIA Jetson Xavier, сканер обрабатывает данные прямо во время сканирования, позволяя видеть результат в режиме реального времени на 5-дюймовом HD экране.
 
-Автономность работы до 4 часов и отсутствие проводов делают Leo идеальным для сканирования в полевых условиях, на производстве или в любых местах,где мобильность критична.`,
+Автономность работы до 4 часов и отсутствие проводов делают Leo идеальным для сканирования в полевых условиях, на производстве или в любых местах, где мобильность критична.`,
     features: [
       "Беспроводная работа до 4 часов",
       "Встроенный 5-дюймовый HD экран",
@@ -586,7 +581,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.8,
     reviewCount: 15,
     inStock: true,
-    basePrice: "от 750,000 ₽",
     images: [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop&overlay=top"
@@ -723,7 +717,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.6,
     reviewCount: 12,
     inStock: false,
-    basePrice: "от 180,000 ₽",
     images: [
       "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop",
       "https://images.unsplash.com/photo-1581091870621-0d77de92b7e6?w=600&h=400&fit=crop&overlay=top"
@@ -767,7 +760,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.7,
     reviewCount: 8,
     inStock: true,
-    basePrice: "от 850,000 ₽",
     power: "100W",
     images: [
       "https://images.unsplash.com/photo-1677495149385-c19494439794?w=400&h=300&fit=crop",
@@ -810,7 +802,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.9,
     reviewCount: 6,
     inStock: false,
-    basePrice: "от 2,500,000 ₽",
     power: "400W",
     images: [
       "https://images.unsplash.com/photo-1631934495749-aa9953e15c1c?w=400&h=300&fit=crop",
@@ -855,7 +846,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.8,
     reviewCount: 4,
     inStock: false,
-    basePrice: "по запросу",
     images: [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atlas_performs_parkour.gif/300px-Atlas_performs_parkour.gif"
@@ -897,7 +887,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.5,
     reviewCount: 7,
     inStock: true,
-    basePrice: "от 1,200,000 ₽",
     images: [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg/300px-Pepper_at_the_Webwinkelvakdagen_2019_%2801%29.jpg"
@@ -941,7 +930,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.7,
     reviewCount: 23,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop"
     ],
@@ -982,7 +970,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.8,
     reviewCount: 15,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?w=600&h=400&fit=crop"
     ],
@@ -1023,7 +1010,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.5,
     reviewCount: 31,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop"
     ],
@@ -1064,7 +1050,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.6,
     reviewCount: 18,
     inStock: true,
-    basePrice: "Запросить цену",
     images: [
       "https://images.unsplash.com/photo-1606378059120-35d1b1c16b73?w=600&h=400&fit=crop"
     ],
@@ -1107,7 +1092,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.6,
     reviewCount: 11,
     inStock: true,
-    basePrice: "от 950,000 ₽",
     images: [
       "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85",
       "https://www.universal-robots.com/media/18639/ur5e-product.jpg?width=450&quality=85"
@@ -1149,7 +1133,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.7,
     reviewCount: 9,
     inStock: true,
-    basePrice: "от 1,100,000 ₽",
     images: [
       "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png",
       "https://www.fanuc.eu/~/media/images/fanuc%20europe/products/robots/series/crx/crx-10ia_2.png"
@@ -1193,7 +1176,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.5,
     reviewCount: 14,
     inStock: true,
-    basePrice: "от 380,000 ₽",
     power: "45W",
     images: [
       "https://cdn.shopify.com/s/files/1/0274/3345/products/pro-closed-0000_5000x.jpg?v=1663343995",
@@ -1236,7 +1218,6 @@ Input Shaper технология позволяет печатать на вы�
     rating: 4.8,
     reviewCount: 10,
     inStock: true,
-    basePrice: "от 1,500,000 ₽",
     power: "120W",
     images: [
       "https://www.epiloglaser.com/assets/img/products/fusion-laser-series/gallery/fusion-m2-40-laser-machine-1-lg.jpg",
