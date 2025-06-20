@@ -15,6 +15,16 @@ interface CategoryPageProps {
   infoSection?: React.ReactNode;
 }
 
+// Category image mapping
+const categoryImages: Record<string, string> = {
+  "3d-scanners": "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png",
+  "robotic-dogs": "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png",
+  "humanoid-robots": "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png",
+  "robotic-arms": "/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png",
+  "laser-cutters": "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
+  "3d-printers": "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png"
+};
+
 export const CategoryPage = ({ 
   category, 
   title, 
@@ -82,7 +92,7 @@ export const CategoryPage = ({
                   </div>
                   <div className="text-center">
                     <img 
-                      src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                      src={categoryImages[category] || "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"}
                       alt={displayTitle}
                       className="rounded-lg shadow-lg mx-auto"
                     />
