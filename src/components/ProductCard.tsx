@@ -95,7 +95,7 @@ export const ProductCard = ({
           </Badge>
         )}
         
-        {showTypeBadge && product.type && (
+        {showTypeBadge && product.type && !showPowerBadge && (
           <Badge className="absolute top-3 right-3 bg-white text-[#113C5A]">
             {product.type}
           </Badge>
@@ -122,12 +122,12 @@ export const ProductCard = ({
           {product.name}
         </CardTitle>
         {product.shortDescription && (
-          <p className="text-gray-600 text-sm">{product.shortDescription}</p>
+          <p className="text-gray-600 text-sm line-clamp-2">{product.shortDescription}</p>
         )}
         
-        {/* Lead time display */}
+        {/* Lead time display - now prominently shown */}
         {product.leadTime && (
-          <div className="flex items-center text-sm text-gray-500 mt-2">
+          <div className="flex items-center text-sm text-gray-600 mt-2 bg-gray-50 px-2 py-1 rounded">
             <Clock className="h-4 w-4 mr-1" />
             <span>Срок поставки: {product.leadTime}</span>
           </div>
