@@ -2,7 +2,7 @@
 export { productService } from './products';
 export { specificationService } from './specifications';
 
-// Re-export database types (temporary placeholders during Phase 1)
+// Re-export database types
 export type { 
   DatabaseProduct,
 } from './products';
