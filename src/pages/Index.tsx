@@ -1,139 +1,265 @@
+
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowDown, Star } from "lucide-react";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { useMetaData } from "@/hooks/useMetaData";
-import { ProductCard } from "@/components/ProductCard";
-import { useProducts } from "@/hooks/useProducts";
-import { MigrationRunner } from "@/components/MigrationRunner";
 
 const Index = () => {
-  usePageTitle("Главная | D-Robots Digital Forge");
-  useMetaData(
-    "D-Robots Digital Forge - Профессиональное 3D оборудование",
-    "Широкий выбор 3D принтеров, сканеров, роботов и лазерных граверов. Профессиональные решения для бизнеса и образования."
-  );
+  usePageTitle("Главная");
 
-  const { data: products, isLoading, error } = useProducts();
+  const featuredProducts = [
+    {
+      id: "bambu-lab-x1-carbon",
+      name: "Bambu Lab X1 Carbon",
+      category: "3d-printers",
+      image: "/lovable-uploads/0463bb2c-5a77-45f4-8949-fb24344ec40d.png",
+      description: "Высокоскоростной 3D-принтер с автоматической мультиматериальной системой подачи AMS и интеллектуальными функциями",
+      price: "от 329 000 ₽",
+      badge: "Популярный"
+    },
+    {
+      id: "prusa-core-one",
+      name: "Prusa Core One",
+      category: "3d-printers",
+      image: "/lovable-uploads/11ec98dc-7ff6-46b9-b613-ac47bc49b6b0.png",
+      description: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати",
+      price: "от 985 000 ₽",
+      badge: "Новинка"
+    },
+    {
+      id: "glowforge-pro",
+      name: "Glowforge Pro",
+      category: "laser-cutters",
+      image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
+      description: "Профессиональный лазерный станок с облачным управлением для высокоточной резки и гравировки различных материалов",
+      price: "от 890 000 ₽",
+      badge: "Рекомендуем"
+    }
+  ];
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-gray-200 animate-pulse rounded-lg h-64"></div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    console.error('Error loading products:', error);
-  }
-
-  // Show migration tool if no products are available
-  if (!products || products.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">D-Robots Digital Forge</h1>
-          <p className="text-gray-600 mb-8">Добро пожаловать! Давайте настроим ваш каталог продуктов.</p>
-        </div>
-        <MigrationRunner />
-      </div>
-    );
-  }
-
-  const popularProducts = products?.filter(product => product.popular) || [];
+  const clientLogos = [
+    "МГТУ «СТАНКИН»", "X5 Group", "Аквафор", "Университет ИТМО", 
+    "МГУ им. Ломоносова", "Татнефть", "SUZUKI", "LG Electronics"
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 text-gray-900">
-          D-Robots Digital Forge
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Ваш надежный партнер в мире высокотехнологичного оборудования. 
-          Предлагаем широкий выбор 3D принтеров, сканеров, роботизированных систем и лазерных станков 
-          для профессионального использования.
-        </p>
-      </div>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-[#113C5A] via-[#1F669D] to-[#3498DB] text-white py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Badge className="bg-[#3498DB] text-white px-4 py-2 text-sm">
+                  Надежный партнер с 2019 года
+                </Badge>
+                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                  Передовые решения 
+                  <span className="text-[#3498DB]"> цифрового</span> производства
+                </h1>
+                <p className="text-xl text-gray-200 leading-relaxed">
+                  Более 1000 организаций по всему миру доверяют нашим 3D принтерам, 
+                  сканерам, роботам и станкам с ЧПУ для реализации инновационных проектов.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/3d-printers">
+                  <Button size="lg" className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white font-semibold px-8 py-3 transition-all duration-300">
+                    Посмотреть каталог
+                  </Button>
+                </Link>
+                <Link to="/contact">
+                  <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3 transition-all duration-300">
+                    Получить консультацию
+                  </Button>
+                </Link>
+              </div>
 
-      {popularProducts.length > 0 && (
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Популярные продукты</h2>
-            <a 
-              href="/3d-printers" 
-              className="text-blue-600 hover:text-blue-800 font-medium"
-            >
-              Смотреть все →
-            </a>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {popularProducts.slice(0, 6).map((product) => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                category={product.category}
+              <div className="grid grid-cols-3 gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-[#3498DB]">1000+</div>
+                  <div className="text-sm text-gray-300">Довольных клиентов</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-[#3498DB]">5+</div>
+                  <div className="text-sm text-gray-300">Стран присутствия</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-[#3498DB]">100+</div>
+                  <div className="text-sm text-gray-300">Моделей оборудования</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/bcba20ee-bb3e-4c91-be0b-e9efe47823df.png" 
+                alt="Professional additive manufacturing and 3D printing" 
+                className="rounded-lg shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500"
               />
+              <div className="absolute -bottom-4 -left-4 bg-white text-[#113C5A] p-4 rounded-lg shadow-lg">
+                <div className="text-sm font-semibold">Высокая точность</div>
+                <div className="text-xs text-gray-600">до 0.1мм</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ArrowDown className="h-8 w-8 text-white" />
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#113C5A] mb-4">Популярные продукты</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Откройте для себя наши самые востребованные решения для цифрового производства
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product) => (
+              <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
+                <div className="relative overflow-hidden rounded-t-lg">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <Badge className="absolute top-4 left-4 bg-[#3498DB] text-white">
+                    {product.badge}
+                  </Badge>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-[#113C5A] group-hover:text-[#3498DB] transition-colors">
+                    {product.name}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    {product.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div className="text-lg font-semibold text-[#1F669D]">
+                      {product.price}
+                    </div>
+                    <Link to={`/product/${product.category}/${product.id}`}>
+                      <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
+                        Подробнее
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </section>
-      )}
 
-      <section className="bg-gray-50 rounded-lg p-8 mb-16">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Наши категории</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              title: "3D Принтеры",
-              description: "Профессиональные FDM и SLA принтеры",
-              link: "/3d-printers",
-              icon: "🖨️"
-            },
-            {
-              title: "3D Сканеры",
-              description: "Высокоточные системы 3D сканирования",
-              link: "/3d-scanners",
-              icon: "📸"
-            },
-            {
-              title: "Роботы-собаки",
-              description: "Четвероногие роботы для исследований",
-              link: "/robotic-dogs",
-              icon: "🐕"
-            },
-            {
-              title: "Гуманоидные роботы",
-              description: "Антропоморфные роботы для образования",
-              link: "/humanoid-robots",
-              icon: "🤖"
-            },
-            {
-              title: "Роботизированные руки",
-              description: "Промышленные манипуляторы",
-              link: "/robotic-arms",
-              icon: "🦾"
-            },
-            {
-              title: "Лазерные граверы",
-              description: "Прецизионная лазерная обработка",
-              link: "/laser-cutters",
-              icon: "⚡"
-            }
-          ].map((category) => (
-            <a
-              key={category.title}
-              href={category.link}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow group"
-            >
-              <div className="text-3xl mb-4">{category.icon}</div>
-              <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
-                {category.title}
-              </h3>
-              <p className="text-gray-600">{category.description}</p>
-            </a>
-          ))}
+          <div className="text-center mt-12">
+            <Link to="/3d-printers">
+              <Button size="lg" variant="outline" className="border-[#1F669D] text-[#1F669D] hover:bg-[#1F669D] hover:text-white">
+                Смотреть весь каталог
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Categories */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#113C5A] mb-4">Категории оборудования</h2>
+            <p className="text-xl text-gray-600">
+              Полный спектр решений для современного производства
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { name: "3D Принтеры", path: "/3d-printers", image: "/lovable-uploads/6e6dfb31-5bb2-47de-ac80-62b214a5108c.png", description: "Профессиональные 3D принтеры для любых задач" },
+              { name: "3D Сканеры", path: "/3d-scanners", image: "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png", description: "Высокоточное 3D сканирование объектов" },
+              { name: "Робо-собаки", path: "/robotic-dogs", image: "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png", description: "Четвероногие роботы нового поколения" },
+              { name: "Роботы-гуманоиды", path: "/humanoid-robots", image: "/lovable-uploads/41ac80d3-ba89-4629-a422-78b19d9dad72.png", description: "Передовые человекоподобные роботы" },
+              { name: "Роботизированные руки", path: "/robotic-arms", image: "/lovable-uploads/0d3b1654-814f-455b-a2b3-0d3f3432c2c9.png", description: "Промышленные манипуляторы высокой точности" },
+              { name: "Лазерные станки", path: "/laser-cutters", image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png", description: "Точная лазерная резка и гравировка" }
+            ].map((category) => (
+              <Link key={category.path} to={category.path} className="group block">
+                <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-md">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#113C5A]/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-xl font-bold">{category.name}</h3>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <p className="text-gray-600 group-hover:text-[#1F669D] transition-colors">
+                      {category.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted by section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-[#113C5A] mb-4">Нам доверяют</h2>
+            <p className="text-xl text-gray-600">
+              Ведущие компании и университеты выбирают наши решения
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+            {clientLogos.map((client, index) => (
+              <div key={index} className="text-center p-6 rounded-lg border border-gray-200 hover:border-[#3498DB] transition-colors">
+                <div className="text-[#1F669D] font-semibold text-sm md:text-base">
+                  {client}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-[#113C5A] to-[#1F669D]">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Готовы начать свой проект?
+            </h2>
+            <p className="text-xl text-gray-200 mb-8">
+              Получите персональную консультацию и подберите оптимальное решение для ваших задач
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact">
+                <Button size="lg" className="bg-[#3498DB] hover:bg-white hover:text-[#113C5A] text-white font-semibold px-8 py-3">
+                  Получить консультацию
+                </Button>
+              </Link>
+              <Link to="/3d-printers">
+                <Button size="lg" variant="outline" className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-[#113C5A] font-semibold px-8 py-3">
+                  Смотреть каталог
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>
