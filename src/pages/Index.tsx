@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,30 +10,30 @@ const Index = () => {
 
   const featuredProducts = [
     {
-      id: "bambu-lab-x1-carbon",
-      name: "Bambu Lab X1 Carbon",
+      id: "bambu-x1e",
+      name: "Bambu Lab X1E",
       category: "3d-printers",
-      image: "/lovable-uploads/0463bb2c-5a77-45f4-8949-fb24344ec40d.png",
-      description: "Высокоскоростной 3D-принтер с автоматической мультиматериальной системой подачи AMS и интеллектуальными функциями",
-      price: "от 329 000 ₽",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=500&h=400&fit=crop",
+      description: "Professional 3D printer with automatic material system",
+      price: "Запросить цену",
       badge: "Популярный"
     },
     {
-      id: "prusa-core-one",
-      name: "Prusa Core One",
-      category: "3d-printers",
-      image: "/lovable-uploads/11ec98dc-7ff6-46b9-b613-ac47bc49b6b0.png",
-      description: "Инновационный 3D-принтер с CoreXY кинематикой и автоматической калибровкой для профессиональной и любительской печати",
-      price: "от 985 000 ₽",
+      id: "unitree-go2-pro",
+      name: "Unitree Go2 Pro",
+      category: "robotic-dogs",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&h=400&fit=crop",
+      description: "Advanced quadrupedal robot with AI capabilities",
+      price: "Запросить цену",
       badge: "Новинка"
     },
     {
-      id: "glowforge-pro",
-      name: "Glowforge Pro",
-      category: "laser-cutters",
-      image: "/lovable-uploads/c085e403-6e29-4db3-a0b2-026f5b51ed38.png",
-      description: "Профессиональный лазерный станок с облачным управлением для высокоточной резки и гравировки различных материалов",
-      price: "от 890 000 ₽",
+      id: "freescan-ue-pro",
+      name: "FreeScan UE Pro",
+      category: "3d-scanners",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=400&fit=crop",
+      description: "High-precision 3D scanner for professional applications",
+      price: "Запросить цену",
       badge: "Рекомендуем"
     }
   ];
