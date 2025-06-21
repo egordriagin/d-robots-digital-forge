@@ -1,4 +1,5 @@
 
+
 import { PrinterSpecifications } from "./printer-specifications";
 import { ScannerSpecifications } from "./scanner-specifications";
 import { RoboticDogSpecifications } from "./robotic-dog-specifications";
@@ -38,7 +39,7 @@ export interface Product {
     date: string;
     comment: string;
   }>;
-  popular: boolean;
+  popular?: boolean;
   type?: string;
   power?: string;
   printerSpecifications?: PrinterSpecifications;
@@ -48,3 +49,4 @@ export interface Product {
   roboticArmSpecifications?: RoboticArmSpecifications;
   laserCutterSpecifications?: LaserCutterSpecifications;
 }
+
