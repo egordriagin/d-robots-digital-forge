@@ -39,8 +39,8 @@ export interface Product {
     comment: string;
   }>;
   popular: boolean;
-  type: string;
-  power: string;
+  type?: string;
+  power?: string;
   printerSpecifications?: PrinterSpecifications;
   scannerSpecifications?: ScannerSpecifications;
   roboticDogSpecifications?: RoboticDogSpecifications;
