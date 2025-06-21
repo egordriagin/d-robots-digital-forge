@@ -1,95 +1,86 @@
 
+import type { Database } from "@/integrations/supabase/types";
 import type { 
-  DatabasePrinterSpecs,
-  DatabaseScannerSpecs,
-  DatabaseRoboticDogSpecs,
-  DatabaseHumanoidRobotSpecs,
-  DatabaseRoboticArmSpecs,
-  DatabaseLaserCutterSpecs
-} from "@/services/supabase/specifications";
+  PrinterSpecifications,
+  ScannerSpecifications,
+  RoboticDogSpecifications,
+  HumanoidRobotSpecifications,
+  RoboticArmSpecifications,
+  LaserCutterSpecifications
+} from "@/types";
 
-import type { PrinterSpecifications } from "@/types/printer-specifications";
-import type { ScannerSpecifications } from "@/types/scanner-specifications";
-import type { RoboticDogSpecifications } from "@/types/robotic-dog-specifications";
-import type { HumanoidRobotSpecifications } from "@/types/humanoid-robot-specifications";
-import type { RoboticArmSpecifications } from "@/types/robotic-arm-specifications";
-import type { LaserCutterSpecifications } from "@/types/laser-cutter-specifications";
+type DatabasePrinterSpecs = Database['public']['Tables']['printer_specifications']['Row'];
+type DatabaseScannerSpecs = Database['public']['Tables']['scanner_specifications']['Row'];
+type DatabaseRoboticDogSpecs = Database['public']['Tables']['robotic_dog_specifications']['Row'];
+type DatabaseHumanoidRobotSpecs = Database['public']['Tables']['humanoid_robot_specifications']['Row'];
+type DatabaseRoboticArmSpecs = Database['public']['Tables']['robotic_arm_specifications']['Row'];
+type DatabaseLaserCutterSpecs = Database['public']['Tables']['laser_cutter_specifications']['Row'];
 
 export const transformDatabasePrinterSpecs = (dbSpecs: DatabasePrinterSpecs): PrinterSpecifications => {
   return {
-    printing: {
-      buildVolume: {
-        dimensions: dbSpecs.build_volume_dimensions || '',
-        area: dbSpecs.build_volume_area || '',
-        maxLength: dbSpecs.build_volume_max_length || ''
-      },
-      resolution: {
-        layerHeight: dbSpecs.resolution_layer_height || '',
-        xyResolution: dbSpecs.resolution_xy_resolution || '',
-        dimensionalAccuracy: dbSpecs.resolution_dimensional_accuracy || '',
-        minWallThickness: dbSpecs.resolution_min_wall_thickness || ''
-      },
-      speed: {
-        maxSpeed: dbSpecs.speed_max_speed || '',
-        typicalRange: dbSpecs.speed_typical_range || '',
-        materialDependent: dbSpecs.speed_material_dependent || ''
-      }
+    buildVolume: {
+      dimensions: dbSpecs.build_volume_dimensions || '',
+      area: dbSpecs.build_volume_area || '',
+      maxLength: dbSpecs.build_volume_max_length || ''
     },
-    technology: {
-      printingTechnology: {
-        type: dbSpecs.printing_technology_type || '',
-        implementation: dbSpecs.printing_technology_implementation || ''
-      },
-      materials: {
-        supportedMaterials: dbSpecs.materials_supported_materials || '',
-        cartridgeSpecs: dbSpecs.materials_cartridge_specs || '',
-        temperatureRange: dbSpecs.materials_temperature_range || ''
-      }
+    resolution: {
+      layerHeight: dbSpecs.resolution_layer_height || '',
+      xyResolution: dbSpecs.resolution_xy_resolution || '',
+      dimensionalAccuracy: dbSpecs.resolution_dimensional_accuracy || '',
+      minWallThickness: dbSpecs.resolution_min_wall_thickness || ''
     },
-    hardware: {
-      dimensions: {
-        printerSize: dbSpecs.dimensions_printer_size || '',
-        weight: dbSpecs.dimensions_weight || '',
-        requiredSpace: dbSpecs.dimensions_required_space || ''
-      },
-      interface: {
-        controlType: dbSpecs.interface_control_type || '',
-        displaySpecs: dbSpecs.interface_display_specs || '',
-        languages: dbSpecs.interface_languages || ''
-      },
-      connectivity: {
-        wifi: dbSpecs.connectivity_wifi || '',
-        ethernet: dbSpecs.connectivity_ethernet || '',
-        usb: dbSpecs.connectivity_usb || ''
-      }
+    speed: {
+      maxSpeed: dbSpecs.speed_max_speed || '',
+      typicalRange: dbSpecs.speed_typical_range || '',
+      materialDependent: dbSpecs.speed_material_dependent || ''
     },
-    environment: {
-      operating: {
-        temperatureRange: dbSpecs.operating_temperature_range || '',
-        humidity: dbSpecs.operating_humidity || ''
-      },
-      power: {
-        voltage: dbSpecs.power_voltage || '',
-        consumption: dbSpecs.power_consumption || '',
-        frequency: dbSpecs.power_frequency || ''
-      }
+    printingTechnology: {
+      type: dbSpecs.printing_technology_type || '',
+      implementation: dbSpecs.printing_technology_implementation || ''
     },
-    advanced: {
-      automation: {
-        autoLeveling: dbSpecs.automation_auto_leveling || '',
-        sensors: dbSpecs.automation_sensors || '',
-        autoFeed: dbSpecs.automation_auto_feed || ''
-      },
-      software: {
-        compatibleOS: dbSpecs.software_compatible_os || '',
-        fileFormats: dbSpecs.software_file_formats || '',
-        systemRequirements: dbSpecs.software_system_requirements || ''
-      },
-      qualityControl: {
-        forceSensing: dbSpecs.quality_control_force_sensing || '',
-        temperatureControl: dbSpecs.quality_control_temperature_control || '',
-        realTimeMonitoring: dbSpecs.quality_control_realtime_monitoring || ''
-      }
+    materials: {
+      supportedMaterials: dbSpecs.materials_supported_materials || '',
+      cartridgeSpecs: dbSpecs.materials_cartridge_specs || '',
+      temperatureRange: dbSpecs.materials_temperature_range || ''
+    },
+    dimensions: {
+      printerSize: dbSpecs.dimensions_printer_size || '',
+      weight: dbSpecs.dimensions_weight || '',
+      requiredSpace: dbSpecs.dimensions_required_space || ''
+    },
+    interface: {
+      controlType: dbSpecs.interface_control_type || '',
+      displaySpecs: dbSpecs.interface_display_specs || '',
+      languages: dbSpecs.interface_languages || ''
+    },
+    connectivity: {
+      wifi: dbSpecs.connectivity_wifi || '',
+      ethernet: dbSpecs.connectivity_ethernet || '',
+      usb: dbSpecs.connectivity_usb || ''
+    },
+    operatingConditions: {
+      temperatureRange: dbSpecs.operating_temperature_range || '',
+      humidity: dbSpecs.operating_humidity || ''
+    },
+    power: {
+      voltage: dbSpecs.power_voltage || '',
+      consumption: dbSpecs.power_consumption || '',
+      frequency: dbSpecs.power_frequency || ''
+    },
+    automation: {
+      autoLeveling: dbSpecs.automation_auto_leveling || '',
+      sensors: dbSpecs.automation_sensors || '',
+      autoFeed: dbSpecs.automation_auto_feed || ''
+    },
+    software: {
+      compatibleOS: dbSpecs.software_compatible_os || '',
+      fileFormats: dbSpecs.software_file_formats || '',
+      systemRequirements: dbSpecs.software_system_requirements || ''
+    },
+    qualityControl: {
+      forceSensing: dbSpecs.quality_control_force_sensing || '',
+      temperatureControl: dbSpecs.quality_control_temperature_control || '',
+      realtimeMonitoring: dbSpecs.quality_control_realtime_monitoring || ''
     }
   };
 };
@@ -129,19 +120,17 @@ export const transformDatabaseScannerSpecs = (dbSpecs: DatabaseScannerSpecs): Sc
         recommended: dbSpecs.capture_object_size_recommended || ''
       }
     },
-    technology: {
-      scanningTechnology: {
-        type: dbSpecs.technology_scanning_type || '',
-        lightSourceCharacteristics: dbSpecs.technology_light_source || '',
-        camerasAndProjectors: dbSpecs.technology_cameras_projectors || ''
-      },
+    scanningTechnology: {
+      type: dbSpecs.technology_scanning_type || '',
+      lightSourceCharacteristics: dbSpecs.technology_light_source || '',
+      camerasAndProjectors: dbSpecs.technology_cameras_projectors || '',
       trackingAndPositioning: {
         alignmentMethods: dbSpecs.technology_alignment_methods || '',
         trackingCapabilities: dbSpecs.technology_tracking_capabilities || '',
         markerSupport: dbSpecs.technology_marker_support || ''
       }
     },
-    compatibility: {
+    objectCompatibility: {
       sizeConstraints: {
         recommendedRange: dbSpecs.compatibility_recommended_range || '',
         typicalCharacteristics: dbSpecs.compatibility_typical_characteristics || '',
@@ -153,7 +142,7 @@ export const transformDatabaseScannerSpecs = (dbSpecs: DatabaseScannerSpecs): Sc
         limitations: dbSpecs.compatibility_limitations || ''
       }
     },
-    software: {
+    softwareCompatibility: {
       outputCompatibility: {
         supportedFileFormats: dbSpecs.software_supported_file_formats || '',
         operatingSystems: dbSpecs.software_operating_systems || '',
@@ -165,7 +154,7 @@ export const transformDatabaseScannerSpecs = (dbSpecs: DatabaseScannerSpecs): Sc
         ramGpuCpuRequirements: dbSpecs.software_ram_gpu_cpu_requirements || ''
       }
     },
-    hardware: {
+    hardwareSpecifications: {
       equipmentCharacteristics: {
         weightAndDimensions: dbSpecs.hardware_weight_dimensions || '',
         cableAndConnectivity: dbSpecs.hardware_cable_connectivity || '',
@@ -177,7 +166,7 @@ export const transformDatabaseScannerSpecs = (dbSpecs: DatabaseScannerSpecs): Sc
         environmentalConstraints: dbSpecs.hardware_environmental_constraints || ''
       }
     },
-    advanced: {
+    advancedFeatures: {
       scanningModes: {
         multipleOptions: dbSpecs.advanced_scanning_modes || '',
         textureColorCapture: dbSpecs.advanced_texture_color_capture || '',
@@ -238,7 +227,7 @@ export const transformDatabaseRoboticDogSpecs = (dbSpecs: DatabaseRoboticDogSpec
         chargingSpecs: dbSpecs.power_consumption_charging_specs || ''
       }
     },
-    control: {
+    controlSystems: {
       degreesOfFreedom: {
         totalJoints: dbSpecs.control_total_joints || '',
         torqueSpecs: dbSpecs.control_torque_specs || '',
@@ -581,7 +570,7 @@ export const transformDatabaseLaserCutterSpecs = (dbSpecs: DatabaseLaserCutterSp
       }
     },
     connectivity: {
-      options: {
+      network: {
         wifiCapabilities: dbSpecs.connectivity_wifi_capabilities || '',
         ethernetPort: dbSpecs.connectivity_ethernet_port || '',
         usbConnections: dbSpecs.connectivity_usb_connections || '',
@@ -589,21 +578,21 @@ export const transformDatabaseLaserCutterSpecs = (dbSpecs: DatabaseLaserCutterSp
       }
     },
     safety: {
-      features: {
-        safetyClassification: dbSpecs.safety_classification || '',
+      systems: {
+        classification: dbSpecs.safety_classification || '',
         enclosedWorkspace: dbSpecs.safety_enclosed_workspace || '',
         emergencyStop: dbSpecs.safety_emergency_stop || '',
         automaticLocks: dbSpecs.safety_automatic_locks || '',
         warningSystems: dbSpecs.safety_warning_systems || ''
       },
-      operating: {
+      environment: {
         operatingTemperature: dbSpecs.safety_operating_temperature || '',
         storageTemperature: dbSpecs.safety_storage_temperature || '',
         powerRequirements: dbSpecs.safety_power_requirements || ''
       }
     },
     cooling: {
-      system: {
+      systems: {
         coolingCapacity: dbSpecs.cooling_capacity || '',
         airAssist: dbSpecs.cooling_air_assist || '',
         exhaustFan: dbSpecs.cooling_exhaust_fan || '',
@@ -611,11 +600,9 @@ export const transformDatabaseLaserCutterSpecs = (dbSpecs: DatabaseLaserCutterSp
       }
     },
     materials: {
-      cutting: {
-        compatibleCuttingMaterials: dbSpecs.materials_compatible_cutting || '',
-        cuttingDepthByMaterial: dbSpecs.materials_cutting_depth_by_material || ''
-      },
-      engraving: {
+      compatibility: {
+        compatibleCutting: dbSpecs.materials_compatible_cutting || '',
+        cuttingDepthByMaterial: dbSpecs.materials_cutting_depth_by_material || '',
         engravingMaterials: dbSpecs.materials_engraving_materials || '',
         materialParameters: dbSpecs.materials_parameters || ''
       }
