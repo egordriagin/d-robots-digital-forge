@@ -1,30 +1,14 @@
+// src/components/ProductCard.tsx
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { StockStatus } from "@/data/products";
+import { Product, StockStatus } from "@/types/product"; // <-- CORRECTED IMPORT
 
 interface ProductCardProps {
-  product: {
-    id: string;
-    name: string;
-    brand: string;
-    images: string[];
-    rating: number;
-    pricing: {
-      base: string;
-      withAMS?: string;
-      withAccessories?: string;
-    };
-    popular?: boolean;
-    type?: string;
-    power?: string;
-    shortDescription?: string;
-    stockStatus: StockStatus;
-    leadTime?: string;
-  };
+  product: Product;
   category: string;
   showPopularBadge?: boolean;
   showTypeBadge?: boolean;
@@ -63,9 +47,9 @@ const getStockConfig = (status: StockStatus) => {
   }
 };
 
-export const ProductCard = ({ 
-  product, 
-  category, 
+export const ProductCard = ({
+  product,
+  category,
   showPopularBadge = true,
   showTypeBadge = true,
   showPowerBadge = false,
@@ -73,28 +57,28 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
   const stockConfig = getStockConfig(product.stockStatus);
-  
+
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
       <div className="relative overflow-hidden rounded-t-lg">
-        <img 
-          src={product.images[0]} 
+        <img
+          src={product.images[0]}
           alt={product.name}
           className={`w-full ${imageHeight} object-cover group-hover:scale-105 transition-transform duration-300`}
         />
-        
+
         {showPopularBadge && product.popular && (
           <Badge className="absolute top-3 left-3 bg-[#3498DB] text-white">
             Популярный
           </Badge>
         )}
-        
+
         {showPowerBadge && product.power && (
           <Badge className="absolute top-3 right-3 bg-[#3498DB] text-white">
             {product.power}
           </Badge>
         )}
-        
+
         {showTypeBadge && product.type && !showPowerBadge && (
           <Badge className="absolute top-3 right-3 bg-white text-[#113C5A]">
             {product.type}
@@ -107,7 +91,7 @@ export const ProductCard = ({
           {stockConfig.label}
         </Badge>
       </div>
-      
+
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <Badge variant="outline" className="text-xs text-[#1F669D] border-[#1F669D]">
@@ -124,7 +108,7 @@ export const ProductCard = ({
         {product.shortDescription && (
           <p className="text-gray-600 text-sm line-clamp-2">{product.shortDescription}</p>
         )}
-        
+
         {/* Lead time display - now prominently shown */}
         {product.leadTime && (
           <div className="flex items-center text-sm text-gray-600 mt-2 bg-gray-50 px-2 py-1 rounded">
@@ -133,7 +117,7 @@ export const ProductCard = ({
           </div>
         )}
       </CardHeader>
-      
+
       <CardContent>
         <div className="flex justify-between items-center">
           <div className="text-lg font-semibold text-[#1F669D]">

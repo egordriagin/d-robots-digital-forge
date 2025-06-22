@@ -1,10 +1,11 @@
+// src/components/CategoryPageFilters.tsx
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-import { Product } from "@/data/products";
+import { Product } from "@/types/product"; // <-- CORRECTED IMPORT
 
 interface CategoryPageFiltersProps {
   products: Product[];
@@ -27,7 +28,7 @@ export const CategoryPageFilters = ({
   const [sortBy, setSortBy] = useState("name");
 
   // Filter products based on search term
-  const filteredProducts = products.filter(product => 
+  const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.brand.toLowerCase().includes(searchTerm.toLowerCase())
   );
