@@ -1,10 +1,15 @@
+// src/components/CategoryPage.tsx (UPDATED)
+
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProductsByCategory } from "@/integrations/supabase/api";
+
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { CategoryPageHeader } from "@/components/CategoryPageHeader";
 import { CategoryPageFilters } from "@/components/CategoryPageFilters";
-import { products as productList } from "@/data/products";
 import { categoryTranslations } from "@/data/categoryTranslations";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CategoryPageProps {
   category: string;
@@ -14,7 +19,6 @@ interface CategoryPageProps {
   infoSection?: React.ReactNode;
 }
 
-// Category image mapping
 const categoryImages: Record<string, string> = {
   "3d-scanners": "/lovable-uploads/1de61f53-1ad1-486d-a41a-b07677534eec.png",
   "robotic-dogs": "/lovable-uploads/7a11ebf8-8517-4e5f-a5f5-536dff738aa3.png",
@@ -34,19 +38,20 @@ export const CategoryPage = ({
   const [searchParams] = useSearchParams();
   const brandFilter = searchParams.get("brand");
 
-  const products = productList.filter((product) => {
-    if (product.category !== category) {
-      return false;
-    }
-
-    if (brandFilter && product.brand !== brandFilter) {
-      return false;
-    }
-
-    return true;
+  // --- NEW: Fetch products list from Supabase ---
+  const { data: products, isLoading } = useQuery({
+    queryKey: ['products', category],
+    queryFn: () => fetchProductsByCategory(category),
   });
 
-  // Get translations for the category, with fallbacks to props
+  const filteredProducts = React.useMemo(() => {
+    if (!products) return [];
+    if (brandFilter) {
+      return products.filter(product => product.brand === brandFilter);
+    }
+    return products;
+  }, [products, brandFilter]);
+
   const translations = categoryTranslations[category as keyof typeof categoryTranslations];
   const displayTitle = title || translations?.title || category;
   const displayDescription = description || translations?.description || "";
@@ -64,15 +69,19 @@ export const CategoryPage = ({
           />
         </div>
         
-        <CategoryPageFilters
-          products={products}
-          category={category}
-        />
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {[...Array(6)].map((_, i) => <Skeleton key={i} className="h-96 w-full" />)}
+          </div>
+        ) : (
+          <CategoryPageFilters
+            products={filteredProducts}
+            category={category}
+          />
+        )}
         
-        {/* Info section */}
         <div className="mt-16">
           {infoSection || (
-            /* Default info section using translations */
             translations && (
               <div className="bg-gradient-to-r from-[#F4F4F4] to-white rounded-2xl p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -91,7 +100,7 @@ export const CategoryPage = ({
                   </div>
                   <div className="text-center">
                     <img 
-                      src={categoryImages[category] || "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"}
+                      src={categoryImages[category]}
                       alt={displayTitle}
                       className="rounded-lg shadow-lg mx-auto"
                     />
