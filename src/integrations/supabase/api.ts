@@ -2,10 +2,8 @@
 
 import { supabase } from './client';
 import { Product } from '@/types/product';
-import { Database, Tables } from './types'; // Import Database for correct typing
+import { Tables } from './types';
 
-// Define a more precise type for the data we fetch.
-// This uses the generated types and correctly defines one-to-one relationships.
 type ProductWithSpecs = Tables<'products'> & {
   reviews: Tables<'reviews'>[];
   printer_specifications: Tables<'printer_specifications'> | null;
@@ -16,10 +14,6 @@ type ProductWithSpecs = Tables<'products'> & {
   laser_cutter_specifications: Tables<'laser_cutter_specifications'> | null;
 };
 
-/**
- * Fetches a single product by its URL-friendly slug.
- * @param slug The slug of the product to fetch.
- */
 export async function fetchProductBySlug(slug: string): Promise<Product | null> {
   const { data, error } = await supabase
     .from('products')
@@ -36,18 +30,16 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
     .eq('slug', slug)
     .single();
 
-  if (error) {
+  if (error || !data) {
     console.error(`Error fetching product with slug ${slug}:`, error);
     return null;
   }
-  if (!data) return null;
 
   const dbProduct = data as ProductWithSpecs;
 
-  // Transform the database response to the frontend Product type
   const product: Product = {
-    ...dbProduct,
-    id: dbProduct.slug!, // Use the slug as the ID for the frontend router
+    ...(dbProduct as any),
+    id: dbProduct.slug!,
     reviews: dbProduct.reviews || [],
     printerSpecifications: dbProduct.printer_specifications ?? undefined,
     scannerSpecifications: dbProduct.scanner_specifications ?? undefined,
@@ -60,14 +52,10 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
   return product;
 }
 
-/**
- * Fetches a list of products for a given category.
- * @param category The category slug (e.g., '3d-printers').
- */
 export async function fetchProductsByCategory(category: string): Promise<Product[]> {
     const { data, error } = await supabase
       .from('products')
-      .select('*, slug') // Ensure we always fetch the slug
+      .select('*, slug')
       .eq('category', category);
 
     if (error) {
@@ -75,6 +63,5 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       return [];
     }
 
-    // Map the database 'slug' to the frontend 'id' field for the links
-    return (data || []).map(p => ({ ...p, id: p.slug })) as Product[];
+    return (data || []).map(p => ({ ...p, id: p.slug! })) as Product[];
 }
