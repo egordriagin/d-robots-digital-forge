@@ -1,5 +1,3 @@
-
-
 import { PrinterSpecifications } from "./printer-specifications";
 import { ScannerSpecifications } from "./scanner-specifications";
 import { RoboticDogSpecifications } from "./robotic-dog-specifications";
@@ -11,6 +9,7 @@ export type StockStatus = "in-stock" | "out-of-stock" | "backorder" | "discontin
 
 export interface Product {
   id: string;
+  slug?: string;
   name: string;
   brand: string;
   category: string;
@@ -49,4 +48,3 @@ export interface Product {
   roboticArmSpecifications?: RoboticArmSpecifications;
   laserCutterSpecifications?: LaserCutterSpecifications;
 }
-
