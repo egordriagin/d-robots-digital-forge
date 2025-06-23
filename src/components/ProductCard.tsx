@@ -1,11 +1,10 @@
-// src/components/ProductCard.tsx
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { Product, StockStatus } from "@/types/product"; // <-- CORRECTED IMPORT
+import { Product, StockStatus } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +15,6 @@ interface ProductCardProps {
   cardSize?: "default" | "large";
 }
 
-// Stock status configuration
 const getStockConfig = (status: StockStatus) => {
   switch (status) {
     case "in-stock":
@@ -57,6 +55,9 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const imageHeight = cardSize === "large" ? "h-64" : "h-48";
   const stockConfig = getStockConfig(product.stockStatus);
+  
+  // Get the first pricing option or default
+  const primaryPrice = product.pricing.length > 0 ? product.pricing[0].price : "Запросить цену";
 
   return (
     <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md">
@@ -85,7 +86,6 @@ export const ProductCard = ({
           </Badge>
         )}
 
-        {/* Stock status badge */}
         <Badge className={`absolute bottom-3 left-3 ${stockConfig.className}`}>
           <Package className="h-3 w-3 mr-1" />
           {stockConfig.label}
@@ -109,7 +109,6 @@ export const ProductCard = ({
           <p className="text-gray-600 text-sm line-clamp-2">{product.shortDescription}</p>
         )}
 
-        {/* Lead time display - now prominently shown */}
         {product.leadTime && (
           <div className="flex items-center text-sm text-gray-600 mt-2 bg-gray-50 px-2 py-1 rounded">
             <Clock className="h-4 w-4 mr-1" />
@@ -121,7 +120,7 @@ export const ProductCard = ({
       <CardContent>
         <div className="flex justify-between items-center">
           <div className="text-lg font-semibold text-[#1F669D]">
-            {product.pricing.base}
+            {primaryPrice}
           </div>
           <Link to={`/product/${category}/${product.id}`}>
             <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
