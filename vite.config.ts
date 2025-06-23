@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  optimizeDeps: {
+    include: ['@supabase/supabase-js'],
+  },
   plugins: [
     react(),
     mode === 'development' &&
