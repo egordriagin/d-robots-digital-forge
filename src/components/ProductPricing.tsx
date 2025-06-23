@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Clock, Truck } from "lucide-react";
 
 interface ProductPricingProps {
-  pricing: Array<{
-    key: string;
-    label: string;
-    price: string;
-  }>;
+  pricing: {
+    base: string;
+    withAMS?: string;
+    withAccessories?: string;
+  };
   shipping: {
     cost: string;
     freeThreshold: string;
@@ -28,14 +28,14 @@ const ProductPricing = ({
     <div className="space-y-6">
       <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
         <h3 className="text-lg font-semibold text-[#113C5A] mb-4">Варианты комплектации</h3>
-        <div className="space-y-3">
-          {pricing.map((option) => (
-            <div key={option.key} className="flex justify-between items-center">
-              <span>{option.label}</span>
-              <span className="text-xl font-bold text-[#1F669D]">{option.price}</span>
-            </div>
-          ))}
-        </div>
+       <div className="space-y-3">
+  {pricing.map((option) => (
+    <div key={option.key} className="flex justify-between items-center">
+      <span>{option.label}</span>
+      <span className="text-xl font-bold text-[#1F669D]">{option.price}</span>
+    </div>
+  ))}
+</div>
         
         <div className="mt-4 pt-4 border-t border-gray-300">
           <div className="flex items-center space-x-4 text-sm text-gray-600">

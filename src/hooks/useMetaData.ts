@@ -3,8 +3,6 @@ import { useEffect } from 'react';
 
 export const useMetaData = (title: string, description: string) => {
   useEffect(() => {
-    if (!title || !description) return;
-    
     // Set page title
     const previousTitle = document.title;
     document.title = `${title} - 3D Robots`;
