@@ -32,6 +32,9 @@ const ProductDetail = () => {
     enabled: !!slug,
   });
 
+  console.log("Product Data:", product); // <--- ADD THIS LINE
+
+
   const getCategoryName = (cat: string | undefined) => {
     const categoryNames: { [key: string]: string } = {
       '3d-printers': '3D Принтеры',
