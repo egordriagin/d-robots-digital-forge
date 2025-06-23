@@ -55,7 +55,7 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
 export async function fetchProductsByCategory(category: string): Promise<Product[]> {
     const { data, error } = await supabase
       .from('products')
-      .select('*, slug')
+      .select('*, slug, reviews(*)')
       .eq('category', category);
 
     if (error) {
@@ -63,5 +63,5 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       return [];
     }
 
-    return (data || []).map(p => ({ ...p, id: p.slug! })) as Product[];
+    return (data || []).map(p => ({ ...p, id: p.slug! })) as unknown as Product[];
 }
