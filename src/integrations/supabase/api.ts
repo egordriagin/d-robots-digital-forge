@@ -2,9 +2,10 @@
 
 import { supabase } from './client';
 import { Product } from '@/types/product';
-import { Tables } from './types';
+import { Database, Tables } from './types'; // Import Database for correct typing
 
-// Helper type with corrected one-to-one relationships for specifications
+// Define a more precise type for the data we fetch.
+// This uses the generated types and correctly defines one-to-one relationships.
 type ProductWithSpecs = Tables<'products'> & {
   reviews: Tables<'reviews'>[];
   printer_specifications: Tables<'printer_specifications'> | null;
@@ -41,14 +42,12 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
   }
   if (!data) return null;
 
-  // Since Supabase returns a single object for a one-to-one relation,
-  // we can cast it directly.
   const dbProduct = data as ProductWithSpecs;
 
-  // Transform the data for the frontend
+  // Transform the database response to the frontend Product type
   const product: Product = {
-    ...(dbProduct as any),
-    id: dbProduct.slug!,
+    ...dbProduct,
+    id: dbProduct.slug!, // Use the slug as the ID for the frontend router
     reviews: dbProduct.reviews || [],
     printerSpecifications: dbProduct.printer_specifications ?? undefined,
     scannerSpecifications: dbProduct.scanner_specifications ?? undefined,
@@ -68,7 +67,7 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
 export async function fetchProductsByCategory(category: string): Promise<Product[]> {
     const { data, error } = await supabase
       .from('products')
-      .select('id, name, brand, images, rating, pricing, popular, type, power, shortDescription, stockStatus, leadTime, slug')
+      .select('*, slug') // Ensure we always fetch the slug
       .eq('category', category);
 
     if (error) {
@@ -77,5 +76,5 @@ export async function fetchProductsByCategory(category: string): Promise<Product
     }
 
     // Map the database 'slug' to the frontend 'id' field for the links
-    return (data || []).map(p => ({ ...p, id: p.slug })) as unknown as Product[];
+    return (data || []).map(p => ({ ...p, id: p.slug })) as Product[];
 }
