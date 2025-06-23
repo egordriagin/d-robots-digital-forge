@@ -44,6 +44,11 @@ const ProductDetail = () => {
     return categoryNames[cat || ''] || cat;
   };
 
+  // Move hook call to the top level and handle loading/error states
+  const pageTitle = product ? `${product.name} - ${getCategoryName(category)}` : "Загрузка...";
+  const metaDescription = product ? generateMetaDescription(product) : "Загрузка информации о продукте...";
+  useMetaData(pageTitle, metaDescription);
+
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8 animate-pulse">
@@ -70,10 +75,6 @@ const ProductDetail = () => {
       </div>
     );
   }
-
-  const pageTitle = `${product.name} - ${getCategoryName(category)}`;
-  const metaDescription = generateMetaDescription(product);
-  useMetaData(pageTitle, metaDescription);
 
   const currentUrl = `${window.location.origin}/product/${category}/${slug}`;
   const structuredData = generateProductStructuredData(product, category || '', currentUrl);
