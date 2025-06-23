@@ -1,14 +1,14 @@
-// src/pages/ProductDetail.tsx (FINAL)
-
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductBySlug } from "@/integrations/supabase/api";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star } from "lucide-react";
+
 import CommercialOfferForm from "@/components/CommercialOfferForm";
 import ConsultationForm from "@/components/ConsultationForm";
 import ContactForm from "@/components/ContactForm";
@@ -107,7 +107,7 @@ const ProductDetail = () => {
                 </div>
                 <p className="text-gray-700 leading-relaxed mb-6">{product.shortDescription}</p>
               </div>
-              <ProductPricing pricing={product.pricing as any} shipping={product.shipping as any} leadTime={product.leadTime} onRequestOffer={() => setShowOfferForm(true)} onRequestConsultation={() => setShowConsultationForm(true)} />
+              <ProductPricing pricing={product.pricing} shipping={product.shipping} leadTime={product.leadTime} onRequestOffer={() => setShowOfferForm(true)} onRequestConsultation={() => setShowConsultationForm(true)} />
             </div>
           </div>
           <div className="mb-16"><ProductTabs product={product} /></div>
