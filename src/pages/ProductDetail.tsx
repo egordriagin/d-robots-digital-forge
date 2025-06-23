@@ -32,9 +32,6 @@ const ProductDetail = () => {
     enabled: !!slug,
   });
 
-  console.log("Product Data:", product); // <--- ADD THIS LINE
-
-
   const getCategoryName = (cat: string | undefined) => {
     const categoryNames: { [key: string]: string } = {
       '3d-printers': '3D Принтеры',
@@ -47,10 +44,11 @@ const ProductDetail = () => {
     return categoryNames[cat || ''] || cat;
   };
 
-  // Move hook call to the top level and handle loading/error states
-  const pageTitle = product ? `${product.name} - ${getCategoryName(category)}` : "Загрузка...";
-  const metaDescription = product ? generateMetaDescription(product) : "Загрузка информации о продукте...";
-  useMetaData(pageTitle, metaDescription);
+  // **THE FIX:** Call hooks at the top level, but make the data passed to them conditional.
+  useMetaData(
+    product ? `${product.name} - ${getCategoryName(category)}` : "Загрузка...",
+    product ? generateMetaDescription(product) : "Загрузка информации о продукте..."
+  );
 
   if (isLoading) {
     return (
@@ -79,6 +77,7 @@ const ProductDetail = () => {
     );
   }
 
+  // From here on, `product` is guaranteed to exist.
   const currentUrl = `${window.location.origin}/product/${category}/${slug}`;
   const structuredData = generateProductStructuredData(product, category || '', currentUrl);
 
