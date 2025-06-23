@@ -548,6 +548,7 @@ export type Database = {
           reviewCount: number
           shipping: Json
           shortDescription: string
+          slug: string | null
           stockStatus: Database["public"]["Enums"]["stock_status"]
           type: string | null
           updatedAt: string
@@ -571,6 +572,7 @@ export type Database = {
           reviewCount?: number
           shipping: Json
           shortDescription: string
+          slug?: string | null
           stockStatus: Database["public"]["Enums"]["stock_status"]
           type?: string | null
           updatedAt?: string
@@ -594,6 +596,7 @@ export type Database = {
           reviewCount?: number
           shipping?: Json
           shortDescription?: string
+          slug?: string | null
           stockStatus?: Database["public"]["Enums"]["stock_status"]
           type?: string | null
           updatedAt?: string
