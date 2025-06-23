@@ -16,11 +16,11 @@ export interface Product {
   shortDescription: string;
   fullDescription: string;
   images: string[];
-  pricing: {
-    base: string;
-    withAMS?: string;
-    withAccessories?: string;
-  };
+  pricing: Array<{
+    key: string; // e.g., 'base', 'configuration1', etc.
+    label: string;
+    price: string;
+  }>;
   leadTime: string;
   stockStatus: StockStatus;
   rating: number;
