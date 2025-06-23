@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, GraduationCap, Shield, Building, Target, Zap } from "lucide-react";
@@ -48,42 +47,9 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     }
   ];
 
-  const renderSpecifications = () => {
-    if (product.printerSpecifications) {
-      return <StandardizedSpecifications specifications={product.printerSpecifications} />;
-    }
-    
-    if (product.scannerSpecifications) {
-      return <ScannerSpecifications specifications={product.scannerSpecifications} />;
-    }
-    
-    if (product.roboticDogSpecifications) {
-      return <RoboticDogSpecifications specifications={product.roboticDogSpecifications} />;
-    }
-    
-    if (product.humanoidRobotSpecifications) {
-      return <HumanoidRobotSpecifications specifications={product.humanoidRobotSpecifications} />;
-    }
-    
-    if (product.roboticArmSpecifications) {
-      return <RoboticArmSpecifications specifications={product.roboticArmSpecifications} />;
-    }
-    
-    if (product.laserCutterSpecifications) {
-      return <LaserCutterSpecifications specifications={product.laserCutterSpecifications} />;
-    }
-    
-    return (
-      <Card>
-        <CardContent className="p-8">
-          <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
-          <p className="text-gray-600">Детальные характеристики скоро будут добавлены.</p>
-        </CardContent>
-      </Card>
-    );
-  };
+  const displayedReviews = showAllReviews ? product.reviews : product.reviews?.slice(0, 3) || [];
 
-  const displayedReviews = showAllReviews ? product.reviews : product.reviews.slice(0, 3);
+  const noSpecificationsAvailable = !product.printerSpecifications && !product.scannerSpecifications && !product.roboticDogSpecifications && !product.humanoidRobotSpecifications && !product.roboticArmSpecifications && !product.laserCutterSpecifications;
 
   return (
     <Tabs defaultValue="description" className="w-full">
@@ -148,7 +114,20 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       </TabsContent>
       
       <TabsContent value="specifications" className="mt-8">
-        {renderSpecifications()}
+        {product.printerSpecifications && <StandardizedSpecifications specifications={product.printerSpecifications} />}
+        {product.scannerSpecifications && <ScannerSpecifications specifications={product.scannerSpecifications} />}
+        {product.roboticDogSpecifications && <RoboticDogSpecifications specifications={product.roboticDogSpecifications} />}
+        {product.humanoidRobotSpecifications && <HumanoidRobotSpecifications specifications={product.humanoidRobotSpecifications} />}
+        {product.roboticArmSpecifications && <RoboticArmSpecifications specifications={product.roboticArmSpecifications} />}
+        {product.laserCutterSpecifications && <LaserCutterSpecifications specifications={product.laserCutterSpecifications} />}
+        {noSpecificationsAvailable && (
+          <Card>
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Технические характеристики</h3>
+              <p className="text-gray-600">Детальные характеристики скоро будут добавлены.</p>
+            </CardContent>
+          </Card>
+        )}
       </TabsContent>
       
       <TabsContent value="reviews" className="mt-8">
@@ -187,7 +166,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
               ))}
             </div>
             
-            {product.reviews.length > 3 && (
+            {product.reviews && product.reviews.length > 3 && (
               <div className="mt-8 text-center">
                 <Button 
                   variant="outline" 
