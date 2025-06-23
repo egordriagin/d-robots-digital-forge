@@ -4,7 +4,7 @@ import { Star, GraduationCap, Shield, Building, Target, Zap } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
 import { pluralizeRating } from "@/utils/pluralization";
-import StandardizedSpecifications from "@/components/StandardizedSpecifications";
+import Printer3DSpecifications from "@/components/Printer3DSpecifications";
 import ScannerSpecifications from "@/components/ScannerSpecifications";
 import RoboticDogSpecifications from "@/components/RoboticDogSpecifications";
 import HumanoidRobotSpecifications from "@/components/HumanoidRobotSpecifications";
@@ -63,8 +63,8 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       <TabsContent value="description" className="mt-8">
         <Card>
           <CardContent className="p-8">
-            <div className="flex gap-8">
-              <div className="prose max-w-[800px]">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="prose max-w-full lg:max-w-[800px]">
                 <h3 className="text-2xl font-bold text-[#113C5A] mb-4">Подробное описание</h3>
                 <div 
                   className="text-gray-700 leading-relaxed space-y-4"
@@ -83,7 +83,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
                 </div>
               </div>
               
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 lg:min-w-[300px]">
                 <div className="sticky top-8">
                   <h4 className="text-xl font-bold text-[#113C5A] mb-6">Наши преимущества</h4>
                   <div className="space-y-4">
@@ -114,7 +114,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       </TabsContent>
       
       <TabsContent value="specifications" className="mt-8">
-        {product.printerSpecifications && <StandardizedSpecifications specifications={product.printerSpecifications} />}
+        {product.printerSpecifications && <Printer3DSpecifications specifications={product.printerSpecifications} />}
         {product.scannerSpecifications && <ScannerSpecifications specifications={product.scannerSpecifications} />}
         {product.roboticDogSpecifications && <RoboticDogSpecifications specifications={product.roboticDogSpecifications} />}
         {product.humanoidRobotSpecifications && <HumanoidRobotSpecifications specifications={product.humanoidRobotSpecifications} />}
@@ -159,7 +159,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
                         ))}
                       </div>
                     </div>
-                    <span className="text-sm text-gray-500">{review.date}</span>
+                    <span className="text-sm text-gray-500">{new Date(review.date).toLocaleDateString()}</span>
                   </div>
                   <p className="text-gray-700 leading-relaxed">{review.comment}</p>
                 </div>
@@ -185,40 +185,46 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
         <Card>
           <CardContent className="p-8">
             <h3 className="text-2xl font-bold text-[#113C5A] mb-6">Видео обзор</h3>
-            <div className="aspect-video rounded-lg overflow-hidden mb-6">
-              <iframe
-                width="100%"
-                height="100%"
-                src={product.demoVideo}
-                title={`Обзор ${product.name}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h4 className="text-lg font-semibold text-[#113C5A] mb-4">Что вы увидите в видео:</h4>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Распаковка и первоначальная настройка</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Калибровка и подготовка к работе</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Демонстрация основных функций</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Примеры готовых работ</span>
-                </li>
-              </ul>
-            </div>
+            {product.demoVideo ? (
+              <>
+                <div className="aspect-video rounded-lg overflow-hidden mb-6">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={product.demoVideo}
+                    title={`Обзор ${product.name}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  ></iframe>
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h4 className="text-lg font-semibold text-[#113C5A] mb-4">Что вы увидите в видео:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                      <span>Распаковка и первоначальная настройка</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                      <span>Калибровка и подготовка к работе</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                      <span>Демонстрация основных функций</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <div className="w-1.5 h-1.5 bg-[#3498DB] rounded-full mt-2 flex-shrink-0"></div>
+                      <span>Примеры готовых работ</span>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <p className="text-gray-600">Видео для этого товара скоро будет добавлено.</p>
+            )}
           </CardContent>
         </Card>
       </TabsContent>
