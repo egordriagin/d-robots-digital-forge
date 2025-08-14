@@ -1,67 +1,63 @@
 // src/integrations/supabase/api.ts
 
-import { supabase } from './client';
-import { Product } from '@/types/product';
-import { Tables } from './types';
+import { supabase } from './supabaseClient';
+import { Product } from '@/types'; // Assuming you have a Product type definition
 
-type ProductWithSpecs = Tables<'products'> & {
-  reviews: Tables<'reviews'>[];
-  printer_specifications: Tables<'printer_specifications'> | null;
-  scanner_specifications: Tables<'scanner_specifications'> | null;
-  robotic_dog_specifications: Tables<'robotic_dog_specifications'> | null;
-  humanoid_robot_specifications: Tables<'humanoid_robot_specifications'> | null;
-  robotic_arm_specifications: Tables<'robotic_arm_specifications'> | null;
-  laser_cutter_specifications: Tables<'laser_cutter_specifications'> | null;
+// Helper function to map category slugs to table names
+const getSpecsTableName = (category: string): string | null => {
+  const tableMap: { [key: string]: string } = {
+    '3d-printers': 'printer_3d_specifications',
+    '3d-scanners': 'scanner_specifications',
+    'robotic-arms': 'robotic_arm_specifications',
+    'robotic-dogs': 'robotic_dog_specifications',
+    'humanoid-robots': 'humanoid_robot_specifications',
+    'laser-cutters': 'laser_cutter_specifications',
+  };
+  return tableMap[category] || null;
 };
 
-export async function fetchProductBySlug(slug: string): Promise<Product | null> {
-  const { data, error } = await supabase
-    .from('products')
-    .select(`
-      *,
-      reviews(*),
-      printer_specifications(*),
-      scanner_specifications(*),
-      robotic_dog_specifications(*),
-      humanoid_robot_specifications(*),
-      robotic_arm_specifications(*),
-      laser_cutter_specifications(*)
-    `)
-    .eq('slug', slug)
-    .single();
-
-  if (error || !data) {
-    console.error(`Error fetching product with slug ${slug}:`, error);
+// Helper function to fetch specifications from the correct table
+const getSpecificationsByProductId = async (productId: number, category: string) => {
+  const tableName = getSpecsTableName(category);
+  if (!tableName) {
+    console.error(`No specification table found for category: ${category}`);
     return null;
   }
 
-  const dbProduct = data as ProductWithSpecs;
+  const { data, error } = await supabase
+    .from(tableName)
+    .select('*')
+    .eq('productId', productId) // Using the confirmed 'productId' foreign key
+    .single();
 
-  const product: Product = {
-    ...(dbProduct as any),
-    id: dbProduct.slug!,
-    reviews: dbProduct.reviews || [],
-    printerSpecifications: dbProduct.printer_specifications ?? undefined,
-    scannerSpecifications: dbProduct.scanner_specifications ?? undefined,
-    roboticDogSpecifications: dbProduct.robotic_dog_specifications ?? undefined,
-    humanoidRobotSpecifications: dbProduct.humanoid_robot_specifications ?? undefined,
-    roboticArmSpecifications: dbProduct.robotic_arm_specifications ?? undefined,
-    laserCutterSpecifications: dbProduct.laser_cutter_specifications ?? undefined,
-  };
+  if (error) {
+    console.error(`Error fetching specifications from ${tableName}:`, error);
+    return null;
+  }
 
-  return product;
-}
+  return data;
+};
 
-export async function fetchProductsByCategory(category: string): Promise<Product[]> {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*, slug, reviews(*)')
-      .eq('category', category);
+// The updated main function to get product details
+export const getProductBySlug = async (slug: string): Promise<Product | null> => {
+  // Step 1: Fetch the base product data first
+  const { data: productData, error: productError } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-    if (error) {
-      console.error(`Error fetching products for category ${category}:`, error);
-      return [];
-    }
+  if (productError || !productData) {
+    console.error('Error fetching product:', productError);
+    return null;
+  }
 
-    return (data || []).map(p => ({ ...p, id: p.slug! })) as unknown as Product[];
-}
+  // Step 2: Fetch the specifications dynamically
+  const specifications = await getSpecificationsByProductId(productData.id, productData.category);
+
+  // Step 3: Combine the base product data with its specifications
+  return {
+    ...productData,
+    specifications, // Add the fetched specs to the final product object
+  } as Product;
+};
