@@ -25,72 +25,64 @@ const getSpecTableName = (category: string): string | null => {
 
 /**
  * Fetches a single product and its specific category specifications by slug.
- * This function first fetches the product to get its ID, then fetches its
- * related specifications and reviews in a second, more robust step.
+ * This function dynamically joins the correct specification table based on the category.
  *
  * @param {string} slug - The URL slug of the product.
  * @param {string} category - The category of the product.
  * @returns {Promise<Product | null>} A promise that resolves to the product object or null if not found.
  */
 export async function fetchProductBySlug(slug: string, category: string): Promise<Product | null> {
-  // Step 1: Fetch the base product data to get its actual database ID.
-  const { data: product, error: productError } = await supabase
+  const specTable = getSpecTableName(category);
+
+  // If the category doesn't have a dedicated specifications table,
+  // fetch the product without trying to join.
+  if (!specTable) {
+    console.warn(`No specification table mapping for category: "${category}". Fetching product without specs.`);
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, reviews(*)')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      console.error(`Error fetching product [slug: ${slug}] without specs:`, error);
+      return null;
+    }
+    return data ? { ...data, id: data.slug!, specifications: undefined } as unknown as Product : null;
+  }
+
+  // Build a dynamic query to select the product and join its specific specifications table.
+  const { data, error } = await supabase
     .from('products')
-    .select('*') // Select all columns to get the 'id'
+    .select(`
+      *,
+      reviews(*),
+      ${specTable}(*)
+    `)
     .eq('slug', slug)
     .single();
 
-  if (productError || !product) {
-    console.error(`Error fetching product [slug: ${slug}]:`, productError);
+  if (error || !data) {
+    console.error(`Error fetching product [slug: ${slug}] with specs from "${specTable}":`, error);
     return null;
   }
 
-  // Step 2: Determine the correct specifications table.
-  const specTable = getSpecTableName(category);
-  let specifications: any = undefined;
-  let reviews: any[] = [];
+  // The specifications are returned as a nested array. We extract and flatten it.
+  const specifications = (data[specTable] && Array.isArray(data[specTable]) && data[specTable].length > 0)
+    ? data[specTable][0]
+    : undefined;
 
-  // Step 3: Create promises to fetch reviews and specifications (if a table exists).
-  // This allows them to be fetched in parallel for better performance.
-  const reviewPromise = supabase
-    .from('reviews')
-    .select('*')
-    .eq('productId', product.id); // Assumes reviews are linked by the numeric product.id
+  // Clean up the raw response to create a clean Product object.
+  const productData = { ...data };
+  delete productData[specTable]; // Remove the original nested spec property
 
-  const specPromise = specTable
-    ? supabase.from(specTable).select('*').eq('productId', product.id).single()
-    : Promise.resolve({ data: undefined, error: null }); // If no spec table, resolve immediately.
-
-  // Step 4: Execute the fetches.
-  const [reviewResult, specResult] = await Promise.all([reviewPromise, specPromise]);
-
-  // Process review results
-  if (reviewResult.error) {
-    console.error(`Error fetching reviews for product [id: ${product.id}]:`, reviewResult.error);
-  } else {
-    reviews = reviewResult.data || [];
-  }
-
-  // Process specification results
-  if (specTable && specResult.data) {
-    specifications = specResult.data;
-  } else if (specTable && specResult.error) {
-    // A "no rows returned" error is normal if a product just doesn't have specs entered yet.
-    // We will log any other, more serious errors.
-    if (!specResult.error.message.includes('multiple (or no) rows returned')) {
-      console.error(`Error fetching specs from "${specTable}" for product [id: ${product.id}]:`, specResult.error);
-    }
-  }
-
-  // Step 5: Combine all the data into the final Product object and return it.
   return {
-    ...product,
-    id: product.slug!, // Keep your app's logic of using the slug as the frontend ID
-    reviews,
-    specifications,
+    ...productData,
+    id: productData.slug!,
+    reviews: productData.reviews || [],
+    specifications, // Add the flattened specifications object
   } as unknown as Product;
 }
-
 
 /**
  * Fetches all products within a given category.
