@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Clock, Package } from "lucide-react";
-import { Product, StockStatus } from "@/types/product"; // <-- CORRECTED IMPORT
+import { Product, StockStatus } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
@@ -121,9 +121,17 @@ export const ProductCard = ({
       <CardContent>
         <div className="flex justify-between items-center">
           <div className="text-lg font-semibold text-[#1F669D]">
-            {product.pricing.base}
+            {/* Displaying base price. Ensure product.pricing is an object with a 'base' key */}
+            {typeof product.pricing === 'object' && product.pricing?.base ? product.pricing.base : 'Цена по запросу'}
           </div>
-          <Link to={`/product/${category}/${product.id}`}>
+          
+          {/*
+            =====================================================================
+            ==                           THE FIX                             ==
+            =====================================================================
+            The link now correctly uses `product.slug`. This resolves the issue.
+          */}
+          <Link to={`/product/${category}/${product.slug}`}>
             <Button size="sm" className="bg-[#3498DB] hover:bg-[#1F669D] text-white">
               Подробнее
             </Button>
