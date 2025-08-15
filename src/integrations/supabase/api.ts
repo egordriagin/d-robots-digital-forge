@@ -3,6 +3,14 @@
 import { supabase } from './client';
 import { Product } from '@/types/product';
 import { Tables } from './types';
+import {
+  transformScannerSpecifications,
+  transformPrinterSpecifications,
+  transformRoboticDogSpecifications,
+  transformHumanoidRobotSpecifications,
+  transformRoboticArmSpecifications,
+  transformLaserCutterSpecifications
+} from './transformers';
 
 type ProductWithSpecs = Tables<'products'> & {
   reviews: Tables<'reviews'>[];
@@ -41,12 +49,12 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
     ...(dbProduct as any),
     id: dbProduct.slug!,
     reviews: dbProduct.reviews || [],
-    printerSpecifications: dbProduct.printer_specifications ?? undefined,
-    scannerSpecifications: dbProduct.scanner_specifications ?? undefined,
-    roboticDogSpecifications: dbProduct.robotic_dog_specifications ?? undefined,
-    humanoidRobotSpecifications: dbProduct.humanoid_robot_specifications ?? undefined,
-    roboticArmSpecifications: dbProduct.robotic_arm_specifications ?? undefined,
-    laserCutterSpecifications: dbProduct.laser_cutter_specifications ?? undefined,
+    printerSpecifications: transformPrinterSpecifications(dbProduct.printer_specifications),
+    scannerSpecifications: transformScannerSpecifications(dbProduct.scanner_specifications),
+    roboticDogSpecifications: transformRoboticDogSpecifications(dbProduct.robotic_dog_specifications),
+    humanoidRobotSpecifications: transformHumanoidRobotSpecifications(dbProduct.humanoid_robot_specifications),
+    roboticArmSpecifications: transformRoboticArmSpecifications(dbProduct.robotic_arm_specifications),
+    laserCutterSpecifications: transformLaserCutterSpecifications(dbProduct.laser_cutter_specifications),
   };
 
   return product;
